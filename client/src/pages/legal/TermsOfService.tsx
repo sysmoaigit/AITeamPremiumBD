@@ -1,41 +1,48 @@
 import { Layout } from "@/components/layout/Layout";
+import { BRAND } from "@/components/brand/LogoIcons";
 
 export default function TermsOfService() {
   return (
     <Layout>
-      <div className="bg-background py-16 md:py-24">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 prose prose-lg dark:prose-invert">
-          <h1 className="text-4xl font-bold mb-8">Terms of Service</h1>
-          <p>Last updated: {new Date().toLocaleDateString()}</p>
-          
-          <h2>1. Terms</h2>
-          <p>
-            By accessing the website at aitpbd.com, you are agreeing to be bound by these terms of service, all applicable laws and regulations, and agree that you are responsible for compliance with any applicable local laws.
-          </p>
-
-          <h2>2. Subscriptions & Delivery</h2>
-          <p>
-            When purchasing an AI tool subscription (e.g., ChatGPT Plus, Claude) through AITPBD, you acknowledge that we are acting as a procurement proxy. Delivery of credentials or account upgrades will typically occur within 2-24 hours of payment verification.
-          </p>
-
-          <h2>3. Payment & Refunds</h2>
-          <ul>
-            <li>Payments are accepted strictly via authorized local BD channels (bKash, Nagad, Rocket, Bank Transfer).</li>
-            <li>Refunds for subscriptions are evaluated on a case-by-case basis and only provided if the service is undeliverable.</li>
-            <li>For digital services (Web design, marketing), milestone payments are non-refundable once the specific milestone is approved.</li>
-          </ul>
-
-          <h2>4. Account Usage</h2>
-          <p>
-            If you purchase a "Shared" account, you agree not to change the password or account details. Violation of this will result in immediate termination without refund. For "Private" accounts, you maintain full control.
-          </p>
-
-          <h2>5. Limitations</h2>
-          <p>
-            In no event shall AI Team Premium BD or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials or services.
-          </p>
+      <section className="py-20" style={{ background: BRAND.sky }}>
+        <div className="mx-auto max-w-7xl px-6 lg:px-10 text-center">
+          <h1 style={{ color: BRAND.navy, fontSize: "clamp(1.6rem, 4vw, 2.2rem)", fontWeight: 700 }}>Terms of Service</h1>
+          <p className="mt-3" style={{ color: BRAND.navy, opacity: 0.45, fontSize: "0.85rem" }}>Last updated: January 2025</p>
         </div>
-      </div>
+      </section>
+
+      <section className="py-16">
+        <div className="mx-auto max-w-3xl px-6 lg:px-10 space-y-8" style={{ color: BRAND.navy, fontSize: "0.92rem", lineHeight: 1.8 }}>
+          <div>
+            <h2 className="mb-3" style={{ fontSize: "1.15rem", fontWeight: 700 }}>1. Terms</h2>
+            <p style={{ opacity: 0.6 }}>By accessing the website at aitpbd.com, you are agreeing to be bound by these terms of service, all applicable laws and regulations, and agree that you are responsible for compliance with any applicable local laws.</p>
+          </div>
+
+          <div>
+            <h2 className="mb-3" style={{ fontSize: "1.15rem", fontWeight: 700 }}>2. Subscriptions & Delivery</h2>
+            <p style={{ opacity: 0.6 }}>When purchasing an AI tool subscription (e.g., ChatGPT Plus, Claude Pro) through AITPBD, you acknowledge that we are acting as a procurement proxy. Delivery of credentials or account upgrades will typically occur within 5 minutes to 6 hours depending on the plan type.</p>
+          </div>
+
+          <div>
+            <h2 className="mb-3" style={{ fontSize: "1.15rem", fontWeight: 700 }}>3. Payment & Refunds</h2>
+            <ul className="space-y-2 pl-5" style={{ opacity: 0.6 }}>
+              <li style={{ listStyleType: "disc" }}>Payments are accepted via bKash, Nagad, or Bank Transfer.</li>
+              <li style={{ listStyleType: "disc" }}>Refunds for subscriptions are evaluated case-by-case and only provided if the service is undeliverable.</li>
+              <li style={{ listStyleType: "disc" }}>For digital services (web design, marketing), milestone payments are non-refundable once the specific milestone is approved.</li>
+            </ul>
+          </div>
+
+          <div>
+            <h2 className="mb-3" style={{ fontSize: "1.15rem", fontWeight: 700 }}>4. Account Usage</h2>
+            <p style={{ opacity: 0.6 }}>If you purchase a "Shared" account, you agree not to change the password or account details. Violation of this will result in immediate termination without refund. For "Personal" accounts, you maintain full control.</p>
+          </div>
+
+          <div>
+            <h2 className="mb-3" style={{ fontSize: "1.15rem", fontWeight: 700 }}>5. Limitations</h2>
+            <p style={{ opacity: 0.6 }}>In no event shall AI Team Premium BD or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials or services.</p>
+          </div>
+        </div>
+      </section>
     </Layout>
   );
 }

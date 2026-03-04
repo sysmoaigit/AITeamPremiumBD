@@ -3,148 +3,181 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { insertContactSchema, type InsertContact } from "@shared/schema";
 import { useCreateContact } from "@/hooks/use-contacts";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Phone, Mail, MapPin } from "lucide-react";
+import { BRAND, WhatsAppIcon } from "@/components/brand/LogoIcons";
+import { Phone, MapPin, Facebook, Instagram, Users, MessageCircle, Send, ArrowUpRight } from "lucide-react";
+
+const CHANNELS = [
+  { icon: Phone, label: "WhatsApp / Phone", value: "+880 1533-262758", sub: "Available 24/7", url: "tel:+8801533262758" },
+  { icon: MapPin, label: "Location", value: "Dhaka, Bangladesh", sub: null, url: null },
+];
+
+const SOCIAL = [
+  { icon: <WhatsAppIcon size={15} color="currentColor" />, label: "WhatsApp", url: "https://wa.me/8801533262758" },
+  { icon: <Facebook size={15} strokeWidth={2} />, label: "Facebook", url: "https://facebook.com/AITPBD" },
+  { icon: <Users size={15} strokeWidth={2} />, label: "FB Group", url: "https://www.facebook.com/groups/333019393218410" },
+  { icon: <MessageCircle size={15} strokeWidth={2} />, label: "Messenger", url: "https://www.facebook.com/messages/t/61586742067282/" },
+  { icon: <Instagram size={15} strokeWidth={2} />, label: "Instagram", url: "https://instagram.com/ai_team_premium_bd" },
+];
 
 export default function Contact() {
   const form = useForm<InsertContact>({
     resolver: zodResolver(insertContactSchema),
-    defaultValues: {
-      name: "",
-      whatsapp: "",
-      needs: "",
-    },
+    defaultValues: { name: "", whatsapp: "", needs: "" },
   });
 
   const { mutate: submitContact, isPending } = useCreateContact();
 
   const onSubmit = (data: InsertContact) => {
-    submitContact(data, {
-      onSuccess: () => {
-        form.reset();
-      }
-    });
+    submitContact(data, { onSuccess: () => form.reset() });
   };
 
   return (
     <Layout>
-      <div className="bg-background py-16 md:py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-16">
-            
-            {/* Left Col - Info */}
-            <div>
-              <h1 className="text-4xl md:text-5xl font-bold mb-6">Let's Start a Project</h1>
-              <p className="text-lg text-muted-foreground mb-10">
-                Whether you need a bulk order of AI subscriptions for your team or a complete website built from scratch, our experts are ready to assist you.
-              </p>
+      <section className="py-20" style={{ background: BRAND.sky }}>
+        <div className="mx-auto max-w-7xl px-6 lg:px-10 text-center">
+          <p className="mb-3 uppercase" style={{ color: BRAND.blue, fontSize: "0.72rem", letterSpacing: "0.18em", fontWeight: 600 }}>Contact</p>
+          <h1 style={{ color: BRAND.navy, fontSize: "clamp(1.6rem, 4vw, 2.5rem)", fontWeight: 700, lineHeight: 1.15 }}>
+            Let's Start a Project
+          </h1>
+          <p className="mt-4 mx-auto max-w-xl" style={{ color: BRAND.navy, opacity: 0.5, fontSize: "0.95rem", lineHeight: 1.65 }}>
+            Need AI subscriptions, a website, or a brand makeover? Reach out — fastest response on WhatsApp.
+          </p>
+        </div>
+      </section>
 
-              <div className="space-y-8">
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary shrink-0">
-                    <Phone className="w-6 h-6" />
-                  </div>
+      <section className="py-20">
+        <div className="mx-auto max-w-6xl px-6 lg:px-10">
+          <div className="grid lg:grid-cols-5 gap-12">
+            <div className="lg:col-span-2 space-y-8">
+              <a
+                href="https://wa.me/8801533262758?text=Hi%2C+I+want+to+start+a+project+with+AITPBD"
+                target="_blank"
+                rel="noopener noreferrer"
+                data-testid="button-contact-whatsapp"
+                className="flex items-center gap-3 rounded-2xl p-5 transition-all"
+                style={{ background: "#25D366", textDecoration: "none" }}
+              >
+                <WhatsAppIcon size={24} color="#fff" />
+                <div>
+                  <p style={{ color: "#fff", fontSize: "0.95rem", fontWeight: 600 }}>Chat on WhatsApp</p>
+                  <p style={{ color: "rgba(255,255,255,0.7)", fontSize: "0.78rem" }}>Fastest response — usually within minutes</p>
+                </div>
+                <ArrowUpRight size={18} color="#fff" className="ml-auto" />
+              </a>
+
+              {CHANNELS.map((ch) => (
+                <div key={ch.label} className="flex items-start gap-4">
+                  <span className="inline-flex items-center justify-center rounded-full flex-shrink-0" style={{ width: 44, height: 44, background: BRAND.sky }}>
+                    <ch.icon size={18} color={BRAND.blue} strokeWidth={2} />
+                  </span>
                   <div>
-                    <h3 className="font-bold text-lg">WhatsApp / Phone</h3>
-                    <p className="text-muted-foreground">+880 1533-262758</p>
-                    <p className="text-sm text-muted-foreground mt-1">Available 24/7 for urgent queries</p>
+                    <p style={{ color: BRAND.navy, fontSize: "0.88rem", fontWeight: 600 }}>{ch.label}</p>
+                    {ch.url ? (
+                      <a href={ch.url} data-testid={`link-contact-${ch.label.toLowerCase().replace(/\s+/g, '-')}`} style={{ color: BRAND.navy, opacity: 0.6, fontSize: "0.85rem", textDecoration: "none" }}>{ch.value}</a>
+                    ) : (
+                      <p style={{ color: BRAND.navy, opacity: 0.6, fontSize: "0.85rem" }}>{ch.value}</p>
+                    )}
+                    {ch.sub && <p style={{ color: BRAND.navy, opacity: 0.4, fontSize: "0.75rem", marginTop: 2 }}>{ch.sub}</p>}
                   </div>
                 </div>
+              ))}
 
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary shrink-0">
-                    <Mail className="w-6 h-6" />
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-lg">Email Us</h3>
-                    <p className="text-muted-foreground">hello@aitpbd.com</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary shrink-0">
-                    <MapPin className="w-6 h-6" />
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-lg">Location</h3>
-                    <p className="text-muted-foreground">Dhaka, Bangladesh</p>
-                  </div>
+              <div>
+                <p className="mb-3" style={{ color: BRAND.navy, fontSize: "0.78rem", fontWeight: 600, opacity: 0.5 }}>Follow Us</p>
+                <div className="flex items-center gap-2">
+                  {SOCIAL.map((s) => (
+                    <a
+                      key={s.label}
+                      href={s.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={s.label}
+                      data-testid={`link-contact-social-${s.label.toLowerCase().replace(/\s+/g, '-')}`}
+                      className="inline-flex items-center justify-center rounded-lg transition-all"
+                      style={{ width: 38, height: 38, background: BRAND.sky, color: BRAND.blue }}
+                    >
+                      {s.icon}
+                    </a>
+                  ))}
                 </div>
               </div>
             </div>
 
-            {/* Right Col - Form */}
-            <div className="bg-card border border-border p-8 md:p-10 rounded-3xl shadow-xl">
-              <h2 className="text-2xl font-bold mb-6">Send us a message</h2>
-              <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                  
-                  <FormField
-                    control={form.control}
-                    name="name"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Full Name</FormLabel>
-                        <FormControl>
-                          <Input placeholder="John Doe" className="h-12 rounded-xl bg-background" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
+            <div className="lg:col-span-3">
+              <div className="rounded-2xl p-8 md:p-10" style={{ background: BRAND.white, border: "1px solid rgba(37,99,235,0.06)", boxShadow: "0 4px 24px rgba(37,99,235,0.06)" }}>
+                <h2 className="mb-1" style={{ color: BRAND.navy, fontSize: "1.15rem", fontWeight: 700 }}>Send us a message</h2>
+                <p className="mb-6" style={{ color: BRAND.navy, opacity: 0.4, fontSize: "0.82rem" }}>We'll get back to you within 24 hours.</p>
 
-                  <FormField
-                    control={form.control}
-                    name="whatsapp"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>WhatsApp Number</FormLabel>
-                        <FormControl>
-                          <Input placeholder="+880 1..." className="h-12 rounded-xl bg-background" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <FormField
-                    control={form.control}
-                    name="needs"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>How can we help you?</FormLabel>
-                        <FormControl>
-                          <Textarea 
-                            placeholder="I want to buy 3 ChatGPT Plus accounts and need a landing page design..." 
-                            className="min-h-[150px] resize-none rounded-xl bg-background"
-                            {...field} 
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <Button 
-                    type="submit" 
-                    className="w-full h-14 text-lg rounded-xl bg-gradient-to-r from-primary to-secondary hover:opacity-90 transition-opacity text-white"
-                    disabled={isPending}
-                  >
-                    {isPending ? "Sending..." : "Submit Request"}
-                  </Button>
-                  <p className="text-xs text-center text-muted-foreground mt-4">
-                    By submitting, you agree to our Privacy Policy.
-                  </p>
-                </form>
-              </Form>
+                <Form {...form}>
+                  <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
+                    <FormField
+                      control={form.control}
+                      name="name"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel style={{ color: BRAND.navy, fontSize: "0.82rem", fontWeight: 500 }}>Full Name</FormLabel>
+                          <FormControl>
+                            <Input data-testid="input-name" placeholder="Your name" className="h-11 rounded-xl" style={{ background: BRAND.sky, border: "1px solid rgba(37,99,235,0.06)" }} {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="whatsapp"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel style={{ color: BRAND.navy, fontSize: "0.82rem", fontWeight: 500 }}>WhatsApp Number</FormLabel>
+                          <FormControl>
+                            <Input data-testid="input-whatsapp" placeholder="+880 1..." className="h-11 rounded-xl" style={{ background: BRAND.sky, border: "1px solid rgba(37,99,235,0.06)" }} {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="needs"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel style={{ color: BRAND.navy, fontSize: "0.82rem", fontWeight: 500 }}>How can we help you?</FormLabel>
+                          <FormControl>
+                            <Textarea
+                              data-testid="input-needs"
+                              placeholder="I want to buy ChatGPT Plus, need a landing page design..."
+                              className="min-h-[120px] resize-none rounded-xl"
+                              style={{ background: BRAND.sky, border: "1px solid rgba(37,99,235,0.06)" }}
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <button
+                      type="submit"
+                      disabled={isPending}
+                      data-testid="button-submit-contact"
+                      className="w-full inline-flex items-center justify-center gap-2 rounded-xl py-3.5 transition-all disabled:opacity-50"
+                      style={{ background: BRAND.blue, color: BRAND.white, fontSize: "0.92rem", fontWeight: 600, border: "none", cursor: "pointer" }}
+                    >
+                      <Send size={16} />
+                      {isPending ? "Sending..." : "Submit Request"}
+                    </button>
+                    <p className="text-center" style={{ color: BRAND.navy, opacity: 0.35, fontSize: "0.72rem" }}>
+                      By submitting, you agree to our <a href="/privacy-policy" data-testid="link-contact-privacy" style={{ textDecoration: "underline" }}>Privacy Policy</a>.
+                    </p>
+                  </form>
+                </Form>
+              </div>
             </div>
-
           </div>
         </div>
-      </div>
+      </section>
     </Layout>
   );
 }

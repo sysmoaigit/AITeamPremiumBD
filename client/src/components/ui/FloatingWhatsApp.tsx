@@ -1,17 +1,23 @@
-import { MessageCircle } from "lucide-react";
+import { WhatsAppIcon } from "@/components/brand/LogoIcons";
 
 export function FloatingWhatsApp() {
-  const whatsappUrl = "https://wa.me/8801533262758?text=Hello%20AITPBD!%20I%20would%20like%20to%20know%20more%20about%20your%20services.";
+  const whatsappUrl = "https://wa.me/8801533262758?text=Hi%2C+I+want+to+buy+an+AI+tool+subscription";
 
   return (
     <a
       href={whatsappUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className="fixed bottom-6 right-6 z-50 animate-pulse-ring bg-[#25D366] text-white p-4 rounded-full shadow-2xl hover:-translate-y-1 transition-transform duration-300"
+      data-testid="button-whatsapp-floating"
+      className="fixed bottom-6 right-6 z-50 animate-pulse-ring flex items-center justify-center rounded-full shadow-2xl transition-transform duration-300 hover:-translate-y-1"
+      style={{
+        width: 60,
+        height: 60,
+        background: "#25D366",
+      }}
       aria-label="Chat with us on WhatsApp"
     >
-      <MessageCircle className="w-8 h-8" />
+      <WhatsAppIcon size={28} color="#fff" />
     </a>
   );
 }

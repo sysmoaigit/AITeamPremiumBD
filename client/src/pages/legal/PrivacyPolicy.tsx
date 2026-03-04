@@ -1,40 +1,49 @@
 import { Layout } from "@/components/layout/Layout";
+import { BRAND } from "@/components/brand/LogoIcons";
 
 export default function PrivacyPolicy() {
   return (
     <Layout>
-      <div className="bg-background py-16 md:py-24">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 prose prose-lg dark:prose-invert">
-          <h1 className="text-4xl font-bold mb-8">Privacy Policy</h1>
-          <p>Last updated: {new Date().toLocaleDateString()}</p>
-          
-          <h2>1. Introduction</h2>
-          <p>
-            Welcome to AI Team Premium BD. We respect your privacy and are committed to protecting your personal data. This privacy policy will inform you as to how we look after your personal data when you visit our website and tell you about your privacy rights.
-          </p>
-
-          <h2>2. Data We Collect</h2>
-          <p>We may collect, use, store and transfer different kinds of personal data about you which we have grouped together as follows:</p>
-          <ul>
-            <li><strong>Identity Data</strong> includes first name, last name, username or similar identifier.</li>
-            <li><strong>Contact Data</strong> includes billing address, email address and telephone numbers (WhatsApp).</li>
-            <li><strong>Transaction Data</strong> includes details about payments to and from you and other details of products and services you have purchased from us.</li>
-          </ul>
-
-          <h2>3. How We Use Your Data</h2>
-          <p>We will only use your personal data when the law allows us to. Most commonly, we will use your personal data in the following circumstances:</p>
-          <ul>
-            <li>Where we need to perform the contract we are about to enter into or have entered into with you (e.g., fulfilling your AI subscription).</li>
-            <li>Where it is necessary for our legitimate interests (or those of a third party) and your interests and fundamental rights do not override those interests.</li>
-          </ul>
-
-          <h2>4. Data Security</h2>
-          <p>We have put in place appropriate security measures to prevent your personal data from being accidentally lost, used or accessed in an unauthorized way, altered or disclosed.</p>
-
-          <h2>5. Contact Us</h2>
-          <p>If you have any questions about this privacy policy or our privacy practices, please contact us via our WhatsApp line or contact form.</p>
+      <section className="py-20" style={{ background: BRAND.sky }}>
+        <div className="mx-auto max-w-7xl px-6 lg:px-10 text-center">
+          <h1 style={{ color: BRAND.navy, fontSize: "clamp(1.6rem, 4vw, 2.2rem)", fontWeight: 700 }}>Privacy Policy</h1>
+          <p className="mt-3" style={{ color: BRAND.navy, opacity: 0.45, fontSize: "0.85rem" }}>Last updated: January 2025</p>
         </div>
-      </div>
+      </section>
+
+      <section className="py-16">
+        <div className="mx-auto max-w-3xl px-6 lg:px-10 space-y-8" style={{ color: BRAND.navy, fontSize: "0.92rem", lineHeight: 1.8 }}>
+          <div>
+            <h2 className="mb-3" style={{ fontSize: "1.15rem", fontWeight: 700 }}>1. Introduction</h2>
+            <p style={{ opacity: 0.6 }}>Welcome to AI Team Premium BD. We respect your privacy and are committed to protecting your personal data. This privacy policy will inform you as to how we look after your personal data when you visit our website and tell you about your privacy rights.</p>
+          </div>
+
+          <div>
+            <h2 className="mb-3" style={{ fontSize: "1.15rem", fontWeight: 700 }}>2. Data We Collect</h2>
+            <p className="mb-3" style={{ opacity: 0.6 }}>We may collect, use, store and transfer different kinds of personal data about you:</p>
+            <ul className="space-y-2 pl-5" style={{ opacity: 0.6 }}>
+              <li style={{ listStyleType: "disc" }}><strong>Identity Data</strong> — first name, last name, username or similar identifier.</li>
+              <li style={{ listStyleType: "disc" }}><strong>Contact Data</strong> — email address and telephone numbers (WhatsApp).</li>
+              <li style={{ listStyleType: "disc" }}><strong>Transaction Data</strong> — details about payments and products/services you have purchased from us.</li>
+            </ul>
+          </div>
+
+          <div>
+            <h2 className="mb-3" style={{ fontSize: "1.15rem", fontWeight: 700 }}>3. How We Use Your Data</h2>
+            <p style={{ opacity: 0.6 }}>We will only use your personal data when the law allows us to. Most commonly, we will use your personal data to perform the contract we are about to enter into or have entered into with you (e.g., fulfilling your AI subscription), and where it is necessary for our legitimate interests.</p>
+          </div>
+
+          <div>
+            <h2 className="mb-3" style={{ fontSize: "1.15rem", fontWeight: 700 }}>4. Data Security</h2>
+            <p style={{ opacity: 0.6 }}>We have put in place appropriate security measures to prevent your personal data from being accidentally lost, used or accessed in an unauthorized way, altered or disclosed.</p>
+          </div>
+
+          <div>
+            <h2 className="mb-3" style={{ fontSize: "1.15rem", fontWeight: 700 }}>5. Contact Us</h2>
+            <p style={{ opacity: 0.6 }}>If you have any questions about this privacy policy, please contact us via our WhatsApp line (+880 1533-262758) or contact form.</p>
+          </div>
+        </div>
+      </section>
     </Layout>
   );
 }
