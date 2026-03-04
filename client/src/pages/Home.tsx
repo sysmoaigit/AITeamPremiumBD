@@ -1,6 +1,7 @@
 import { Link } from "wouter";
 import { Layout } from "@/components/layout/Layout";
 import { BRAND, LogoStacked, WhatsAppIcon } from "@/components/brand/LogoIcons";
+import { usePageMeta } from "@/hooks/use-page-meta";
 import {
   ArrowUpRight,
   Check,
@@ -55,6 +56,10 @@ const FAQS = [
 ];
 
 export default function Home() {
+  usePageMeta({
+    title: "AI Team Premium BD — ChatGPT, Claude & AI Tools in Bangladesh",
+    description: "Buy ChatGPT Plus from ৳399/mo. Claude Pro, Gemini Advanced & more. Pay via bKash/Nagad. 5-15 min delivery. Bangladesh's #1 AI subscription provider.",
+  });
   return (
     <Layout>
       <section className="relative overflow-hidden" style={{ background: BRAND.navy }}>

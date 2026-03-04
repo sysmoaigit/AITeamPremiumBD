@@ -1,5 +1,6 @@
 import { Layout } from "@/components/layout/Layout";
 import { BRAND, WhatsAppIcon } from "@/components/brand/LogoIcons";
+import { usePageMeta } from "@/hooks/use-page-meta";
 import { Link } from "wouter";
 import {
   Paintbrush,
@@ -44,6 +45,10 @@ const SERVICES = [
 ];
 
 export default function Services() {
+  usePageMeta({
+    title: "Digital Services",
+    description: "Brand design, web development, digital marketing, app development, and AI consultancy services in Bangladesh.",
+  });
   return (
     <Layout>
       <section className="py-20" style={{ background: BRAND.sky }}>

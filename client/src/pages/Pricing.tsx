@@ -1,5 +1,6 @@
 import { Layout } from "@/components/layout/Layout";
 import { BRAND, WhatsAppIcon } from "@/components/brand/LogoIcons";
+import { usePageMeta } from "@/hooks/use-page-meta";
 import { Link } from "wouter";
 import { Check, Star, ArrowUpRight, Clock } from "lucide-react";
 
@@ -64,6 +65,10 @@ const SERVICE_PLANS = [
 ];
 
 export default function Pricing() {
+  usePageMeta({
+    title: "Pricing",
+    description: "Transparent AI subscription and digital service pricing in BDT. Pay via bKash or Nagad. ChatGPT Plus from ৳399/mo.",
+  });
   return (
     <Layout>
       <section className="py-20" style={{ background: BRAND.sky }}>

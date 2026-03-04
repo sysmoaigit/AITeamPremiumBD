@@ -1,7 +1,9 @@
 import { Layout } from "@/components/layout/Layout";
 import { BRAND } from "@/components/brand/LogoIcons";
+import { usePageMeta } from "@/hooks/use-page-meta";
 
 export default function TermsOfService() {
+  usePageMeta({ title: "Terms of Service" });
   return (
     <Layout>
       <section className="py-20" style={{ background: BRAND.sky }}>

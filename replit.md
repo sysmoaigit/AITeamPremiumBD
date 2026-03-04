@@ -55,9 +55,13 @@ A 9-page website for AI Team Premium BD (AITPBD), a Bangladeshi company selling 
 - Messenger: `facebook.com/messages/t/61586742067282/`
 
 ## Database
-- `contacts` table: id (serial PK), name, whatsapp, needs, createdAt
-- Schema: `shared/schema.ts`
+- `contacts` table: id (serial PK), name, whatsapp, service (optional), needs, createdAt
+- Schema: `shared/schema.ts` — includes Zod validation (min lengths, phone regex)
 - Storage: `server/storage.ts`
+
+## Hooks
+- `use-contacts.ts` — mutation to POST /api/contact with toast feedback
+- `use-page-meta.ts` — sets document.title and meta description per page
 
 ## Pricing (BDT ৳)
 - ChatGPT Plus Shared: ৳399/mo

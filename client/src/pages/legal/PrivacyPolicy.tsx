@@ -1,7 +1,9 @@
 import { Layout } from "@/components/layout/Layout";
 import { BRAND } from "@/components/brand/LogoIcons";
+import { usePageMeta } from "@/hooks/use-page-meta";
 
 export default function PrivacyPolicy() {
+  usePageMeta({ title: "Privacy Policy" });
   return (
     <Layout>
       <section className="py-20" style={{ background: BRAND.sky }}>

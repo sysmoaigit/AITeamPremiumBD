@@ -1,5 +1,6 @@
 import { Layout } from "@/components/layout/Layout";
 import { BRAND, WhatsAppIcon } from "@/components/brand/LogoIcons";
+import { usePageMeta } from "@/hooks/use-page-meta";
 import { Check, Clock, ArrowUpRight } from "lucide-react";
 import { type LucideIcon } from "lucide-react";
 
@@ -23,6 +24,7 @@ interface ToolDetailProps {
 }
 
 export function ToolDetail({ name, tagline, description, accentColor, icon: Icon, features, plans }: ToolDetailProps) {
+  usePageMeta({ title: name, description });
   return (
     <Layout>
       <section className="py-20" style={{ background: BRAND.sky }}>

@@ -5,8 +5,10 @@ import { insertContactSchema, type InsertContact } from "@shared/schema";
 import { useCreateContact } from "@/hooks/use-contacts";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { BRAND, WhatsAppIcon } from "@/components/brand/LogoIcons";
+import { usePageMeta } from "@/hooks/use-page-meta";
 import { Phone, MapPin, Facebook, Instagram, Users, MessageCircle, Send, ArrowUpRight } from "lucide-react";
 
 const CHANNELS = [
@@ -22,10 +24,30 @@ const SOCIAL = [
   { icon: <Instagram size={15} strokeWidth={2} />, label: "Instagram", url: "https://instagram.com/ai_team_premium_bd" },
 ];
 
+const SERVICE_OPTIONS = [
+  "ChatGPT Plus Subscription",
+  "Claude Pro Subscription",
+  "Gemini Advanced Subscription",
+  "Grammarly Premium",
+  "Other AI Tool Subscription",
+  "Brand Identity Design",
+  "Web Development",
+  "Digital Marketing",
+  "App Development",
+  "AI Consultancy",
+  "Multiple Services / Bundle",
+  "General Inquiry",
+];
+
 export default function Contact() {
+  usePageMeta({
+    title: "Start a Project — Contact Us",
+    description: "Get in touch with AI Team Premium BD. Order AI subscriptions or start a digital project. WhatsApp: +880 1533-262758",
+  });
+
   const form = useForm<InsertContact>({
     resolver: zodResolver(insertContactSchema),
-    defaultValues: { name: "", whatsapp: "", needs: "" },
+    defaultValues: { name: "", whatsapp: "", service: "", needs: "" },
   });
 
   const { mutate: submitContact, isPending } = useCreateContact();
@@ -76,7 +98,7 @@ export default function Contact() {
                   <div>
                     <p style={{ color: BRAND.navy, fontSize: "0.88rem", fontWeight: 600 }}>{ch.label}</p>
                     {ch.url ? (
-                      <a href={ch.url} data-testid={`link-contact-${ch.label.toLowerCase().replace(/\s+/g, '-')}`} style={{ color: BRAND.navy, opacity: 0.6, fontSize: "0.85rem", textDecoration: "none" }}>{ch.value}</a>
+                      <a href={ch.url} data-testid={`link-contact-${ch.label.toLowerCase().replace(/[\s/]+/g, '-')}`} style={{ color: BRAND.navy, opacity: 0.6, fontSize: "0.85rem", textDecoration: "none" }}>{ch.value}</a>
                     ) : (
                       <p style={{ color: BRAND.navy, opacity: 0.6, fontSize: "0.85rem" }}>{ch.value}</p>
                     )}
@@ -113,44 +135,70 @@ export default function Contact() {
 
                 <Form {...form}>
                   <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
+                    <div className="grid sm:grid-cols-2 gap-5">
+                      <FormField
+                        control={form.control}
+                        name="name"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel style={{ color: BRAND.navy, fontSize: "0.82rem", fontWeight: 500 }}>Full Name *</FormLabel>
+                            <FormControl>
+                              <Input data-testid="input-name" placeholder="Your name" className="h-11 rounded-xl" style={{ background: BRAND.sky, border: "1px solid rgba(37,99,235,0.08)" }} {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={form.control}
+                        name="whatsapp"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel style={{ color: BRAND.navy, fontSize: "0.82rem", fontWeight: 500 }}>WhatsApp Number *</FormLabel>
+                            <FormControl>
+                              <Input data-testid="input-whatsapp" placeholder="+880 1X-XXXX-XXXX" className="h-11 rounded-xl" style={{ background: BRAND.sky, border: "1px solid rgba(37,99,235,0.08)" }} {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+
                     <FormField
                       control={form.control}
-                      name="name"
+                      name="service"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel style={{ color: BRAND.navy, fontSize: "0.82rem", fontWeight: 500 }}>Full Name</FormLabel>
-                          <FormControl>
-                            <Input data-testid="input-name" placeholder="Your name" className="h-11 rounded-xl" style={{ background: BRAND.sky, border: "1px solid rgba(37,99,235,0.06)" }} {...field} />
-                          </FormControl>
+                          <FormLabel style={{ color: BRAND.navy, fontSize: "0.82rem", fontWeight: 500 }}>What do you need?</FormLabel>
+                          <Select onValueChange={field.onChange} defaultValue={field.value ?? ""}>
+                            <FormControl>
+                              <SelectTrigger data-testid="select-service" className="h-11 rounded-xl" style={{ background: BRAND.sky, border: "1px solid rgba(37,99,235,0.08)" }}>
+                                <SelectValue placeholder="Select a service (optional)" />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              {SERVICE_OPTIONS.map((opt) => (
+                                <SelectItem key={opt} value={opt}>{opt}</SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
                           <FormMessage />
                         </FormItem>
                       )}
                     />
-                    <FormField
-                      control={form.control}
-                      name="whatsapp"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel style={{ color: BRAND.navy, fontSize: "0.82rem", fontWeight: 500 }}>WhatsApp Number</FormLabel>
-                          <FormControl>
-                            <Input data-testid="input-whatsapp" placeholder="+880 1..." className="h-11 rounded-xl" style={{ background: BRAND.sky, border: "1px solid rgba(37,99,235,0.06)" }} {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
+
                     <FormField
                       control={form.control}
                       name="needs"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel style={{ color: BRAND.navy, fontSize: "0.82rem", fontWeight: 500 }}>How can we help you?</FormLabel>
+                          <FormLabel style={{ color: BRAND.navy, fontSize: "0.82rem", fontWeight: 500 }}>Tell us more *</FormLabel>
                           <FormControl>
                             <Textarea
                               data-testid="input-needs"
-                              placeholder="I want to buy ChatGPT Plus, need a landing page design..."
-                              className="min-h-[120px] resize-none rounded-xl"
-                              style={{ background: BRAND.sky, border: "1px solid rgba(37,99,235,0.06)" }}
+                              placeholder="I want to buy ChatGPT Plus for my team of 5, or I need a landing page design..."
+                              className="min-h-[110px] resize-none rounded-xl"
+                              style={{ background: BRAND.sky, border: "1px solid rgba(37,99,235,0.08)" }}
                               {...field}
                             />
                           </FormControl>
@@ -158,12 +206,13 @@ export default function Contact() {
                         </FormItem>
                       )}
                     />
+
                     <button
                       type="submit"
                       disabled={isPending}
                       data-testid="button-submit-contact"
                       className="w-full inline-flex items-center justify-center gap-2 rounded-xl py-3.5 transition-all disabled:opacity-50"
-                      style={{ background: BRAND.blue, color: BRAND.white, fontSize: "0.92rem", fontWeight: 600, border: "none", cursor: "pointer" }}
+                      style={{ background: BRAND.blue, color: BRAND.white, fontSize: "0.92rem", fontWeight: 600, border: "none", cursor: isPending ? "not-allowed" : "pointer" }}
                     >
                       <Send size={16} />
                       {isPending ? "Sending..." : "Submit Request"}

@@ -1,5 +1,6 @@
 import { Layout } from "@/components/layout/Layout";
 import { BRAND, WhatsAppIcon } from "@/components/brand/LogoIcons";
+import { usePageMeta } from "@/hooks/use-page-meta";
 import { Clock, Check, ArrowUpRight } from "lucide-react";
 import { Link } from "wouter";
 
@@ -33,6 +34,10 @@ function typeBadge(type: string) {
 }
 
 export default function AISubscriptions() {
+  usePageMeta({
+    title: "All AI Subscriptions",
+    description: "Browse all premium AI subscriptions — ChatGPT, Claude, Gemini, Grammarly, Perplexity & more. Pay via bKash/Nagad. Fast delivery in Bangladesh.",
+  });
   return (
     <Layout>
       <section className="py-20" style={{ background: BRAND.sky }}>

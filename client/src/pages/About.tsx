@@ -1,5 +1,6 @@
 import { Layout } from "@/components/layout/Layout";
 import { BRAND, LogoStacked, WhatsAppIcon } from "@/components/brand/LogoIcons";
+import { usePageMeta } from "@/hooks/use-page-meta";
 import { Link } from "wouter";
 import { Users, Shield, Lightbulb, ArrowUpRight } from "lucide-react";
 
@@ -10,6 +11,10 @@ const VALUES = [
 ];
 
 export default function About() {
+  usePageMeta({
+    title: "About Us",
+    description: "Learn about AI Team Premium BD — Bangladesh's trusted provider of premium AI subscriptions and digital services.",
+  });
   return (
     <Layout>
       <section className="py-20" style={{ background: BRAND.sky }}>
