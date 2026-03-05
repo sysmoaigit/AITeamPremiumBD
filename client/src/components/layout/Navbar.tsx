@@ -4,8 +4,8 @@ import { Menu, X, ArrowUpRight } from "lucide-react";
 import { BRAND, LogoStacked } from "@/components/brand/LogoIcons";
 
 const NAV_LINKS = [
-  { name: "AI Subscriptions", href: "/ai-subscriptions" },
-  { name: "Services", href: "/services" },
+  { name: "ChatGPT Plans", href: "/chatgpt-plans" },
+  { name: "Support", href: "/support" },
   { name: "Pricing", href: "/pricing" },
   { name: "About", href: "/about" },
 ];

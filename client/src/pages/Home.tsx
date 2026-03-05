@@ -2,6 +2,8 @@ import { Link } from "wouter";
 import { Layout } from "@/components/layout/Layout";
 import { BRAND, LogoStacked, WhatsAppIcon } from "@/components/brand/LogoIcons";
 import { usePageMeta } from "@/hooks/use-page-meta";
+import { chatgptPlans } from "@/lib/plans";
+import { SupportUpsell } from "@/components/SupportUpsell";
 import {
   ArrowUpRight,
   Check,
@@ -60,6 +62,12 @@ export default function Home() {
     title: "AI Team Premium BD — ChatGPT, Claude & AI Tools in Bangladesh",
     description: "Buy ChatGPT Plus from ৳399/mo. Claude Pro, Gemini Advanced & more. Pay via bKash/Nagad. 5-15 min delivery. Bangladesh's #1 AI subscription provider.",
   });
+  const featuredPlans = [
+    chatgptPlans.find(p => p.slug === 'plus-shared'),
+    chatgptPlans.find(p => p.slug === 'plus-premium-shared'),
+    chatgptPlans.find(p => p.slug === 'pro-premium-shared')
+  ].filter(Boolean);
+
   return (
     <Layout>
       <section className="relative overflow-hidden" style={{ background: BRAND.navy }}>
@@ -86,16 +94,24 @@ export default function Home() {
                 target="_blank"
                 rel="noopener noreferrer"
                 data-testid="button-hero-whatsapp"
-                className="inline-flex items-center gap-2 rounded-full px-8 py-3.5 transition-all"
+                className="inline-flex items-center gap-2 rounded-full px-8 py-3.5 transition-all hover-elevate"
                 style={{ background: "#25D366", color: BRAND.white, fontSize: "0.9rem", fontWeight: 600, textDecoration: "none" }}
               >
                 <WhatsAppIcon size={18} color="#fff" />
                 Order on WhatsApp
               </a>
               <Link
+                href="/chatgpt-plans"
+                data-testid="link-hero-chatgpt-plans"
+                className="inline-flex items-center gap-2 rounded-full px-8 py-3.5 transition-all hover-elevate"
+                style={{ background: BRAND.blue, color: BRAND.white, fontSize: "0.9rem", fontWeight: 600, textDecoration: "none" }}
+              >
+                ChatGPT Plans
+              </Link>
+              <Link
                 href="/ai-subscriptions"
                 data-testid="link-hero-subscriptions"
-                className="inline-flex items-center gap-2 rounded-full px-8 py-3.5 transition-all"
+                className="inline-flex items-center gap-2 rounded-full px-8 py-3.5 transition-all hover-elevate"
                 style={{ border: "1px solid rgba(255,255,255,0.15)", color: BRAND.white, fontSize: "0.9rem", fontWeight: 500, textDecoration: "none" }}
               >
                 View All Tools
@@ -125,34 +141,44 @@ export default function Home() {
             <p className="mb-3 uppercase" style={{ color: BRAND.blue, fontSize: "0.72rem", letterSpacing: "0.18em", fontWeight: 600 }}>Featured Offers</p>
             <h2 style={{ color: BRAND.navy, fontSize: "2.2rem", fontWeight: 700, lineHeight: 1.15 }}>Start with the Right Plan</h2>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {OFFERS.map((o) => (
-              <div key={o.badge} className="rounded-2xl p-6 flex flex-col" style={{ background: BRAND.white, border: "1px solid rgba(37,99,235,0.06)" }}>
-                <span className="inline-flex self-start items-center px-3 py-1 rounded-full text-white mb-4" style={{ background: o.color, fontSize: "0.7rem", fontWeight: 600 }}>{o.badge}</span>
-                <p style={{ color: BRAND.navy, opacity: 0.5, fontSize: "0.78rem", fontWeight: 500 }}>{o.tier}</p>
-                <p className="mt-2" style={{ color: BRAND.navy, fontSize: "1.8rem", fontWeight: 700, lineHeight: 1 }}>
-                  {o.price}<span style={{ fontSize: "0.85rem", fontWeight: 400, opacity: 0.5 }}>{o.period}</span>
-                </p>
-                <p className="mt-3" style={{ color: BRAND.navy, opacity: 0.5, fontSize: "0.82rem", lineHeight: 1.5 }}>{o.tool}</p>
-                <p className="mt-1 flex items-center gap-1.5" style={{ color: BRAND.blue, fontSize: "0.75rem", fontWeight: 500 }}>
-                  <Clock size={12} /> {o.delivery} delivery
-                </p>
-                <a
-                  href={o.whatsapp}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  data-testid={`button-offer-${o.badge.toLowerCase().replace(/\s+/g, '-')}`}
-                  className="mt-auto pt-5 inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 transition-all"
-                  style={{ background: BRAND.blue, color: BRAND.white, fontSize: "0.82rem", fontWeight: 600, textDecoration: "none" }}
-                >
-                  <WhatsAppIcon size={14} color="#fff" />
-                  Order Now
-                </a>
-              </div>
-            ))}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            {featuredPlans.map((o) => {
+              if (!o) return null;
+              return (
+                <div key={o.slug} className="rounded-2xl p-6 flex flex-col hover-elevate transition-all" style={{ background: BRAND.white, border: "1px solid rgba(37,99,235,0.06)" }}>
+                  <span className="inline-flex self-start items-center px-3 py-1 rounded-full text-white mb-4" style={{ background: o.color === 'blue' ? BRAND.blue : o.color === 'purple' ? '#9333ea' : BRAND.navy, fontSize: "0.7rem", fontWeight: 600 }}>{o.badge}</span>
+                  <p style={{ color: BRAND.navy, opacity: 0.5, fontSize: "0.78rem", fontWeight: 500 }}>{o.targetBuyer}</p>
+                  <p className="mt-2" style={{ color: BRAND.navy, fontSize: "1.8rem", fontWeight: 700, lineHeight: 1 }}>
+                    {o.priceLabel.split('/')[0]}<span style={{ fontSize: "0.85rem", fontWeight: 400, opacity: 0.5 }}>/{o.priceLabel.split('/')[1]}</span>
+                  </p>
+                  <p className="mt-3" style={{ color: BRAND.navy, opacity: 0.5, fontSize: "0.82rem", lineHeight: 1.5 }}>{o.title}</p>
+                  <p className="mt-1 flex items-center gap-1.5" style={{ color: BRAND.blue, fontSize: "0.75rem", fontWeight: 500 }}>
+                    <Clock size={12} /> {o.deliverySLA} delivery
+                  </p>
+                  <a
+                    href={`https://wa.me/8801533262758?text=Hi%2C+I+want+to+buy+${encodeURIComponent(o.title)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    data-testid={`button-offer-${o.slug}`}
+                    className="mt-auto pt-5 inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 transition-all"
+                    style={{ background: BRAND.blue, color: BRAND.white, fontSize: "0.82rem", fontWeight: 600, textDecoration: "none" }}
+                  >
+                    <WhatsAppIcon size={14} color="#fff" />
+                    Order Now
+                  </a>
+                </div>
+              );
+            })}
+          </div>
+          <div className="mt-12 text-center">
+            <Link href="/chatgpt-plans" className="inline-flex items-center gap-1 font-semibold hover:underline" style={{ color: BRAND.blue }}>
+              View All ChatGPT Plans <ChevronRight size={16} />
+            </Link>
           </div>
         </div>
       </section>
+
+      <SupportUpsell />
 
       <section style={{ background: BRAND.sky }} className="py-24">
         <div className="mx-auto max-w-7xl px-6 lg:px-10">

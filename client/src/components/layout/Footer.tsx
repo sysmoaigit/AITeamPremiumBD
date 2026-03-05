@@ -29,7 +29,7 @@ export function Footer() {
                 lineHeight: 1.3,
               }}
             >
-              Ready to build something great?
+              বাংলাদেশে ChatGPT কিনুন — ৳৩৯৯ থেকে
             </h3>
             <p className="mt-1.5" style={{ color: "rgba(255,255,255,0.45)", fontSize: "0.85rem" }}>
               Get in touch — fastest response on WhatsApp.
@@ -119,8 +119,8 @@ export function Footer() {
             <FooterHeading>Company</FooterHeading>
             <FooterLinks links={[
               { label: "Home", to: "/" },
-              { label: "AI Subscriptions", to: "/ai-subscriptions" },
-              { label: "Services", to: "/services" },
+              { label: "ChatGPT Plans", to: "/chatgpt-plans" },
+              { label: "Support", to: "/support" },
               { label: "Pricing", to: "/pricing" },
               { label: "About", to: "/about" },
             ]} />
@@ -129,9 +129,12 @@ export function Footer() {
             <FooterHeading>AI Tools</FooterHeading>
             <FooterLinks links={[
               { label: "ChatGPT Plus", to: "/tools/chatgpt" },
-              { label: "Claude Pro", to: "/tools/claude" },
-              { label: "Gemini Advanced", to: "/tools/gemini" },
-              { label: "Grammarly Premium", to: "/tools/grammarly" },
+              { label: "Canva", to: "/tools/canva" },
+              { label: "Midjourney", to: "/tools/midjourney" },
+              { label: "Perplexity", to: "/tools/perplexity" },
+              { label: "Grok", to: "/tools/grok" },
+              { label: "GitHub Copilot", to: "/tools/copilot" },
+              { label: "AI Vault", to: "/tools/vault" },
             ]} />
           </div>
           <div className="md:col-span-2">
@@ -139,6 +142,7 @@ export function Footer() {
             <FooterLinks links={[
               { label: "Privacy Policy", to: "/privacy-policy" },
               { label: "Terms of Service", to: "/terms" },
+              { label: "Refund Policy", to: "/refund-policy" },
               { label: "Contact", to: "/start-a-project" },
             ]} />
           </div>

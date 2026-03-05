@@ -7,6 +7,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
 
 import Home from "./pages/Home";
+import ChatGPTPlans from "./pages/ChatGPTPlans";
 import AISubscriptions from "./pages/AISubscriptions";
 import Services from "./pages/Services";
 import Pricing from "./pages/Pricing";
@@ -14,6 +15,7 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import PrivacyPolicy from "./pages/legal/PrivacyPolicy";
 import TermsOfService from "./pages/legal/TermsOfService";
+import RefundPolicy from "./pages/legal/RefundPolicy";
 import ChatGPT from "./pages/tools/ChatGPT";
 import Claude from "./pages/tools/Claude";
 import Gemini from "./pages/tools/Gemini";
@@ -24,6 +26,13 @@ import Perplexity from "./pages/tools/Perplexity";
 import Grok from "./pages/tools/Grok";
 import Copilot from "./pages/tools/Copilot";
 import Vault from "./pages/tools/Vault";
+import PlusShared from "./pages/chatgpt/PlusShared";
+import PlusPremiumShared from "./pages/chatgpt/PlusPremiumShared";
+import PlusPersonalSeat from "./pages/chatgpt/PlusPersonalSeat";
+import BusinessShared from "./pages/chatgpt/BusinessShared";
+import BusinessPremiumShared from "./pages/chatgpt/BusinessPremiumShared";
+import BusinessPersonalLike from "./pages/chatgpt/BusinessPersonalLike";
+import ProPremiumShared from "./pages/chatgpt/ProPremiumShared";
 
 function ScrollToTop() {
   const [location] = useLocation();
@@ -39,11 +48,21 @@ function Router() {
       <ScrollToTop />
       <Switch>
         <Route path="/" component={Home} />
+        <Route path="/chatgpt-plans" component={ChatGPTPlans} />
+        <Route path="/chatgpt/plus-shared" component={PlusShared} />
+        <Route path="/chatgpt/plus-premium-shared" component={PlusPremiumShared} />
+        <Route path="/chatgpt/plus-personal-seat" component={PlusPersonalSeat} />
+        <Route path="/chatgpt/business-shared" component={BusinessShared} />
+        <Route path="/chatgpt/business-premium-shared" component={BusinessPremiumShared} />
+        <Route path="/chatgpt/business-personal-like" component={BusinessPersonalLike} />
+        <Route path="/chatgpt/pro-premium-shared" component={ProPremiumShared} />
         <Route path="/ai-subscriptions" component={AISubscriptions} />
+        <Route path="/support" component={Services} />
         <Route path="/services" component={Services} />
         <Route path="/pricing" component={Pricing} />
         <Route path="/about" component={About} />
         <Route path="/start-a-project" component={Contact} />
+        <Route path="/refund-policy" component={RefundPolicy} />
         <Route path="/privacy-policy" component={PrivacyPolicy} />
         <Route path="/terms" component={TermsOfService} />
         <Route path="/tools/chatgpt" component={ChatGPT} />

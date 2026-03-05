@@ -2,43 +2,8 @@ import { Layout } from "@/components/layout/Layout";
 import { BRAND, WhatsAppIcon } from "@/components/brand/LogoIcons";
 import { usePageMeta } from "@/hooks/use-page-meta";
 import { Link } from "wouter";
-import { Check, Star, ArrowUpRight, Clock } from "lucide-react";
-
-const AI_PLANS = [
-  {
-    name: "Solo",
-    badge: "Best for Students",
-    price: "৳399",
-    period: "/mo",
-    tool: "ChatGPT Plus Shared",
-    delivery: "5-15 min",
-    features: ["GPT-4o access", "DALL-E 3", "Shared seat", "WhatsApp support"],
-    popular: false,
-    whatsapp: "https://wa.me/8801533262758?text=Hi%2C+I+want+ChatGPT+Plus+Shared+(Solo)",
-  },
-  {
-    name: "Pro",
-    badge: "Most Popular",
-    price: "৳950",
-    period: "/mo",
-    tool: "ChatGPT Premium Shared",
-    delivery: "5-15 min",
-    features: ["Extended limits", "o1 & o3 models", "Deep Research", "Priority support"],
-    popular: true,
-    whatsapp: "https://wa.me/8801533262758?text=Hi%2C+I+want+ChatGPT+Premium+Shared+(Pro)",
-  },
-  {
-    name: "Vault",
-    badge: "All-in-One",
-    price: "৳1,990",
-    period: "/mo",
-    tool: "ChatGPT + Claude + Gemini",
-    delivery: "6 hr",
-    features: ["3 AI tools", "Best value bundle", "Full access", "Dedicated support"],
-    popular: false,
-    whatsapp: "https://wa.me/8801533262758?text=Hi%2C+I+want+AI+Tools+Vault",
-  },
-];
+import { Check, Star, ArrowUpRight, Clock, ChevronRight } from "lucide-react";
+import { chatgptPlans } from "@/lib/plans";
 
 const SERVICE_PLANS = [
   {
@@ -89,50 +54,55 @@ export default function Pricing() {
             <h2 style={{ color: BRAND.navy, fontSize: "1.5rem", fontWeight: 700 }}>AI Subscription Plans</h2>
             <p className="mt-2" style={{ color: BRAND.navy, opacity: 0.5, fontSize: "0.88rem" }}>Instant delivery, real access, no credit card needed</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            {AI_PLANS.map((plan) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
+            {chatgptPlans.map((plan) => (
               <div
-                key={plan.name}
-                className="relative flex flex-col rounded-2xl p-7"
+                key={plan.slug}
+                className="relative flex flex-col rounded-2xl p-7 hover-elevate transition-all"
                 style={{
                   background: BRAND.white,
-                  border: plan.popular ? `2px solid ${BRAND.blue}` : "1px solid rgba(37,99,235,0.06)",
-                  boxShadow: plan.popular ? "0 8px 32px rgba(37,99,235,0.12)" : undefined,
+                  border: plan.slug === 'plus-premium-shared' ? `2px solid ${BRAND.blue}` : "1px solid rgba(37,99,235,0.06)",
+                  boxShadow: plan.slug === 'plus-premium-shared' ? "0 8px 32px rgba(37,99,235,0.12)" : undefined,
                 }}
               >
-                {plan.popular && (
+                {plan.badge && (
                   <span
                     className="absolute -top-3 left-1/2 -translate-x-1/2 inline-flex items-center gap-1 rounded-full px-3 py-1 text-white"
-                    style={{ background: BRAND.blue, fontSize: "0.68rem", fontWeight: 600 }}
+                    style={{ background: plan.slug === 'plus-premium-shared' ? BRAND.blue : BRAND.navy, fontSize: "0.68rem", fontWeight: 600 }}
                   >
                     <Star size={11} fill="#fff" /> {plan.badge}
                   </span>
                 )}
-                <p style={{ color: BRAND.navy, opacity: 0.5, fontSize: "0.78rem", fontWeight: 600, marginBottom: 4 }}>{plan.name}</p>
+                <p style={{ color: BRAND.navy, opacity: 0.5, fontSize: "0.78rem", fontWeight: 600, marginBottom: 4 }}>{plan.tier}</p>
                 <p style={{ color: BRAND.navy, fontSize: "2rem", fontWeight: 700, lineHeight: 1 }}>
-                  {plan.price}<span style={{ fontSize: "0.85rem", fontWeight: 400, opacity: 0.5 }}>{plan.period}</span>
+                  {plan.priceLabel.split('/')[0]}<span style={{ fontSize: "0.85rem", fontWeight: 400, opacity: 0.5 }}>/{plan.priceLabel.split('/')[1]}</span>
                 </p>
                 <p className="mt-2 flex items-center gap-1.5" style={{ color: BRAND.navy, opacity: 0.5, fontSize: "0.82rem" }}>
-                  {plan.tool}
+                  {plan.title}
                 </p>
                 <p className="mt-1 flex items-center gap-1.5" style={{ color: BRAND.blue, fontSize: "0.75rem", fontWeight: 500 }}>
-                  <Clock size={12} /> {plan.delivery}
+                  <Clock size={12} /> {plan.deliverySLA} delivery
                 </p>
                 <ul className="mt-6 space-y-3 flex-1">
-                  {plan.features.map((f) => (
-                    <li key={f} className="flex items-center gap-2" style={{ fontSize: "0.82rem", color: BRAND.navy, opacity: 0.6 }}>
-                      <Check size={14} color={BRAND.blue} strokeWidth={3} /> {f}
-                    </li>
-                  ))}
+                   {/* Features were not in chatgptPlans, I will add generic ones or we can just leave empty/add 3 basics */}
+                  <li className="flex items-center gap-2" style={{ fontSize: "0.82rem", color: BRAND.navy, opacity: 0.6 }}>
+                    <Check size={14} color={BRAND.blue} strokeWidth={3} /> Official {plan.plan} Access
+                  </li>
+                  <li className="flex items-center gap-2" style={{ fontSize: "0.82rem", color: BRAND.navy, opacity: 0.6 }}>
+                    <Check size={14} color={BRAND.blue} strokeWidth={3} /> {plan.deviceRule}
+                  </li>
+                  <li className="flex items-center gap-2" style={{ fontSize: "0.82rem", color: BRAND.navy, opacity: 0.6 }}>
+                    <Check size={14} color={BRAND.blue} strokeWidth={3} /> {plan.warranty.split('.')[0]}
+                  </li>
                 </ul>
                 <a
-                  href={plan.whatsapp}
+                  href={`https://wa.me/8801533262758?text=Hi%2C+I+want+to+order+${encodeURIComponent(plan.title)}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  data-testid={`button-plan-${plan.name.toLowerCase()}`}
+                  data-testid={`button-plan-${plan.slug}`}
                   className="mt-6 inline-flex items-center justify-center gap-2 rounded-full py-3 transition-all"
                   style={{
-                    background: plan.popular ? BRAND.blue : BRAND.navy,
+                    background: plan.slug === 'plus-premium-shared' ? BRAND.blue : BRAND.navy,
                     color: BRAND.white,
                     fontSize: "0.85rem",
                     fontWeight: 600,
@@ -141,8 +111,16 @@ export default function Pricing() {
                 >
                   <WhatsAppIcon size={14} color="#fff" /> Order Now
                 </a>
+                <Link href={`/chatgpt/${plan.slug}`} className="mt-3 text-center text-xs font-medium hover:underline" style={{ color: BRAND.blue }}>
+                  View Details
+                </Link>
               </div>
             ))}
+          </div>
+          <div className="mt-12 text-center">
+            <Link href="/chatgpt-plans" className="inline-flex items-center gap-1 font-semibold hover:underline" style={{ color: BRAND.blue }}>
+              Compare All Plans <ChevronRight size={16} />
+            </Link>
           </div>
         </div>
       </section>
@@ -154,50 +132,42 @@ export default function Pricing() {
             <p className="mt-2" style={{ color: BRAND.navy, opacity: 0.5, fontSize: "0.88rem" }}>Custom-quoted based on your needs</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            {SERVICE_PLANS.map((plan) => (
-              <div
-                key={plan.name}
-                className="relative flex flex-col rounded-2xl p-7"
+            <div
+              className="relative flex flex-col rounded-2xl p-7"
+              style={{
+                background: BRAND.white,
+                border: "1px solid rgba(37,99,235,0.06)",
+              }}
+            >
+              <h3 style={{ color: BRAND.navy, fontSize: "1.15rem", fontWeight: 700 }}>Digital Services</h3>
+              <p className="mt-1" style={{ color: BRAND.navy, opacity: 0.5, fontSize: "0.82rem", minHeight: 36 }}>Custom solutions for Brand Design, Web Dev & Marketing.</p>
+              <p className="mt-3" style={{ color: BRAND.navy, fontSize: "1.8rem", fontWeight: 700 }}>Custom Quote</p>
+              <ul className="mt-5 space-y-3 flex-1">
+                <li className="flex items-center gap-2" style={{ fontSize: "0.82rem", color: BRAND.navy, opacity: 0.6 }}>
+                  <Check size={14} color={BRAND.blue} strokeWidth={3} /> Logo & Identity
+                </li>
+                <li className="flex items-center gap-2" style={{ fontSize: "0.82rem", color: BRAND.navy, opacity: 0.6 }}>
+                  <Check size={14} color={BRAND.blue} strokeWidth={3} /> SEO Optimized Web
+                </li>
+                <li className="flex items-center gap-2" style={{ fontSize: "0.82rem", color: BRAND.navy, opacity: 0.6 }}>
+                  <Check size={14} color={BRAND.blue} strokeWidth={3} /> AI Implementation
+                </li>
+              </ul>
+              <Link
+                href="/services"
+                data-testid="link-digital-services"
+                className="mt-6 inline-flex items-center justify-center gap-2 rounded-full py-3 transition-all"
                 style={{
-                  background: BRAND.white,
-                  border: plan.popular ? `2px solid ${BRAND.blue}` : "1px solid rgba(37,99,235,0.06)",
+                  background: BRAND.navy,
+                  color: BRAND.white,
+                  fontSize: "0.85rem",
+                  fontWeight: 600,
+                  textDecoration: "none",
                 }}
               >
-                {plan.popular && (
-                  <span
-                    className="absolute -top-3 left-1/2 -translate-x-1/2 inline-flex items-center gap-1 rounded-full px-3 py-1 text-white"
-                    style={{ background: BRAND.blue, fontSize: "0.68rem", fontWeight: 600 }}
-                  >
-                    <Star size={11} fill="#fff" /> Recommended
-                  </span>
-                )}
-                <h3 style={{ color: BRAND.navy, fontSize: "1.15rem", fontWeight: 700 }}>{plan.name}</h3>
-                <p className="mt-1" style={{ color: BRAND.navy, opacity: 0.5, fontSize: "0.82rem", minHeight: 36 }}>{plan.desc}</p>
-                <p className="mt-3" style={{ color: BRAND.navy, fontSize: "1.8rem", fontWeight: 700 }}>{plan.price}</p>
-                <ul className="mt-5 space-y-3 flex-1">
-                  {plan.features.map((f) => (
-                    <li key={f} className="flex items-center gap-2" style={{ fontSize: "0.82rem", color: BRAND.navy, opacity: 0.6 }}>
-                      <Check size={14} color={BRAND.blue} strokeWidth={3} /> {f}
-                    </li>
-                  ))}
-                </ul>
-                <Link
-                  href="/start-a-project"
-                  data-testid={`link-service-plan-${plan.name.toLowerCase()}`}
-                  className="mt-6 inline-flex items-center justify-center gap-2 rounded-full py-3 transition-all"
-                  style={{
-                    background: plan.popular ? BRAND.blue : "transparent",
-                    color: plan.popular ? BRAND.white : BRAND.navy,
-                    border: plan.popular ? "none" : `1px solid ${BRAND.navy}`,
-                    fontSize: "0.85rem",
-                    fontWeight: 600,
-                    textDecoration: "none",
-                  }}
-                >
-                  Request Quote <ArrowUpRight size={14} />
-                </Link>
-              </div>
-            ))}
+                Learn More <ArrowUpRight size={14} />
+              </Link>
+            </div>
           </div>
         </div>
       </section>
