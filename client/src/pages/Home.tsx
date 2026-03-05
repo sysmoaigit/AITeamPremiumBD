@@ -73,12 +73,12 @@ export default function Home() {
               <LogoStacked size="xl" iconColor={BRAND.white} textColor={BRAND.white} />
             </div>
             <h1 style={{ color: BRAND.white, fontSize: "clamp(2rem, 5vw, 3.5rem)", fontWeight: 700, lineHeight: 1.1, letterSpacing: "-0.02em" }}>
-              Premium AI Tools.
+              বাংলাদেশে ChatGPT — ৳৩৯৯ থেকে শুরু
               <br />
-              <span style={{ color: BRAND.blue }}>BD Prices. bKash Payment.</span>
+              <span style={{ color: BRAND.blue }}>Premium AI & Digital Solutions</span>
             </h1>
             <p className="mt-6 max-w-xl mx-auto" style={{ color: "rgba(255,255,255,0.55)", fontSize: "1.05rem", lineHeight: 1.75 }}>
-              ChatGPT Plus from ৳399/mo. Claude Pro from ৳599/mo. Delivered in 15 minutes.
+              ChatGPT Plus, Pro & Business at Bangladesh-friendly prices. Instant delivery. bKash & Nagad accepted.
             </p>
             <div className="flex flex-wrap items-center justify-center gap-4 mt-10">
               <a

@@ -1,60 +1,96 @@
 import { ToolDetail } from "@/components/ToolDetail";
 import { MessageSquare } from "lucide-react";
+import { chatgptPlans } from "@/lib/plans";
+import { usePageMeta } from "@/hooks/use-page-meta";
+import { BRAND, WhatsAppIcon } from "@/components/brand/LogoIcons";
+import { Layout } from "@/components/layout/Layout";
+import { Clock, Check, ArrowUpRight, Star } from "lucide-react";
+import { Link } from "wouter";
 
 export default function ChatGPT() {
+  usePageMeta({
+    title: "ChatGPT Plus & Business Subscriptions",
+    description: "Official ChatGPT Plus, Business and Pro subscriptions in Bangladesh. ৳399 to ৳4,500/mo. bKash & Nagad accepted. Instant delivery.",
+  });
+
   return (
-    <ToolDetail
-      name="ChatGPT Plus"
-      tagline="in Bangladesh"
-      description="Unlock GPT-4o, o1, DALL-E 3, and Advanced Data Analysis without needing an international credit card. Pay easily with bKash or Nagad."
-      accentColor="#16A34A"
-      icon={MessageSquare}
-      features={[
-        "Access to GPT-4o and o1 models",
-        "Faster response times during peak hours",
-        "Generate images with DALL-E 3",
-        "Create custom GPTs",
-        "Deep Research & Advanced Data Analysis",
-        "Full warranty with replacement guarantee",
-      ]}
-      plans={[
-        {
-          label: "ChatGPT Plus Shared",
-          price: "৳399",
-          period: "/mo",
-          delivery: "5-15 min delivery",
-          type: "Shared",
-          specs: [
-            { label: "Access", value: "Shared seat" },
-            { label: "Warranty", value: "Full 30 days" },
-            { label: "Support", value: "24/7 WhatsApp" },
-          ],
-        },
-        {
-          label: "ChatGPT Premium Shared",
-          price: "৳950",
-          period: "/mo",
-          delivery: "5-15 min delivery",
-          type: "Premium",
-          specs: [
-            { label: "Access", value: "Extended limits" },
-            { label: "Models", value: "o1, o3, Deep Research" },
-            { label: "Support", value: "Priority WhatsApp" },
-          ],
-        },
-        {
-          label: "ChatGPT Plus Personal",
-          price: "৳2,500",
-          period: "/mo",
-          delivery: "2-4 hr delivery",
-          type: "Personal",
-          specs: [
-            { label: "Access", value: "Your own email" },
-            { label: "Warranty", value: "Full 30 days" },
-            { label: "Payment", value: "bKash / Nagad" },
-          ],
-        },
-      ]}
-    />
+    <Layout>
+      <section className="py-20" style={{ background: BRAND.sky }}>
+        <div className="mx-auto max-w-7xl px-6 lg:px-10 text-center">
+          <div className="inline-flex items-center justify-center rounded-2xl mb-6" style={{ width: 64, height: 64, background: `#16A34A15` }}>
+            <MessageSquare size={32} color="#16A34A" strokeWidth={1.8} />
+          </div>
+          <h1 style={{ color: BRAND.navy, fontSize: "clamp(1.6rem, 4vw, 2.5rem)", fontWeight: 700, lineHeight: 1.15 }}>
+            ChatGPT <span style={{ color: "#16A34A" }}>in Bangladesh</span>
+          </h1>
+          <p className="mt-4 mx-auto max-w-xl" style={{ color: BRAND.navy, opacity: 0.5, fontSize: "0.95rem", lineHeight: 1.65 }}>
+            Official ChatGPT Plus, Business and Pro subscriptions. Instant delivery via WhatsApp. Pay with bKash/Nagad.
+          </p>
+        </div>
+      </section>
+
+      <section className="py-20">
+        <div className="mx-auto max-w-7xl px-6 lg:px-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {chatgptPlans.map((plan) => (
+              <div
+                key={plan.slug}
+                className="relative flex flex-col rounded-2xl p-7"
+                style={{
+                  background: BRAND.white,
+                  border: plan.badge === "Most Popular" ? `2px solid ${BRAND.blue}` : "1px solid rgba(37,99,235,0.06)",
+                  boxShadow: plan.badge === "Most Popular" ? "0 8px 32px rgba(37,99,235,0.12)" : undefined,
+                }}
+              >
+                {plan.badge && (
+                  <span
+                    className="absolute -top-3 left-1/2 -translate-x-1/2 inline-flex items-center gap-1 rounded-full px-3 py-1 text-white"
+                    style={{ background: plan.color === 'blue' ? BRAND.blue : plan.color === 'purple' ? '#7C3AED' : plan.color === 'green' ? '#16A34A' : plan.color === 'orange' ? '#F59E0B' : '#EF4444', fontSize: "0.68rem", fontWeight: 600 }}
+                  >
+                    {plan.badge}
+                  </span>
+                )}
+                <p style={{ color: BRAND.navy, opacity: 0.5, fontSize: "0.78rem", fontWeight: 600, marginBottom: 4 }}>{plan.title}</p>
+                <p style={{ color: BRAND.navy, fontSize: "2rem", fontWeight: 700, lineHeight: 1 }}>
+                  {plan.priceLabel}
+                </p>
+                <p className="mt-2 flex items-center gap-1.5" style={{ color: BRAND.navy, opacity: 0.5, fontSize: "0.82rem" }}>
+                  {plan.tier} • {plan.seats} Seats
+                </p>
+                <p className="mt-1 flex items-center gap-1.5" style={{ color: BRAND.blue, fontSize: "0.75rem", fontWeight: 500 }}>
+                  <Clock size={12} /> {plan.deliverySLA}
+                </p>
+                <ul className="mt-6 space-y-3 flex-1">
+                  <li className="flex items-start gap-2" style={{ fontSize: "0.82rem", color: BRAND.navy, opacity: 0.6 }}>
+                    <Check size={14} color={BRAND.blue} className="mt-0.5 shrink-0" strokeWidth={3} /> {plan.deviceRule}
+                  </li>
+                  <li className="flex items-start gap-2" style={{ fontSize: "0.82rem", color: BRAND.navy, opacity: 0.6 }}>
+                    <Check size={14} color={BRAND.blue} className="mt-0.5 shrink-0" strokeWidth={3} /> {plan.warranty}
+                  </li>
+                  <li className="flex items-start gap-2" style={{ fontSize: "0.82rem", color: BRAND.navy, opacity: 0.6 }}>
+                    <Check size={14} color={BRAND.blue} className="mt-0.5 shrink-0" strokeWidth={3} /> {plan.duration} access
+                  </li>
+                </ul>
+                <a
+                  href={`https://wa.me/8801533262758?text=Hi%2C+I+want+to+buy+${encodeURIComponent(plan.title)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-6 inline-flex items-center justify-center gap-2 rounded-full py-3 transition-all"
+                  style={{
+                    background: plan.badge === "Most Popular" ? BRAND.blue : BRAND.navy,
+                    color: BRAND.white,
+                    fontSize: "0.85rem",
+                    fontWeight: 600,
+                    textDecoration: "none",
+                  }}
+                >
+                  <WhatsAppIcon size={14} color="#fff" /> Order Now
+                </a>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    </Layout>
   );
 }

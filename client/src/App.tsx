@@ -18,6 +18,12 @@ import ChatGPT from "./pages/tools/ChatGPT";
 import Claude from "./pages/tools/Claude";
 import Gemini from "./pages/tools/Gemini";
 import Grammarly from "./pages/tools/Grammarly";
+import Canva from "./pages/tools/Canva";
+import Midjourney from "./pages/tools/Midjourney";
+import Perplexity from "./pages/tools/Perplexity";
+import Grok from "./pages/tools/Grok";
+import Copilot from "./pages/tools/Copilot";
+import Vault from "./pages/tools/Vault";
 
 function ScrollToTop() {
   const [location] = useLocation();
@@ -44,6 +50,12 @@ function Router() {
         <Route path="/tools/claude" component={Claude} />
         <Route path="/tools/gemini" component={Gemini} />
         <Route path="/tools/grammarly" component={Grammarly} />
+        <Route path="/tools/canva" component={Canva} />
+        <Route path="/tools/midjourney" component={Midjourney} />
+        <Route path="/tools/perplexity" component={Perplexity} />
+        <Route path="/tools/grok" component={Grok} />
+        <Route path="/tools/copilot" component={Copilot} />
+        <Route path="/tools/vault" component={Vault} />
         <Route component={NotFound} />
       </Switch>
     </>

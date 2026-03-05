@@ -1,0 +1,759 @@
+=== REPLIT AGENT MEGA-PROMPT: AI TEAM PREMIUM BD — FULL WEBSITE UPDATE ===
+
+You are a senior full-stack engineer, conversion copywriter, and SEO specialist.
+Your job: update the EXISTING AI Team Premium BD website to become Bangladesh's #1 ChatGPT subscription + AI support destination.
+
+Do NOT rebuild from scratch. Work with the existing Next.js + Tailwind codebase.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+CONTEXT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Brand: AI Team Premium BD
+Website: aiteampremiumbd.com
+Market: Bangladesh (Bangla-first, price-sensitive, bKash/Nagad payments)
+Goal: Sell ChatGPT subscriptions (৳399–৳4,500/mo) + Premium Human Support (৳799–৳24,999)
+Revenue target: $15,000/month
+WhatsApp: +8801533262758
+Facebook: https://www.facebook.com/profile.php?id=61586742067282
+Payment: bKash, Nagad (numbers shared privately after WhatsApp contact)
+Support delivery: Google Meet live sessions
+Team: CEO (Emon Hossain) + 3 AI-expert team members
+
+A Notion export ZIP is uploaded to this project. The ZIP is the ONLY source of truth for:
+- All ChatGPT plan pricing, names, features, rules, disclaimers
+- Refund & replacement policy
+- FAQs and AEO answer snippets
+- SEO metadata per page
+
+Never invent pricing or plan details. Always use ZIP content.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STEP 0 — EXTRACT & MAP THE ZIP (DO THIS FIRST)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1) Extract ZIP into /content/notion/
+2) Identify and map these markdown files:
+   - all-plans.md → master hub content ("All Plans — Website Content")
+   - offer-plus-shared.md → ChatGPT Plus Shared Seat (৳399/mo, 8 users)
+   - offer-plus-premium-shared.md → ChatGPT Plus Premium Shared (৳950/mo, 2-3 users)
+   - offer-plus-personal-seat.md → ChatGPT Plus Personal Seat (৳2,950/mo, customer-owned)
+   - offer-business-shared.md → ChatGPT Business Shared (৳699/mo, 7 users)
+   - offer-business-premium-shared.md → ChatGPT Business Premium Shared (৳1,299/mo, 2-3 users)
+   - offer-business-personal-like.md → ChatGPT Business Personal-like (৳3,899/mo, 1 user)
+   - offer-pro-premium-shared.md → ChatGPT Pro Premium Shared (৳4,500/mo, 5-6 users)
+   - refund-policy.md → Refund & Replacement Policy
+3) Create a canonical data model in /lib/plans.ts:
+
+export const chatgptPlans = [
+  {
+    slug: "plus-shared",
+    title: "ChatGPT Plus — Shared Seat",
+    plan: "Plus",
+    tier: "Shared",
+    priceBDT: 399,
+    priceLabel: "৳399/month",
+    seats: 8,
+    duration: "30 days",
+    deliverySLA: "5–15 minutes",
+    accessType: "shared",
+    deviceRule: "1 device only",
+    warranty: "Full for 30 days. Void on misuse/ban/password change/multi-device.",
+    segment: "Budget",
+    targetBuyer: "Students, beginners",
+    badge: "Most Popular",
+    color: "blue"
+  },
+  {
+    slug: "plus-premium-shared",
+    title: "ChatGPT Plus — Premium Shared",
+    plan: "Plus",
+    tier: "Premium Shared",
+    priceBDT: 950,
+    priceLabel: "৳950/month",
+    seats: "2–3",
+    duration: "30 days",
+    deliverySLA: "5–15 minutes",
+    accessType: "shared",
+    deviceRule: "1 device only",
+    warranty: "Full for subscription period. Void on misuse/ban.",
+    segment: "Quality",
+    targetBuyer: "Freelancers, creators",
+    badge: "Stable",
+    color: "purple"
+  },
+  {
+    slug: "plus-personal-seat",
+    title: "ChatGPT Plus — Personal Seat",
+    plan: "Plus",
+    tier: "Personal Seat",
+    priceBDT: 2950,
+    priceLabel: "৳2,950/month",
+    seats: 1,
+    duration: "30 days",
+    deliverySLA: "5–15 minutes",
+    accessType: "customer-owned",
+    deviceRule: "No restriction (your account)",
+    warranty: "Tied to your own account management.",
+    segment: "Professional",
+    targetBuyer: "Power users",
+    badge: "Own Account",
+    color: "green"
+  },
+  {
+    slug: "business-shared",
+    title: "ChatGPT Business — Shared",
+    plan: "Business",
+    tier: "Shared",
+    priceBDT: 699,
+    priceLabel: "৳699/month",
+    seats: 7,
+    duration: "30 days",
+    deliverySLA: "Up to 12 hours",
+    accessType: "workspace-invite",
+    deviceRule: "Workspace rules apply",
+    warranty: "Subject to Business workspace rules.",
+    segment: "Team Budget",
+    targetBuyer: "Small teams",
+    badge: "Team",
+    color: "orange"
+  },
+  {
+    slug: "business-premium-shared",
+    title: "ChatGPT Business — Premium Shared",
+    plan: "Business",
+    tier: "Premium Shared",
+    priceBDT: 1299,
+    priceLabel: "৳1,299/month",
+    seats: "2–3",
+    duration: "30 days",
+    deliverySLA: "Up to 12 hours",
+    accessType: "workspace-invite",
+    deviceRule: "Workspace rules apply",
+    warranty: "Subject to Business workspace rules.",
+    segment: "Team Quality",
+    targetBuyer: "Agencies",
+    badge: "Stable Team",
+    color: "orange"
+  },
+  {
+    slug: "business-personal-like",
+    title: "ChatGPT Business — Personal-like",
+    plan: "Business",
+    tier: "Personal-like",
+    priceBDT: 3899,
+    priceLabel: "৳3,899/month",
+    seats: 1,
+    duration: "30 days",
+    deliverySLA: "Up to 12 hours",
+    accessType: "workspace-invite",
+    deviceRule: "Dedicated experience",
+    warranty: "Subject to Business workspace rules.",
+    segment: "Team Pro",
+    targetBuyer: "Businesses, agencies",
+    badge: "Dedicated",
+    color: "orange"
+  },
+  {
+    slug: "pro-premium-shared",
+    title: "ChatGPT Pro — Premium Shared",
+    plan: "Pro",
+    tier: "Premium Shared",
+    priceBDT: 4500,
+    priceLabel: "৳4,500/month",
+    seats: "5–6",
+    duration: "30 days",
+    deliverySLA: "5–15 minutes",
+    accessType: "shared",
+    deviceRule: "1 device only",
+    warranty: "Full for subscription period. Void on misuse/ban.",
+    segment: "Pro",
+    targetBuyer: "Heavy power users",
+    badge: "Most Powerful",
+    color: "red"
+  }
+];
+
+4) Create /lib/support-offers.ts:
+export const supportOffers = [
+  {
+    slug: "support-hourly",
+    title: "Premium Support Hourly",
+    category: "entry",
+    priceBDT: 799,
+    priceLabel: "৳799/ঘন্টা",
+    target: "সবাই",
+    targetEN: "Everyone",
+    sessions: "1 hr",
+    platform: "Google Meet",
+    deliverables: ["Prompt pack (10-20 prompts)", "Workflow steps", "Tool stack recommendation", "7-day action plan"],
+    guarantee: "ডেলিভারেবল না পেলে → Free 30-min follow-up",
+    ctaText: "বুক করুন",
+    color: "blue"
+  },
+  {
+    slug: "support-student",
+    title: "Student Smart Study Pack",
+    category: "student",
+    priceBDT: 1999,
+    priceLabel: "৳1,999",
+    target: "ছাত্রছাত্রী",
+    targetEN: "Students",
+    sessions: "1 session (75 min)",
+    platform: "Google Meet",
+    deliverables: ["Study prompt pack", "Assignment workflow", "Exam revision system", "AI ethics guidelines"],
+    guarantee: "Free 30-min follow-up if deliverables not provided",
+    ctaText: "স্টুডেন্ট প্যাক নিন",
+    color: "blue"
+  },
+  {
+    slug: "support-student-pro",
+    title: "Student Pro Pack",
+    category: "student",
+    priceBDT: 3999,
+    priceLabel: "৳3,999",
+    target: "সিরিয়াস ছাত্রছাত্রী",
+    targetEN: "Serious Students",
+    sessions: "2 sessions",
+    platform: "Google Meet",
+    deliverables: ["Personal study agent workflow", "Subject-specific templates", "Weekly progress tracker"],
+    guarantee: "Free 30-min follow-up if deliverables not provided",
+    ctaText: "প্রো প্যাক নিন",
+    color: "purple"
+  },
+  {
+    slug: "support-freelancer",
+    title: "Freelancer Fast Delivery Pack",
+    category: "freelancer",
+    priceBDT: 4999,
+    priceLabel: "৳4,999",
+    target: "ফ্রিল্যান্সার",
+    targetEN: "Freelancers",
+    sessions: "2 sessions",
+    platform: "Google Meet",
+    deliverables: ["Proposal generator prompts", "Client communication templates", "Delivery workflow", "Portfolio upgrade prompts"],
+    guarantee: "Free 30-min follow-up if deliverables not provided",
+    ctaText: "ফ্রিল্যান্সার প্যাক নিন",
+    color: "green"
+  },
+  {
+    slug: "support-freelancer-agency",
+    title: "Freelancer Agency Pack",
+    category: "freelancer",
+    priceBDT: 9999,
+    priceLabel: "৳9,999",
+    target: "এজেন্সি-লেভেল ফ্রিল্যান্সার",
+    targetEN: "Agency Freelancers",
+    sessions: "4 sessions",
+    platform: "Google Meet",
+    deliverables: ["3 mini AI agents (proposal/delivery/QA)", "SOP pack", "Weekly optimization"],
+    guarantee: "Free 30-min follow-up if deliverables not provided",
+    ctaText: "এজেন্সি প্যাক নিন",
+    color: "green"
+  },
+  {
+    slug: "support-business",
+    title: "Business AI Setup",
+    category: "business",
+    priceBDT: 12999,
+    priceLabel: "৳12,999",
+    target: "ব্যবসা/এজেন্সি",
+    targetEN: "Business/Agency",
+    sessions: "3 sessions",
+    platform: "Google Meet",
+    deliverables: ["Sales agent workflow", "Support agent workflow", "Ops workflow", "Team training (45 min)"],
+    guarantee: "Free 30-min follow-up if deliverables not provided",
+    ctaText: "বিজনেস সেটআপ নিন",
+    color: "orange"
+  },
+  {
+    slug: "support-360",
+    title: "360 AI Solution (Premium)",
+    category: "business",
+    priceBDT: 24999,
+    priceLabel: "৳24,999 থেকে",
+    target: "বড় ব্যবসা/কর্পোরেট",
+    targetEN: "Large Business/Corporate",
+    sessions: "Custom",
+    platform: "Google Meet + WhatsApp",
+    deliverables: ["Full tool stack + automation planning", "30-day dedicated support"],
+    guarantee: "Custom SLA per agreement",
+    ctaText: "কাস্টম প্ল্যান নিন",
+    color: "red"
+  }
+];
+export const memberships = [
+  { slug: "membership-starter", title: "Starter", priceBDT: 2999, priceLabel: "৳2,999/মাস", hours: 2, extras: "WhatsApp priority" },
+  { slug: "membership-pro", title: "Pro", priceBDT: 5999, priceLabel: "৳5,999/মাস", hours: 5, extras: "WhatsApp priority" },
+  { slug: "membership-team", title: "Team", priceBDT: 14999, priceLabel: "৳14,999/মাস", hours: 15, extras: "WhatsApp priority + 1 workshop" }
+];
+5) Create /lib/config.ts:
+
+export const config = {
+  brand: "AI Team Premium BD",
+  whatsapp: "+8801533262758",
+  whatsappUrl: "https://wa.me/8801533262758",
+  facebook: "https://www.facebook.com/profile.php?id=61586742067282",
+  supportFormUrl: "PLACEHOLDER_GOOGLE_FORM_URL",
+  lastVerified: "2026-03-05",
+  officialPricingUrl: "https://chatgpt.com/pricing/"
+};
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STEP 1 — CHATGPT PLANS HUB + DETAIL PAGES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+A) Create /chatgpt-plans (Plans Hub Page)
+
+Sections (in order):
+1. HERO
+   - Bangla headline: "বাংলাদেশে ChatGPT — ৳399 থেকে শুরু"
+   - English subtitle: "ChatGPT Plus, Pro & Business at Bangladesh-friendly prices. Instant delivery. bKash & Nagad accepted."
+   - 2 CTAs: "WhatsApp এ অর্ডার করুন" + "সব প্ল্যান দেখুন ↓"
+
+2. TRUST BAR (horizontal strip)
+   - "✅ Instant Delivery" | "✅ bKash/Nagad" | "✅ WhatsApp Support" | "✅ 30-Day Warranty"
+
+3. QUICK PLAN SELECTOR (from ZIP "Quick Plan Selector" section)
+   - Interactive: user picks a statement → highlights the matching plan card below
+   - Statements from ZIP:
+     * "সস্তায় Plus চাই" → Plus Shared ৳399
+     * "একটু stable চাই" → Premium Shared ৳950
+     * "নিজের account চাই" → Personal Seat ৳2,950
+     * "টিমের জন্য চাই" → Business Personal-like ৳3,899
+     * "সস্তায় Business চাই" → Business Shared ৳699
+     * "Stable Business চাই" → Business Premium Shared ৳1,299
+     * "সবচেয়ে powerful চাই" → Pro Premium Shared ৳4,500
+
+4. PLAN CARDS GRID (all 7 plans from chatgptPlans[])
+   Each card must show:
+   - Badge (e.g., "Most Popular", "Own Account")
+   - Plan name
+   - Price (large, bold)
+   - Key specs: seats, delivery SLA, access type
+   - 3-line feature highlights
+   - "Details" button → /chatgpt/[slug]
+   - "Order on WhatsApp" button → prefilled WhatsApp message
+   Group cards: Plus Plans | Business Plans | Pro Plan
+
+5. OFFICIAL vs LOCAL PRICING CLARITY (from ZIP)
+   - Short explainer: official USD prices vs our BDT wrapper
+   - Why BD users need this: no intl card, USD fear, 3DS failures
+
+6. HOW TO BUY (4-step visual)
+   - Step 1: WhatsApp/Facebook এ মেসেজ করুন
+   - Step 2: আমরা আপনার জন্য সেরা প্ল্যান confirm করি
+   - Step 3: bKash/Nagad এ পেমেন্ট করুন (instructions shared privately)
+   - Step 4: ৫-১৫ মিনিটে access পান + WhatsApp support
+
+7. FULL COMPARISON TABLE (from ZIP "All ChatGPT Plans — Complete Comparison")
+   - Render the full feature comparison table from the ZIP
+   - Must include: Free, Go, Plus, Pro, Business, Enterprise columns
+   - Responsive: horizontal scroll on mobile
+
+8. SUPPORT UPSELL BLOCK (see Step 2B)
+   - "শুধু সাবস্ক্রিপশন নয় — আমরা ব্যবহার শিখাই"
+
+9. FAQ SECTION (from ZIP — minimum 25 FAQs)
+   - Accordion UI
+   - Include FAQ schema JSON-LD
+
+10. FOOTER CTA
+    - WhatsApp + Facebook buttons
+    - "Refund Policy" link
+
+B) Create /chatgpt/[slug] (Dynamic Plan Detail Pages)
+
+For each plan in chatgptPlans[], create a detail page:
+
+1. BREADCRUMB: Home > ChatGPT Plans > [Plan Name]
+
+2. OFFER FACT BOX (from ZIP "Offer Fact Box")
+   - Plan, Seat Type, Seats, Duration, Price, Delivery, Support, Verified Date
+   - Styled as a prominent card
+
+3. RULES/DISCLOSURE BOX (⚠️ MUST be ABOVE first CTA)
+   - Red/orange bordered box
+   - For shared plans: "1 device only | No password changes | No recovery access | Shared with others"
+   - For Business: "Official minimum 2 seats when buying directly from OpenAI. Our tiers are local service wrappers."
+   - For Personal: "You own and control the account"
+
+4. WHAT YOU GET (from ZIP)
+   - Feature list with checkmarks
+
+5. WHAT YOU DON'T GET (if applicable, from ZIP)
+   - Items with ❌
+
+6. SEO PACK (rendered as meta tags, not visible)
+   - Use the SEO Title, Meta Description, Primary Keywords, Secondary Keywords from each offer's ZIP content
+
+7. MINI-FAQ (3-5 questions relevant to this specific plan)
+
+8. STICKY CTA BAR (bottom of viewport on mobile)
+   - "WhatsApp এ অর্ডার করুন" (prefilled with plan name + price)
+   - Secondary: "আরও জানুন" → scrolls to FAQ
+
+9. SUPPORT UPSELL BLOCK (same component from Step 2B)
+
+10. REFUND POLICY LINK: "See our Refund & Replacement Policy"
+
+C) WhatsApp Prefill Templates for Plans
+
+Create in config:
+whatsappPlanTemplates = {
+  "plus-shared": "আসসালামু আলাইকুম! আমি ChatGPT Plus Shared Seat (৳399/মাস) অর্ডার করতে চাই। আমার ইমেইল: [আপনার ইমেইল]",
+  "plus-premium-shared": "আসসালামু আলাইকুম! আমি ChatGPT Plus Premium Shared (৳950/মাস) অর্ডার করতে চাই।",
+  "plus-personal-seat": "আসসালামু আলাইকুম! আমি ChatGPT Plus Personal Seat (৳2,950/মাস) অর্ডার করতে চাই।",
+  "business-shared": "আসসালামু আলাইকুম! আমি ChatGPT Business Shared (৳699/মাস) অর্ডার করতে চাই।",
+  "business-premium-shared": "আসসালামু আলাইকুম! আমি ChatGPT Business Premium Shared (৳1,299/মাস) অর্ডার করতে চাই।",
+  "business-personal-like": "আসসালামু আলাইকুম! আমি ChatGPT Business Personal-like (৳3,899/মাস) অর্ডার করতে চাই।",
+  "pro-premium-shared": "আসসালামু আলাইকুম! আমি ChatGPT Pro Premium Shared (৳4,500/মাস) অর্ডার করতে চাই।"
+}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STEP 2 — PREMIUM HUMAN SUPPORT (UPSELL SYSTEM)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+This is the HIGH-MARGIN growth engine. Must be everywhere on the site.
+
+A) Create /support (Support Hub Page)
+
+Sections:
+
+1. HERO (Bangla-first)
+   - Title: "শুধু সাবস্ক্রিপশন নয় — আমরা ব্যবহার শিখাই"
+   - Subtitle: "বাংলায় কথা বলুন। আপনার কাজ/পড়াশোনা/ব্যবসা অনুযায়ী AI workflow + prompt pack + full setup পান।"
+   - Subtitle (EN): "Not just subscriptions — we teach you how to use AI. Bangla-first. Live Google Meet sessions. Prompt packs + workflows included."
+   - CTA 1: "WhatsApp এ বুক করুন" → prefilled support message
+   - CTA 2: "ফর্ম পূরণ করুন" → Google Form link
+
+2. TRUST STRIP
+   - "🇧🇩 বাংলায় সাপোর্ট" | "📦 Prompt Pack + Workflow গ্যারান্টি" | "🎥 Google Meet লাইভ" | "💳 bKash/Nagad"
+
+3. HOW IT WORKS (4-step visual)
+   - Step 1: WhatsApp/ফর্মে আপনার কাজ ও সমস্যা বলুন
+   - Step 2: আমরা আপনার জন্য কাস্টম প্ল্যান তৈরি করি
+   - Step 3: Google Meet এ লাইভ সেশন (screen share + guidance)
+   - Step 4: Prompt pack + workflow + 7-day action plan ডেলিভারি + 24h ফলো-আপ
+
+4. PACKAGES GRID
+
+   === Entry (Everyone) ===
+   CARD: Premium Support Hourly
+   - Price: ৳799/ঘন্টা
+   - For: সবাই
+   - Platform: Google Meet
+   - Deliverables: Prompt pack (10-20 prompts) + Workflow steps + Tool stack + 7-day action plan
+   - Guarantee: ডেলিভারেবল না পেলে → Free 30-min follow-up
+   - CTA: "বুক করুন"
+
+   === Student Track ===
+   CARD: Student Smart Study Pack
+   - Price: ৳1,999 (1 session, 75 min)
+   - For: ছাত্রছাত্রী
+   - Deliverables: Study prompt pack + Assignment workflow + Exam revision system + AI ethics guidelines
+   - Promise: "ভালো করে পড়ুন, ভালো করে লিখুন, সঠিকভাবে শিখুন"
+   - CTA: "স্টুডেন্ট প্যাক নিন"
+
+   CARD: Student Pro Pack
+   - Price: ৳3,999 (2 sessions)
+   - For: সিরিয়াস ছাত্রছাত্রী
+   - Deliverables: Personal study agent + Subject templates + Weekly progress tracker
+   - CTA: "প্রো প্যাক নিন"
+
+   === Freelancer Track ===
+   CARD: Freelancer Fast Delivery Pack
+   - Price: ৳4,999 (2 sessions)
+   - For: ফ্রিল্যান্সার
+   - Deliverables: Proposal generator + Client comm templates + Delivery workflow + Portfolio prompts
+   - Promise: "বেশি আয় করুন, দ্রুত ডেলিভারি দিন"
+   - CTA: "ফ্রিল্যান্সার প্যাক নিন"
+
+   CARD: Freelancer Agency Pack
+   - Price: ৳9,999 (4 sessions)
+   - For: এজেন্সি-লেভেল ফ্রিল্যান্সার
+   - Deliverables: 3 mini AI agents (proposal/delivery/QA) + SOP pack + Weekly optimization
+   - CTA: "এজেন্সি প্যাক নিন"
+
+   === Business Track ===
+   CARD: Business AI Setup
+   - Price: ৳12,999 (3 sessions)
+   - For: ব্যবসা/এজেন্সি
+   - Deliverables: Sales agent workflow + Support agent + Ops workflow + Team training (45 min)
+   - Promise: "সময় বাঁচান, সিস্টেম তৈরি করুন"
+   - CTA: "বিজনেস সেটআপ নিন"
+
+   CARD: 360 AI Solution (Premium)
+   - Price: ৳24,999 থেকে (custom)
+   - For: বড় ব্যবসা/কর্পোরেট
+   - Deliverables: Full tool stack + automation + 30-day dedicated support
+   - CTA: "কাস্টম প্ল্যান নিন"
+
+   === Membership (Recurring) ===
+   3-column card:
+   - Starter: ৳2,999/মাস → 2 ঘন্টা + WhatsApp priority
+   - Pro: ৳5,999/মাস → 5 ঘন্টা + WhatsApp priority
+   - Team: ৳14,999/মাস → 15 ঘন্টা + 1 workshop + WhatsApp priority
+   Rules: "অব্যবহৃত ঘন্টা সর্বোচ্চ ৭ দিন carry forward হবে"
+
+5. GUARANTEE SECTION (yellow/green box)
+   - Bangla: "সেশন শেষে আপনি ৪টা ডেলিভারেবল পাবেন: Prompt pack, workflow steps, tool stack recommendation, 7-day action plan. এগুলো না পেলে free 30-min follow-up।"
+   - Refund rule: "Support fee refundable only if you request within 15 minutes of session start and we determine we cannot help your specific case. Tools/subscription fees are never refundable. Refund not applicable if you provided incorrect info, did not attend, or did not implement."
+
+6. WHO IS THIS FOR? (Segment cards)
+   - 🎓 Student: "পড়াশোনা দ্রুত করুন, ভালো লিখুন, সঠিকভাবে শিখুন"
+   - 💼 Freelancer: "বেশি আয় করুন, দ্রুত ডেলিভারি দিন, ক্লায়েন্ট ম্যানেজ করুন"
+   - 🔍 Job Seeker: "CV তৈরি, ইন্টারভিউ prep, skills roadmap"
+   - 🏢 Business: "সময় বাঁচান, সিস্টেম তৈরি করুন, টিমকে শেখান"
+
+7. FAQ ACCORDION (Support-specific)
+   Q1: "সাপোর্ট কীভাবে নেব?"
+   A1: "WhatsApp এ মেসেজ করুন অথবা আমাদের ফর্ম পূরণ করুন। আমরা আপনার সমস্যা বুঝে সেশন schedule করব।"
+
+   Q2: "বাংলায় কথা বলা যাবে?"
+   A2: "হ্যাঁ! আমরা ১০০% বাংলায় সাপোর্ট দিই। আপনি আপনার মাতৃভাষায় সব বলুন।"
+
+   Q3: "আমি স্টুডেন্ট — কী কী শিখানো হবে?"
+   A3: "Study workflow, better writing techniques, exam preparation, AI-powered learning — সব কিছু আপনার subject অনুযায়ী কাস্টমাইজ করা হবে।"
+
+   Q4: "ফ্রিল্যান্সারদের জন্য কী সুবিধা?"
+   A4: "Proposal writing, client communication, faster delivery, portfolio improvement — সবকিছু AI দিয়ে automate করে দেব।"
+
+   Q5: "রিফান্ড কিভাবে কাজ করে?"
+   A5: "Support fee refundable if requested within 15 min of session start. Tools/subscription fees are not refundable."
+
+   Q6: "সাবস্ক্রিপশন না কিনেও সাপোর্ট নিতে পারবো?"
+   A6: "হ্যাঁ! তবে আমাদের সাবস্ক্রিপশন কাস্টমারদের priority দেওয়া হয়।"
+
+   Q7: "সেশনে কী কী পাব?"
+   A7: "Prompt pack (10-20 prompts), step-by-step workflow, tool recommendation, 7-day action plan — সব written format এ পাবেন।"
+
+   Q8: "Google Meet ছাড়া অন্য platform এ কি সেশন নেওয়া যায়?"
+   A8: "আমরা primarily Google Meet ব্যবহার করি (সবচেয়ে accessible)। বিশেষ ক্ষেত্রে WhatsApp video call ও সম্ভব।"
+
+   Add FAQ schema JSON-LD for these.
+
+8. FINAL CTA SECTION
+   - "আজকেই শুরু করুন" → WhatsApp + Form buttons
+
+B) Create <SupportUpsell/> Reusable Component
+
+A compact upsell block to insert on multiple pages:
+- Heading: "🎓 AI ব্যবহার শিখতে চান? Premium Support নিন"
+- Subtext: "লাইভ Google Meet সেশনে আপনার কাজ অনুযায়ী কাস্টম prompt pack + workflow পান। ৳799/ঘন্টা থেকে শুরু।"
+- 2 buttons: "সাপোর্ট বুক করুন" (WhatsApp) + "বিস্তারিত দেখুন" (/support)
+- Background: light gradient or subtle card
+
+Insert <SupportUpsell/> on:
+- Home page (after pricing section)
+- /chatgpt-plans (after plan cards, before FAQ)
+- Every /chatgpt/[slug] (below rules/disclosure, above FAQ)
+- Footer quick links area
+
+C) WhatsApp Support Prefills
+
+whatsappSupportTemplates = {
+  "hourly": "আসসালামু আলাইকুম! আমি Premium Support (৳799/ঘন্টা) নিতে চাই।\nআমার কাজ: [আপনার কাজের বিবরণ]\nপ্রেফার্ড সময়: [তারিখ ও সময়]",
+  "student": "আসসালামু আলাইকুম! আমি Student Smart Study Pack (৳1,999) নিতে চাই।\nআমি [বিষয়/লেভেল] পড়ি।\nসমস্যা: [আপনার সমস্যা]",
+  "student-pro": "আসসালামু আলাইকুম! আমি Student Pro Pack (৳3,999) নিতে চাই।",
+  "freelancer": "আসসালামু আলাইকুম! আমি Freelancer Fast Delivery Pack (৳4,999) নিতে চাই।\nআমার platform: [Upwork/Fiverr/etc]\nকাজের ধরন: [আপনার কাজ]",
+  "freelancer-agency": "আসসালামু আলাইকুম! আমি Freelancer Agency Pack (৳9,999) নিতে চাই।",
+  "business": "আসসালামু আলাইকুম! আমি Business AI Setup (৳12,999) নিতে চাই।\nব্যবসা: [আপনার ব্যবসার নাম ও ধরন]",
+  "360-solution": "আসসালামু আলাইকুম! আমি 360 AI Solution নিতে চাই। বিস্তারিত জানতে চাই।",
+  "membership-starter": "আসসালামু আলাইকুম! আমি Membership Starter (৳2,999/মাস) নিতে চাই।",
+  "membership-pro": "আসসালামু আলাইকুম! আমি Membership Pro (৳5,999/মাস) নিতে চাই।",
+  "membership-team": "আসসালামু আলাইকুম! আমি Membership Team (৳14,999/মাস) নিতে চাই।"
+}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STEP 3 — REFUND & POLICY PAGE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1) Create /refund-policy
+   - Render refund-policy.md from ZIP exactly
+   - Add a section for SUPPORT refund rules:
+     * Support fee refundable if requested within 15 min of session start
+     * Tools/subscription fees never refundable
+     * No refund if: wrong info provided, no-show, non-implementation
+   - SEO meta: "AI Team Premium BD Refund Policy — ChatGPT Subscriptions & Support"
+
+2) Link from:
+   - Footer (always visible)
+   - Every plan detail page (near CTA)
+   - Support page (guarantee section)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STEP 4 — SEO + SCHEMA (CRITICAL FOR RANKING)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+A) Page-level SEO (unique per page)
+
+/chatgpt-plans:
+  title: "ChatGPT Plans in Bangladesh 2026 — ৳399 থেকে | AI Team Premium BD"
+  description: "বাংলাদেশে ChatGPT Plus, Pro ও Business কিনুন ৳399 থেকে। Instant delivery, bKash/Nagad, WhatsApp support। AI Team Premium BD।"
+
+/chatgpt/plus-shared:
+  title: "ChatGPT Plus Shared Seat ৳399/মাস — Bangladesh | AI Team Premium BD"
+  description: "ChatGPT Plus shared access ৳399/মাসে। GPT-5.3 Instant + Agent mode + Codex + Sora। 5-15 মিনিটে delivery। bKash/Nagad।"
+
+/chatgpt/plus-premium-shared:
+  title: "ChatGPT Plus Premium Shared ৳950/মাস — Stable | AI Team Premium BD"
+  description: "Stable ChatGPT Plus access ৳950/মাসে। মাত্র 2-3 জন per account। Fast response, less congestion।"
+
+/chatgpt/plus-personal-seat:
+  title: "নিজের ChatGPT Plus Account ৳2,950/মাস — Bangladesh | AI Team Premium BD"
+  description: "আপনার নিজের ChatGPT Plus account। Full control, memory, history। Official billing আপনার নামে।"
+
+/chatgpt/business-shared:
+  title: "ChatGPT Business Shared ৳699/মাস — Team Plan BD | AI Team Premium BD"
+  description: "ChatGPT Business (formerly Team) ৳699 থেকে। Admin console, SSO, 60+ integrations। Workspace invite model।"
+
+/chatgpt/business-premium-shared:
+  title: "ChatGPT Business Premium Shared ৳1,299/মাস | AI Team Premium BD"
+  description: "Stable ChatGPT Business access ৳1,299/মাসে। 2-3 users, premium quality workspace।"
+
+/chatgpt/business-personal-like:
+  title: "ChatGPT Business Dedicated ৳3,899/মাস | AI Team Premium BD"
+  description: "Dedicated ChatGPT Business experience। 1 user, full workspace features, admin controls।"
+
+/chatgpt/pro-premium-shared:
+  title: "ChatGPT Pro Bangladesh ৳4,500/মাস — GPT-5.2 Pro | AI Team Premium BD"
+  description: "Unlimited GPT-5.2 Pro access। ChatGPT Pulse exclusive। 128K context। Most powerful ChatGPT plan।"
+
+/support:
+  title: "ChatGPT সাপোর্ট বাংলাদেশ — AI Training & Live Support | AI Team Premium BD"
+  description: "বাংলায় ChatGPT শিখুন। লাইভ Google Meet সেশন। Prompt pack + workflow। ৳799/ঘন্টা থেকে। Student, Freelancer, Business packages।"
+
+/refund-policy:
+  title: "Refund & Replacement Policy — AI Team Premium BD"
+  description: "AI Team Premium BD refund and replacement policy for ChatGPT subscriptions and support services."
+
+B) Schema Markup (JSON-LD)
+
+On EVERY page, add Organization schema:
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "AI Team Premium BD",
+  "url": "https://aiteampremiumbd.com",
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "+8801533262758",
+    "contactType": "sales",
+    "availableLanguage": ["Bengali", "English"]
+  },
+  "areaServed": "BD",
+  "sameAs": ["https://www.facebook.com/profile.php?id=61586742067282"]
+}
+
+On /chatgpt-plans + each /chatgpt/[slug], add Product schema:
+{
+  "@type": "Product",
+  "name": "[plan title]",
+  "description": "[from ZIP]",
+  "offers": {
+    "@type": "Offer",
+    "price": "[priceBDT]",
+    "priceCurrency": "BDT",
+    "availability": "https://schema.org/InStock"
+  }
+}
+
+On /chatgpt-plans + /support, add FAQPage schema from FAQ content.
+
+C) Sitemap
+- Generate/update sitemap.xml with all new routes
+- Ensure robots.txt allows crawling
+
+D) Internal linking
+- Home → ChatGPT Plans → Each Plan Detail
+- Home → Support
+- Each Plan Detail → Support (upsell)
+- Support → ChatGPT Plans
+- All pages → Refund Policy (footer)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STEP 5 — UPDATE EXISTING PAGES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1) HOME PAGE
+   - Update hero to mention "ChatGPT Plans from ৳399"
+   - Replace any old/hardcoded pricing with data from /lib/plans.ts
+   - Add "ChatGPT Plans" prominently in navigation
+   - Add <SupportUpsell/> after pricing section
+   - Ensure "ChatGPT Plans" and "Support" are in main nav
+
+2) NAVIGATION
+   - Add to header: "ChatGPT Plans" → /chatgpt-plans
+   - Add to header: "Support" → /support
+   - Footer: "ChatGPT Plans" | "Support" | "Refund Policy" | "WhatsApp" | "Facebook"
+
+3) EXISTING PRICING/AI-SUBSCRIPTIONS PAGE
+   - Either redirect to /chatgpt-plans OR update with current plans
+   - Remove/replace ALL old hardcoded plan data
+   - Must match ZIP pricing exactly
+
+4) Remove ALL placeholder/fake content
+   - Any EcoBrand, UrbanFit, TechFlow, TechAI references → remove
+   - Any old ChatGPT plan data that doesn't match ZIP → replace
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STEP 6 — MOBILE + CONVERSION OPTIMIZATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1) Mobile-first (90%+ BD traffic is mobile)
+   - Sticky bottom CTA bar on all pages
+   - WhatsApp button always accessible
+   - Cards stack vertically on mobile
+   - Table scrolls horizontally
+   - Font size readable (min 16px body)
+
+2) Speed
+   - Lazy load images
+   - Minimize JS bundle
+   - No unnecessary animations
+
+3) Bangla typography
+   - Use a font that renders Bangla well (Noto Sans Bengali or Hind Siliguri)
+   - Ensure ৳ symbol renders correctly everywhere
+
+4) Click tracking (lightweight)
+   - Track: WhatsApp clicks, Form clicks, Plan card clicks, Support package clicks
+   - Console log or simple analytics event
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STEP 7 — QA CHECKLIST (MUST PASS ALL)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[ ] All 7 ChatGPT plans displayed with correct ZIP pricing
+[ ] Each plan has its own detail page at /chatgpt/[slug]
+[ ] Disclosure/rules box appears ABOVE first CTA on shared plans
+[ ] Refund policy page exists and is linked from footer + plan pages
+[ ] Support page exists with all packages + FAQs
+[ ] <SupportUpsell/> appears on: Home, ChatGPT hub, every plan detail page
+[ ] WhatsApp prefill messages work for all plans + all support packages
+[ ] No old/hardcoded pricing remains anywhere on site
+[ ] No placeholder brand names (EcoBrand, UrbanFit, etc.) remain
+[ ] FAQ schema JSON-LD present on /chatgpt-plans and /support
+[ ] Organization schema on all pages
+[ ] Meta titles + descriptions unique per page
+[ ] Mobile responsive: sticky CTA, readable text, scrollable tables
+[ ] Footer links: Refund Policy, ChatGPT Plans, Support, WhatsApp, Facebook
+[ ] Sitemap.xml updated with all new routes
+[ ] All internal links work (no 404s)
+[ ] Bangla text renders correctly (proper font)
+[ ] bKash/Nagad numbers NOT displayed publicly (shared via WhatsApp only)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+DELIVER
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1) Updated site running in Replit
+2) README.md listing:
+   - All plan slugs and URLs
+   - All support package names and prices
+   - Location of WhatsApp templates config
+   - Location of form URL config
+   - Which existing pages were modified
+   - New pages created
+3) No broken links, no old data, no placeholder content

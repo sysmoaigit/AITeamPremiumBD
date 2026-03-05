@@ -1,0 +1,113 @@
+export const supportOffers = [
+  {
+    slug: "support-hourly",
+    title: "Premium Support Hourly",
+    category: "entry",
+    priceBDT: 799,
+    priceLabel: "৳799/ঘন্টা",
+    target: "সবাই",
+    targetEN: "Everyone",
+    sessions: "1 hr",
+    platform: "Google Meet",
+    deliverables: ["Prompt pack (10-20 prompts)", "Workflow steps", "Tool stack recommendation", "7-day action plan"],
+    guarantee: "ডেলিভারেবল না পেলে → Free 30-min follow-up",
+    ctaText: "বুক করুন",
+    color: "blue"
+  },
+  {
+    slug: "support-student",
+    title: "Student Smart Study Pack",
+    category: "student",
+    priceBDT: 1999,
+    priceLabel: "৳1,999",
+    target: "ছাত্রছাত্রী",
+    targetEN: "Students",
+    sessions: "1 session (75 min)",
+    platform: "Google Meet",
+    deliverables: ["Study prompt pack", "Assignment workflow", "Exam revision system", "AI ethics guidelines"],
+    guarantee: "Free 30-min follow-up if deliverables not provided",
+    ctaText: "স্টুডেন্ট প্যাক নিন",
+    color: "blue"
+  },
+  {
+    slug: "support-student-pro",
+    title: "Student Pro Pack",
+    category: "student",
+    priceBDT: 3999,
+    priceLabel: "৳3,999",
+    target: "সিরিয়াস ছাত্রছাত্রী",
+    targetEN: "Serious Students",
+    sessions: "2 sessions",
+    platform: "Google Meet",
+    deliverables: ["Personal study agent workflow", "Subject-specific templates", "Weekly progress tracker"],
+    guarantee: "Free 30-min follow-up if deliverables not provided",
+    ctaText: "প্রো প্যাক নিন",
+    color: "purple"
+  },
+  {
+    slug: "support-freelancer",
+    title: "Freelancer Fast Delivery Pack",
+    category: "freelancer",
+    priceBDT: 4999,
+    priceLabel: "৳4,999",
+    target: "ফ্রিল্যান্সার",
+    targetEN: "Freelancers",
+    sessions: "2 sessions",
+    platform: "Google Meet",
+    deliverables: ["Proposal generator prompts", "Client communication templates", "Delivery workflow", "Portfolio upgrade prompts"],
+    guarantee: "Free 30-min follow-up if deliverables not provided",
+    ctaText: "ফ্রিল্যান্সার প্যাক নিন",
+    color: "green"
+  },
+  {
+    slug: "support-freelancer-agency",
+    title: "Freelancer Agency Pack",
+    category: "freelancer",
+    priceBDT: 9999,
+    priceLabel: "৳9,999",
+    target: "এজেন্সি-লেভেল ফ্রিল্যান্সার",
+    targetEN: "Agency Freelancers",
+    sessions: "4 sessions",
+    platform: "Google Meet",
+    deliverables: ["3 mini AI agents (proposal/delivery/QA)", "SOP pack", "Weekly optimization"],
+    guarantee: "Free 30-min follow-up if deliverables not provided",
+    ctaText: "এজেন্সি প্যাক নিন",
+    color: "green"
+  },
+  {
+    slug: "support-business",
+    title: "Business AI Setup",
+    category: "business",
+    priceBDT: 12999,
+    priceLabel: "৳12,999",
+    target: "ব্যবসা/এজেন্সি",
+    targetEN: "Business/Agency",
+    sessions: "3 sessions",
+    platform: "Google Meet",
+    deliverables: ["Sales agent workflow", "Support agent workflow", "Ops workflow", "Team training (45 min)"],
+    guarantee: "Free 30-min follow-up if deliverables not provided",
+    ctaText: "বিজনেস সেটআপ নিন",
+    color: "orange"
+  },
+  {
+    slug: "support-360",
+    title: "360 AI Solution (Premium)",
+    category: "business",
+    priceBDT: 24999,
+    priceLabel: "৳24,999 থেকে",
+    target: "বড় ব্যবসা/কর্পোরেট",
+    targetEN: "Large Business/Corporate",
+    sessions: "Custom",
+    platform: "Google Meet + WhatsApp",
+    deliverables: ["Full tool stack + automation planning", "30-day dedicated support"],
+    guarantee: "Custom SLA per agreement",
+    ctaText: "কাস্টম প্ল্যান নিন",
+    color: "red"
+  }
+];
+
+export const memberships = [
+  { slug: "membership-starter", title: "Starter", priceBDT: 2999, priceLabel: "৳2,999/মাস", hours: 2, extras: "WhatsApp priority" },
+  { slug: "membership-pro", title: "Pro", priceBDT: 5999, priceLabel: "৳5,999/মাস", hours: 5, extras: "WhatsApp priority" },
+  { slug: "membership-team", title: "Team", priceBDT: 14999, priceLabel: "৳14,999/মাস", hours: 15, extras: "WhatsApp priority + 1 workshop" }
+];
