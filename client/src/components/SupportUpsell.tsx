@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { BRAND } from "@/components/brand/LogoIcons";
+import { BRAND, WhatsAppIcon } from "@/components/brand/LogoIcons";
 import { Link } from "wouter";
 import { MessageCircle, ArrowRight } from "lucide-react";
 import { config } from "@/lib/config";
@@ -24,30 +24,37 @@ export function SupportUpsell() {
             লাইভ Google Meet সেশনে আপনার কাজ অনুযায়ী কাস্টম prompt pack + workflow পান। ৳৭৯৯/ঘন্টা থেকে শুরু।
           </p>
         </div>
-        <div className="flex flex-col sm:flex-row gap-4 shrink-0 w-full md:w-auto">
-          <Button 
-            className="w-full sm:w-auto gap-2 rounded-full"
-            size="lg"
-            asChild
-            style={{ backgroundColor: BRAND.blue, color: BRAND.white }}
+        <div className="flex flex-col sm:flex-row gap-3 shrink-0 w-full md:w-auto">
+          <a
+            href={config.whatsappGeneral}
+            target="_blank"
+            rel="noopener noreferrer"
             data-testid="button-book-support"
+            className="inline-flex items-center justify-center gap-2 rounded-full h-11 px-5 font-bold text-white text-sm"
+            style={{ background: "#25D366" }}
           >
-            <a href={config.whatsappUrl} target="_blank" rel="noopener noreferrer">
-              <MessageCircle className="w-5 h-5" />
-              সাপোর্ট বুক করুন
-            </a>
-          </Button>
-          <Button 
+            <WhatsAppIcon size={17} color="#fff" /> WhatsApp
+          </a>
+          <a
+            href={config.messenger}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-testid="button-book-support-messenger"
+            className="inline-flex items-center justify-center gap-2 rounded-full h-11 px-5 font-bold text-white text-sm"
+            style={{ background: "#0084FF" }}
+          >
+            <MessageCircle className="w-4 h-4" /> Messenger
+          </a>
+          <Button
             variant="outline"
-            className="w-full sm:w-auto gap-2 rounded-full"
-            size="lg"
+            className="w-full sm:w-auto gap-2 rounded-full h-11"
             asChild
             style={{ borderColor: BRAND.blue, color: BRAND.blue }}
             data-testid="link-support-details"
           >
             <Link href="/support">
-              বিস্তারিত দেখুন
-              <ArrowRight className="w-5 h-5" />
+              বিস্তারিত
+              <ArrowRight className="w-4 h-4" />
             </Link>
           </Button>
         </div>

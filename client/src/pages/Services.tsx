@@ -2,7 +2,7 @@ import { Layout } from "@/components/layout/Layout";
 import { BRAND, WhatsAppIcon } from "@/components/brand/LogoIcons";
 import { usePageMeta } from "@/hooks/use-page-meta";
 import { supportOffers, memberships } from "@/lib/support-offers";
-import { Check, ArrowUpRight, Clock, Star, Users, Briefcase, GraduationCap, ShieldCheck } from "lucide-react";
+import { Check, ArrowUpRight, Clock, Star, Users, Briefcase, GraduationCap, ShieldCheck, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
@@ -68,14 +68,28 @@ export default function Services() {
             আপনার নির্দিষ্ট কাজকে AI দিয়ে সহজ করার জন্য আমরা দিচ্ছি লাইভ ও কাস্টম সাপোর্ট। 
             <span className="block mt-2 opacity-60">Human-led live sessions to master AI tools for your specific needs.</span>
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="rounded-full px-8 gap-2" style={{ backgroundColor: BRAND.blue }} asChild data-testid="button-book-now">
-              <a href={config.whatsappUrl} target="_blank" rel="noopener noreferrer">
-                <WhatsAppIcon size={20} />
-                সাপোর্ট বুক করুন
-              </a>
-            </Button>
-            <Button size="lg" variant="outline" className="rounded-full px-8" style={{ borderColor: BRAND.blue, color: BRAND.blue }} asChild data-testid="button-start-project">
+          <div className="flex flex-wrap gap-3 justify-center">
+            <a
+              href={config.whatsappGeneral}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-testid="button-book-now"
+              className="inline-flex items-center gap-2 rounded-full px-7 h-12 font-bold text-white text-base"
+              style={{ background: "#25D366" }}
+            >
+              <WhatsAppIcon size={18} color="#fff" /> WhatsApp
+            </a>
+            <a
+              href={config.messenger}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-testid="button-book-now-messenger"
+              className="inline-flex items-center gap-2 rounded-full px-7 h-12 font-bold text-white text-base"
+              style={{ background: "#0084FF" }}
+            >
+              <MessageCircle size={18} color="#fff" /> Messenger
+            </a>
+            <Button size="lg" variant="outline" className="rounded-full px-7 h-12" style={{ borderColor: BRAND.blue, color: BRAND.blue }} asChild data-testid="button-start-project">
               <a href={config.supportFormUrl}>প্রজেক্ট শুরু করুন</a>
             </Button>
           </div>
@@ -170,12 +184,28 @@ export default function Services() {
                           <ShieldCheck size={16} className="text-green-600 shrink-0 mt-0.5" />
                           <p className="text-[11px] leading-relaxed text-green-800 font-medium">{offer.guarantee}</p>
                         </div>
-                        <Button className="w-full rounded-full gap-2" style={{ backgroundColor: BRAND.navy }} asChild data-testid={`button-order-${offer.slug}`}>
-                          <a href={config.whatsappUrl} target="_blank" rel="noopener noreferrer">
-                            <WhatsAppIcon size={18} />
-                            {offer.ctaText}
+                        <div className="flex flex-col gap-2">
+                          <a
+                            href={config.whatsappUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            data-testid={`button-order-${offer.slug}`}
+                            className="w-full inline-flex items-center justify-center gap-2 rounded-full h-11 font-bold text-white text-sm"
+                            style={{ background: "#25D366" }}
+                          >
+                            <WhatsAppIcon size={16} color="#fff" /> {offer.ctaText}
                           </a>
-                        </Button>
+                          <a
+                            href={config.messenger}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            data-testid={`button-order-msg-${offer.slug}`}
+                            className="w-full inline-flex items-center justify-center gap-2 rounded-full h-10 font-bold text-white text-sm"
+                            style={{ background: "#0084FF" }}
+                          >
+                            <MessageCircle size={14} color="#fff" /> Or Messenger
+                          </a>
+                        </div>
                       </CardContent>
                     </Card>
                   ))}
@@ -202,9 +232,28 @@ export default function Services() {
                   <p className="pb-4 border-b">{m.hours} Hours Live Support</p>
                   <p>{m.extras}</p>
                 </div>
-                <Button className="w-full rounded-full" variant="outline" style={{ borderColor: BRAND.blue, color: BRAND.blue }} asChild data-testid={`button-join-${m.slug}`}>
-                  <a href={config.whatsappUrl}>Join Membership</a>
-                </Button>
+                <div className="flex flex-col gap-2">
+                  <a
+                    href={config.whatsappUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    data-testid={`button-join-${m.slug}`}
+                    className="w-full inline-flex items-center justify-center gap-2 rounded-full h-11 font-bold text-white text-sm"
+                    style={{ background: "#25D366" }}
+                  >
+                    <WhatsAppIcon size={16} color="#fff" /> Join via WhatsApp
+                  </a>
+                  <a
+                    href={config.messenger}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    data-testid={`button-join-msg-${m.slug}`}
+                    className="w-full inline-flex items-center justify-center gap-2 rounded-full h-10 font-bold text-white text-sm"
+                    style={{ background: "#0084FF" }}
+                  >
+                    <MessageCircle size={14} color="#fff" /> Or Messenger
+                  </a>
+                </div>
               </Card>
             ))}
           </div>
@@ -284,11 +333,28 @@ export default function Services() {
       <section className="py-24 text-center">
         <div className="mx-auto max-w-7xl px-6 lg:px-10">
           <h2 className="text-4xl font-bold mb-8" style={{ color: BRAND.navy }}>আজকেই শুরু করুন</h2>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="rounded-full px-12 h-14 text-lg" style={{ backgroundColor: BRAND.blue }} asChild data-testid="button-final-whatsapp">
-              <a href={config.whatsappUrl} target="_blank" rel="noopener noreferrer">হোয়াটসঅ্যাপে বুক করুন</a>
-            </Button>
-            <Button size="lg" variant="outline" className="rounded-full px-12 h-14 text-lg" style={{ borderColor: BRAND.blue, color: BRAND.blue }} asChild data-testid="button-final-form">
+          <div className="flex flex-wrap gap-3 justify-center">
+            <a
+              href={config.whatsappGeneral}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-testid="button-final-whatsapp"
+              className="inline-flex items-center gap-2 rounded-full px-10 h-14 font-bold text-white text-lg"
+              style={{ background: "#25D366" }}
+            >
+              <WhatsAppIcon size={20} color="#fff" /> WhatsApp
+            </a>
+            <a
+              href={config.messenger}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-testid="button-final-messenger"
+              className="inline-flex items-center gap-2 rounded-full px-10 h-14 font-bold text-white text-lg"
+              style={{ background: "#0084FF" }}
+            >
+              <MessageCircle size={20} color="#fff" /> Messenger
+            </a>
+            <Button size="lg" variant="outline" className="rounded-full px-10 h-14 text-lg" style={{ borderColor: BRAND.blue, color: BRAND.blue }} asChild data-testid="button-final-form">
               <a href={config.supportFormUrl}>ফর্ম পূরণ করুন</a>
             </Button>
           </div>
