@@ -31,7 +31,7 @@ export function Footer() {
                 lineHeight: 1.3,
               }}
             >
-              বাংলাদেশে ChatGPT কিনুন — ৳৩৯৯ থেকে
+              বাংলাদেশে AI Tools — ৳৩৪৯ থেকে শুরু
             </h3>
             <p className="mt-1.5" style={{ color: "rgba(255,255,255,0.45)", fontSize: "0.85rem" }}>
               Get in touch — fastest response on WhatsApp.
@@ -128,12 +128,15 @@ export function Footer() {
             <FooterHeading>AI Tools</FooterHeading>
             <FooterLinks links={[
               { label: "ChatGPT Plans", to: "/chatgpt-plans" },
-              { label: "Claude Plans", to: "/claude-plans" },
+              { label: "Claude Pro", to: "/claude-plans" },
               { label: "Gemini Advanced", to: "/gemini-plans" },
-              { label: "Grammarly Premium", to: "/grammarly-plans" },
-              { label: "Canva Pro", to: "/canva-plans" },
-              { label: "Perplexity Pro", to: "/perplexity-plans" },
-              { label: "AI Tools Vault", to: "/ai-tools-vault" },
+              { label: "SuperGrok (xAI)", to: "/tools/supergrok" },
+              { label: "Google AI Pro", to: "/tools/google-ai-pro" },
+              { label: "Midjourney", to: "/tools/midjourney" },
+              { label: "Leonardo AI", to: "/tools/leonardo" },
+              { label: "Runway ML", to: "/tools/runway" },
+              { label: "Kling AI", to: "/tools/kling" },
+              { label: "All 18+ AI Tools →", to: "/ai-subscriptions" },
             ]} />
           </div>
 

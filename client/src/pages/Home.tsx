@@ -152,7 +152,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="absolute bottom-0 left-0 right-0 h-24" style={{ background: `linear-gradient(to top, ${BRAND.white}, transparent)` }} />
+        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white dark:from-gray-950 to-transparent" />
       </section>
 
       {/* DIRECT ANSWER BLOCK (GEO: answer-first, 40-60 words, statistics) */}

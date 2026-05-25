@@ -8,33 +8,38 @@ import { config } from "@/lib/config";
 import { BreadcrumbSchema, JsonLd, FAQSchema, ProductSchema } from "@/components/seo/JsonLd";
 
 const AI_SUB_FAQS = [
-  { q: "Which AI tools does AI Team Premium BD sell in Bangladesh?", a: "AI Team Premium BD sells 14+ premium AI subscriptions: ChatGPT Plus (৳399/mo), Claude Pro (৳599/mo), Gemini Advanced (৳499/mo), Grammarly Premium (৳800/mo), Canva Pro (৳350/mo), Midjourney (৳1,200/mo), Perplexity Pro (৳599/mo), Grok Premium (৳699/mo), GitHub Copilot (৳1,200/mo), Notion AI (৳450/mo), Microsoft 365 Copilot (৳899/mo), LinkedIn Premium (৳999/mo), ElevenLabs Voice AI (৳699/mo), and the AI Tools Vault bundle (৳1,990/mo) — all payable in BDT via bKash, Nagad, Rocket or Bank Transfer." },
+  { q: "Which AI tools does AI Team Premium BD sell in Bangladesh?", a: "AI Team Premium BD sells 18+ premium AI subscriptions: ChatGPT Plus (৳399/mo), Claude Pro (৳599/mo), Google AI Pro (৳449/mo), SuperGrok (৳499/mo), Gemini Advanced (৳499/mo), Perplexity Pro (৳599/mo), Midjourney (৳1,200/mo), Leonardo AI (৳349/mo), Runway ML (৳899/mo), Kling AI (৳599/mo), Grammarly Premium (৳800/mo), Canva Pro (৳350/mo), ElevenLabs Voice AI (৳699/mo), Notion AI (৳450/mo), GitHub Copilot (৳1,200/mo), Microsoft 365 Copilot (৳899/mo), LinkedIn Premium (৳999/mo), and the AI Tools Vault bundle (৳1,990/mo) — all payable in BDT via bKash, Nagad, Rocket or Bank Transfer." },
   { q: "How do I buy an AI subscription in Bangladesh without an international credit card?", a: "AI Team Premium BD lets you pay in BDT via bKash, Nagad, Rocket or Bank Transfer. Message on WhatsApp (+880 1533-262758), choose a plan, pay, and get access within 5–15 minutes for most tools." },
-  { q: "What is the cheapest AI subscription available in Bangladesh?", a: "ChatGPT Plus Shared is ৳399/month from AI Team Premium BD — the most affordable option, paid via bKash/Nagad with 5-15 minute delivery and a 30-day replacement warranty." },
-  { q: "Does AI Team Premium BD deliver AI subscriptions quickly?", a: "Yes. Most shared plans (ChatGPT, Claude, Gemini, Perplexity, Grok, Notion, ElevenLabs) are delivered within 5–15 minutes. Professional tools like GitHub Copilot, Microsoft 365, and LinkedIn Premium take 2–4 hours. The AI Tools Vault bundle takes up to 6 hours." },
+  { q: "What is the cheapest AI subscription available in Bangladesh?", a: "Leonardo AI Shared starts at ৳349/month and ChatGPT Plus Shared at ৳399/month — both paid via bKash/Nagad with 5-15 minute delivery and a 30-day replacement warranty." },
+  { q: "Does AI Team Premium BD deliver AI subscriptions quickly?", a: "Yes. Most shared plans (ChatGPT, Claude, Gemini, Google AI Pro, SuperGrok, Perplexity, Leonardo, Runway, Kling, Notion, ElevenLabs, Canva) are delivered within 5–15 minutes. Professional tools like GitHub Copilot, Microsoft 365, and LinkedIn Premium take 2–4 hours." },
+  { q: "Can I get AI video generation tools in Bangladesh via bKash?", a: "Yes — AI Team Premium BD offers Runway ML (৳899/mo, Gen-3 Alpha cinematic video) and Kling AI (৳599/mo, up to 5-minute realistic videos) — both payable via bKash/Nagad with 5-15 minute delivery." },
 ];
 
 const SUBS = [
-  { name: "ChatGPT Plus", type: "Shared", price: "৳399", period: "/mo", delivery: "5-15 min", link: "/tools/chatgpt" },
-  { name: "Claude Pro", type: "Shared", price: "৳599", period: "/mo", delivery: "5-15 min", link: "/tools/claude" },
-  { name: "Gemini Advanced", type: "Shared", price: "৳499", period: "/mo", delivery: "5-15 min", link: "/tools/gemini" },
-  { name: "Grammarly Premium", type: "Private", price: "৳800", period: "/mo", delivery: "1-2 hr", link: "/tools/grammarly" },
-  { name: "Perplexity Pro", type: "Shared", price: "৳599", period: "/mo", delivery: "5-15 min", link: "/tools/perplexity" },
-  { name: "Grok Premium", type: "Shared", price: "৳699", period: "/mo", delivery: "5-15 min", link: "/tools/grok" },
-  { name: "Midjourney", type: "Shared", price: "৳1,200", period: "/mo", delivery: "5-15 min", link: "/tools/midjourney" },
-  { name: "Canva Pro", type: "Team", price: "৳350", period: "/mo", delivery: "5-15 min", link: "/tools/canva" },
-  { name: "GitHub Copilot", type: "Private", price: "৳1,200", period: "/mo", delivery: "2-4 hr", link: "/tools/copilot" },
-  { name: "Notion AI", type: "Team", price: "৳450", period: "/mo", delivery: "5-15 min", link: "/tools/notion" },
-  { name: "Microsoft 365 Copilot", type: "Shared", price: "৳899", period: "/mo", delivery: "2-4 hr", link: "/tools/microsoft365" },
-  { name: "LinkedIn Premium Career", type: "Private", price: "৳999", period: "/mo", delivery: "2-4 hr", link: "/tools/linkedin" },
-  { name: "ElevenLabs Voice AI", type: "Shared", price: "৳699", period: "/mo", delivery: "5-15 min", link: "/tools/elevenlabs" },
-  { name: "AI Tools Vault", type: "Bundle", price: "৳1,990", period: "/mo", delivery: "6 hr", link: "/tools/vault" },
+  { name: "ChatGPT Plus", type: "Shared", price: "৳399", period: "/mo", delivery: "5-15 min", link: "/tools/chatgpt", category: "AI Chat" },
+  { name: "Claude Pro", type: "Shared", price: "৳599", period: "/mo", delivery: "5-15 min", link: "/tools/claude", category: "AI Chat" },
+  { name: "Gemini Advanced", type: "Shared", price: "৳499", period: "/mo", delivery: "5-15 min", link: "/tools/gemini", category: "AI Chat" },
+  { name: "Google AI Pro", type: "Shared", price: "৳449", period: "/mo", delivery: "5-15 min", link: "/tools/google-ai-pro", category: "AI Chat" },
+  { name: "SuperGrok (xAI)", type: "Shared", price: "৳499", period: "/mo", delivery: "5-15 min", link: "/tools/supergrok", category: "AI Chat" },
+  { name: "Perplexity Pro", type: "Shared", price: "৳599", period: "/mo", delivery: "5-15 min", link: "/tools/perplexity", category: "AI Chat" },
+  { name: "Midjourney", type: "Shared", price: "৳1,200", period: "/mo", delivery: "5-15 min", link: "/tools/midjourney", category: "AI Image" },
+  { name: "Leonardo AI", type: "Shared", price: "৳349", period: "/mo", delivery: "5-15 min", link: "/tools/leonardo", category: "AI Image" },
+  { name: "Runway ML", type: "Shared", price: "৳899", period: "/mo", delivery: "5-15 min", link: "/tools/runway", category: "AI Video" },
+  { name: "Kling AI", type: "Shared", price: "৳599", period: "/mo", delivery: "5-15 min", link: "/tools/kling", category: "AI Video" },
+  { name: "Canva Pro", type: "Team", price: "৳350", period: "/mo", delivery: "5-15 min", link: "/tools/canva", category: "Creative" },
+  { name: "Grammarly Premium", type: "Private", price: "৳800", period: "/mo", delivery: "1-2 hr", link: "/tools/grammarly", category: "Writing" },
+  { name: "ElevenLabs Voice AI", type: "Shared", price: "৳699", period: "/mo", delivery: "5-15 min", link: "/tools/elevenlabs", category: "Voice AI" },
+  { name: "Notion AI", type: "Team", price: "৳450", period: "/mo", delivery: "5-15 min", link: "/tools/notion", category: "Productivity" },
+  { name: "GitHub Copilot", type: "Private", price: "৳1,200", period: "/mo", delivery: "2-4 hr", link: "/tools/copilot", category: "Coding" },
+  { name: "Microsoft 365 Copilot", type: "Shared", price: "৳899", period: "/mo", delivery: "2-4 hr", link: "/tools/microsoft365", category: "Productivity" },
+  { name: "LinkedIn Premium Career", type: "Private", price: "৳999", period: "/mo", delivery: "2-4 hr", link: "/tools/linkedin", category: "Career" },
+  { name: "AI Tools Vault", type: "Bundle", price: "৳1,990", period: "/mo", delivery: "6 hr", link: "/tools/vault", category: "Bundle" },
 ];
 
 export default function AISubscriptions() {
   usePageMeta({
-    title: "All AI Subscriptions in Bangladesh — ChatGPT, Claude, Gemini & 14+ Tools",
-    description: "Browse all 14+ premium AI subscriptions in Bangladesh — ChatGPT Plus (৳399/mo), Claude Pro, Gemini Advanced, Grammarly, Canva, Midjourney, Notion AI, LinkedIn Premium, ElevenLabs, Microsoft 365 & more. Pay via bKash/Nagad. 5–15 min delivery.",
+    title: "All AI Subscriptions in Bangladesh — ChatGPT, Claude & 18+ AI Tools | AITPBD",
+    description: "Browse 18+ premium AI subscriptions in Bangladesh — ChatGPT Plus (৳399/mo), Claude Pro, Google AI Pro, SuperGrok, Runway ML, Kling AI, Leonardo AI, Grammarly, Canva & more. Pay via bKash/Nagad. 5–15 min delivery.",
     path: "/ai-subscriptions",
   });
 
@@ -68,19 +73,19 @@ export default function AISubscriptions() {
         <div className="mx-auto max-w-5xl px-6 lg:px-10">
           <div className="rounded-2xl p-6 md:p-7" style={{ background: BRAND.white, border: "1px solid rgba(37,99,235,0.08)" }}>
             <p style={{ color: BRAND.navy, fontSize: "1rem", lineHeight: 1.7, fontWeight: 500 }}>
-              <strong>AI Team Premium BD</strong> sells 10+ official premium AI subscriptions in Bangladesh — <strong>ChatGPT Plus from ৳399/mo</strong>, Claude Pro (৳599), Gemini Advanced (৳499), Grammarly Premium, Canva Pro, Midjourney, Perplexity Pro, Grok Premium, GitHub Copilot, and the AI Tools Vault bundle — payable in BDT via <strong>bKash, Nagad, Rocket or Bank Transfer</strong>, with 5–15 minute delivery and a 30-day replacement warranty.
+              <strong>AI Team Premium BD</strong> sells 18+ official premium AI subscriptions in Bangladesh — <strong>ChatGPT Plus from ৳399/mo</strong>, Claude Pro (৳599), Google AI Pro (৳449), SuperGrok (৳499), Runway ML (৳899), Kling AI (৳599), Leonardo AI (৳349), Midjourney (৳1,200), Grammarly, Canva Pro, ElevenLabs, Notion AI, GitHub Copilot, and the AI Tools Vault bundle — payable in BDT via <strong>bKash, Nagad or Bank Transfer</strong>, with 5–15 minute delivery and a 30-day replacement warranty.
             </p>
           </div>
         </div>
       </section>
       <section className="py-20" style={{ background: BRAND.sky }}>
         <div className="mx-auto max-w-7xl px-6 lg:px-10 text-center">
-          <p className="mb-3 uppercase" style={{ color: BRAND.blue, fontSize: "0.72rem", letterSpacing: "0.18em", fontWeight: 600 }}>AI Subscriptions</p>
+          <p className="mb-3 uppercase" style={{ color: BRAND.blue, fontSize: "0.72rem", letterSpacing: "0.18em", fontWeight: 600 }}>18+ AI Tools</p>
           <h1 style={{ color: BRAND.navy, fontSize: "clamp(1.6rem, 4vw, 2.5rem)", fontWeight: 700, lineHeight: 1.15 }}>
-            বাংলাদেশে ChatGPT — ৳৩৯৯ থেকে শুরু
+            বাংলাদেশে Premium AI — ৳৩৪৯ থেকে শুরু
           </h1>
           <p className="mt-4 mx-auto max-w-xl" style={{ color: BRAND.navy, opacity: 0.5, fontSize: "0.95rem", lineHeight: 1.65 }}>
-            Pay via bKash / Nagad. No international credit card. Delivered fast.
+            ChatGPT, Claude, Gemini, Runway, Kling, Leonardo, Midjourney & more — pay via bKash / Nagad. Delivered fast.
           </p>
         </div>
       </section>
