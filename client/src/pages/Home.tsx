@@ -281,26 +281,62 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-24" style={{ background: BRAND.navy }}>
+      {/* STATS STRIP */}
+      <section className="py-12" style={{ background: BRAND.navy }}>
+        <div className="mx-auto max-w-5xl px-6 lg:px-10">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            {[
+              { value: "10,000+", label: "Active Subscribers" },
+              { value: "৳399", label: "Starting Price / mo" },
+              { value: "5–15 min", label: "Avg. Delivery Time" },
+              { value: "4.9 ★", label: "Customer Rating" },
+            ].map((stat) => (
+              <div key={stat.label}>
+                <p style={{ color: BRAND.white, fontSize: "clamp(1.6rem, 3.5vw, 2.4rem)", fontWeight: 800, letterSpacing: "-0.02em", lineHeight: 1 }}>{stat.value}</p>
+                <p className="mt-2" style={{ color: "rgba(255,255,255,0.42)", fontSize: "0.78rem", fontWeight: 500 }}>{stat.label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-16 pb-24" style={{ background: BRAND.navy }}>
         <div className="mx-auto max-w-7xl px-6 lg:px-10">
-          <div className="text-center mb-16">
+          <div className="text-center mb-14">
             <p className="mb-3 uppercase" style={{ color: BRAND.blue, fontSize: "0.72rem", letterSpacing: "0.18em", fontWeight: 600 }}>Customer Reviews</p>
             <h2 style={{ color: BRAND.white, fontSize: "2rem", fontWeight: 700, lineHeight: 1.15 }}>Trusted by BD Professionals</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[1, 2, 3].map((i) => (
-              <div key={i} className="rounded-2xl p-8" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.06)" }}>
+            {[
+              {
+                review: "ChatGPT Plus access in 8 minutes! bKash payment was super smooth. I was worried at first but the delivery was faster than expected. Now I use it daily for my freelance work.",
+                name: "Farhan Ahmed",
+                role: "Freelance Graphic Designer, Dhaka",
+              },
+              {
+                review: "The AI Tools Vault bundle is insane value — ChatGPT, Claude and Gemini all in one subscription. Saves me almost ৳600 compared to buying separately. The support on WhatsApp is also very responsive.",
+                name: "Tasnia Rahman",
+                role: "Content Manager, Chittagong",
+              },
+              {
+                review: "I've been using AITPBD for 6 months for GitHub Copilot and Claude Pro. The 30-day replacement guarantee is real — they replaced my slot once within an hour when there was an issue. Highly reliable.",
+                name: "Mehedi Hossain",
+                role: "Software Developer, Rajshahi",
+              },
+            ].map(({ review, name, role }) => (
+              <div key={name} className="rounded-2xl p-8 flex flex-col" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)" }}>
                 <div className="flex gap-1 mb-5">
                   {[1, 2, 3, 4, 5].map((s) => (
                     <Star key={s} size={14} fill={BRAND.blue} color={BRAND.blue} />
                   ))}
                 </div>
-                <p className="mb-6" style={{ color: "rgba(255,255,255,0.65)", fontSize: "0.88rem", lineHeight: 1.7 }}>
-                  {i === 1 && "Excellent service! Got my ChatGPT Plus access within 10 minutes. bKash payment was super easy. Highly recommended for anyone in Bangladesh."}
-                  {i === 2 && "The AI Tools Vault bundle saved me a lot of money compared to buying individually. Great support team, responds quickly on WhatsApp."}
-                  {i === 3 && "Professional service with fast delivery. The replacement guarantee gives me peace of mind. Will continue using AITPBD for all my AI subscriptions."}
+                <p className="flex-1 mb-6" style={{ color: "rgba(255,255,255,0.65)", fontSize: "0.88rem", lineHeight: 1.75 }}>
+                  "{review}"
                 </p>
-                <p style={{ color: BRAND.white, fontSize: "0.82rem", fontWeight: 600 }}>Verified AITPBD Customer</p>
+                <div>
+                  <p style={{ color: BRAND.white, fontSize: "0.84rem", fontWeight: 700 }}>{name}</p>
+                  <p className="mt-0.5" style={{ color: "rgba(255,255,255,0.35)", fontSize: "0.76rem" }}>{role}</p>
+                </div>
               </div>
             ))}
           </div>

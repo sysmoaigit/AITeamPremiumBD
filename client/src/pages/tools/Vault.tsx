@@ -6,28 +6,31 @@ export default function Vault() {
     <ToolDetail
       name="AI Tools Vault"
       tagline="The Ultimate Bundle"
-      description="Get all major AI tools in one package. Save more than 50% compared to buying them individually."
+      description="ChatGPT Plus + Claude Pro + Gemini Advanced — all three in one plan. Save over 50% vs buying separately. Bangladesh's best-value AI subscription bundle, payable via bKash/Nagad with a single support channel."
       accentColor="#F59E0B"
       icon={Zap}
       features={[
-        "ChatGPT Plus Shared Seat",
-        "Claude Pro Shared Seat",
-        "Gemini Advanced Shared Seat",
-        "Best value for productivity",
-        "Consolidated support channel",
-        "6-hour maximum delivery time",
+        "ChatGPT Plus (GPT-4o, DALL-E 3, voice mode, browsing, Custom GPTs)",
+        "Claude Pro — Claude Sonnet 4 with Extended Thinking & 200K context",
+        "Gemini Advanced — Gemini 2.5 Pro with Deep Research & 1M context",
+        "All three shared seats delivered via single WhatsApp order",
+        "Saves ৳508/mo vs buying each tool individually",
+        "One consolidated support channel for all three tools",
+        "Priority delivery (max 6 hours total for all three)",
+        "30-day replacement warranty on every tool",
+        "Pay once in BDT — bKash, Nagad or Bank Transfer",
       ]}
       plans={[
         {
-          label: "AI Tools Vault Bundle",
+          label: "AI Tools Vault — Bundle",
           price: "৳1,990",
           period: "/mo",
-          delivery: "6 hr delivery",
+          delivery: "Max 6 hr delivery",
           type: "Bundle",
           specs: [
-            { label: "Tools", value: "3 Major Tools" },
-            { label: "Savings", value: "50%+" },
-            { label: "Support", value: "Priority" },
+            { label: "Tools included", value: "ChatGPT + Claude + Gemini" },
+            { label: "Savings", value: "৳508/mo vs separate" },
+            { label: "Support", value: "Priority WhatsApp" },
           ],
         },
       ]}

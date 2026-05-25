@@ -6,23 +6,27 @@ export default function Gemini() {
     <ToolDetail
       name="Gemini Advanced"
       tagline="— Google AI in BD"
-      description="Subscribe to Google One AI Premium without a card. Get Gemini Advanced directly integrated into Docs, Gmail, and Drive."
+      description="Google's most powerful AI — Gemini 2.5 Pro with a 1 million token context, Deep Research, Gemini Live voice mode, and 2 TB Google Drive storage. Pay with bKash/Nagad, no international card."
       accentColor="#4285F4"
       icon={Star}
       features={[
-        "Access to Gemini 1.5 Pro",
-        "2TB Google Drive Storage included",
-        "Integration with Google Workspace",
-        "State-of-the-art coding abilities",
-        "Directly upgraded on your Gmail",
-        "Full warranty and support",
+        "Gemini 2.5 Pro — Google's smartest model",
+        "1,000,000 token context window (largest in class)",
+        "Deep Research: multi-step web research with cited reports",
+        "Gemini Live — real-time voice conversations",
+        "2 TB Google Drive storage included (Personal plan)",
+        "Seamlessly integrated into Gmail, Docs, Sheets and Slides",
+        "NotebookLM-style document analysis and Q&A",
+        "State-of-the-art coding, maths and science reasoning",
+        "Accurate Bangla language generation",
+        "30-day warranty · 24/7 WhatsApp support",
       ]}
       plans={[
         {
-          label: "Gemini Advanced Shared",
+          label: "Gemini Advanced — Shared",
           price: "৳499",
           period: "/mo",
-          delivery: "5-15 min delivery",
+          delivery: "5–15 min delivery",
           type: "Shared",
           specs: [
             { label: "Access", value: "Shared seat" },
@@ -31,10 +35,10 @@ export default function Gemini() {
           ],
         },
         {
-          label: "Gemini Advanced Personal",
+          label: "Gemini Advanced — Personal",
           price: "৳2,300",
           period: "/mo",
-          delivery: "2-4 hr delivery",
+          delivery: "2–4 hr delivery",
           type: "Personal",
           specs: [
             { label: "Storage", value: "2 Terabytes" },

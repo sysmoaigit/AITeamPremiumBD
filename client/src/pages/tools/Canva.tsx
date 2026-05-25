@@ -6,28 +6,32 @@ export default function Canva() {
     <ToolDetail
       name="Canva Pro"
       tagline="Team Access in BD"
-      description="Design anything like a pro. Get Canva Pro team access without needing a credit card. Pay locally via bKash/Nagad."
+      description="Design anything like a pro. Magic Studio AI image generation, Dream Lab text-to-image, background remover, 100M+ premium assets and 610K+ templates — officially added to your Canva team, no credit card needed."
       accentColor="#00C4CC"
       icon={SiCanva as any}
       features={[
-        "Access to 100+ million premium photos, videos, audio and graphics",
-        "610,000+ premium and free templates with new designs daily",
-        "Remove backgrounds instantly with Background Remover",
-        "Schedule social media content to 8 platforms",
-        "Invite team members to collaborate",
-        "Official team seat invitation",
+        "Magic Studio — AI image generation inside Canva",
+        "Dream Lab — advanced text-to-image with style control",
+        "Magic Write — AI copywriting and content assistant",
+        "Instant background remover and Magic Eraser",
+        "100+ million premium photos, videos, audio and graphics",
+        "610,000+ professional templates (updated daily)",
+        "Brand Kit — lock colours, fonts and logos for your team",
+        "Social media scheduler to 8+ platforms",
+        "Official team seat — added to your own Canva account",
+        "30-day warranty · bKash / Nagad accepted",
       ]}
       plans={[
         {
-          label: "Canva Pro Team Seat",
+          label: "Canva Pro — Team Seat",
           price: "৳350",
           period: "/mo",
-          delivery: "5-15 min delivery",
+          delivery: "5–15 min delivery",
           type: "Team",
           specs: [
-            { label: "Access", value: "Team Invitation" },
+            { label: "Access", value: "Official team invite" },
             { label: "Warranty", value: "Full 30 days" },
-            { label: "Support", value: "WhatsApp" },
+            { label: "Support", value: "24/7 WhatsApp" },
           ],
         },
       ]}

@@ -6,28 +6,31 @@ export default function Grammarly() {
     <ToolDetail
       name="Grammarly Premium"
       tagline="for BD Writers"
-      description="Perfect your writing with advanced grammar, tone, and plagiarism checking. Essential for students, writers, and professionals."
+      description="The world's leading AI writing assistant. GrammarlyGO full-paragraph AI rewrites, advanced grammar correction, plagiarism checking and tone tuning — essential for students, freelancers and professionals."
       accentColor="#15B881"
       icon={PenTool}
       features={[
-        "Advanced Grammar & Spell Check",
-        "Vocabulary enhancements & sentence rewrites",
-        "Plagiarism checker",
-        "Tone adjustments for any audience",
-        "Works on browser, Word, and desktop",
-        "Full warranty with BD support",
+        "GrammarlyGO — AI-powered full paragraph and email rewrites",
+        "Advanced grammar, spelling and punctuation correction",
+        "Plagiarism checker against 16 billion web pages",
+        "Tone detector — adjust formality, confidence and clarity",
+        "Vocabulary enhancements and sentence restructuring",
+        "Inline suggestions in Gmail, Google Docs, MS Word and Chrome",
+        "Genre-specific writing style guidance (academic, business, casual)",
+        "Works across web browser, desktop app and Microsoft Office",
+        "30-day warranty · bKash / Nagad accepted",
       ]}
       plans={[
         {
           label: "Grammarly Premium",
           price: "৳800",
           period: "/mo",
-          delivery: "1-2 hr delivery",
+          delivery: "1–2 hr delivery",
           type: "Private",
           specs: [
-            { label: "Type", value: "Private Upgrade" },
-            { label: "Duration", value: "1 Month (Renewable)" },
-            { label: "Support", value: "Local BD Support" },
+            { label: "Access", value: "Your own account" },
+            { label: "Warranty", value: "Full 30 days" },
+            { label: "Support", value: "24/7 WhatsApp" },
           ],
         },
       ]}
