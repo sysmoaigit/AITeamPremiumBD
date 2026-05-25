@@ -1,6 +1,7 @@
 import { Layout } from "@/components/layout/Layout";
 import { BRAND } from "@/components/brand/LogoIcons";
 import { usePageMeta } from "@/hooks/use-page-meta";
+import { BreadcrumbSchema } from "@/components/seo/JsonLd";
 
 export default function PrivacyPolicy() {
   usePageMeta({
@@ -10,6 +11,7 @@ export default function PrivacyPolicy() {
   });
   return (
     <Layout>
+      <BreadcrumbSchema items={[{ name: "Home", path: "/" }, { name: "Privacy Policy", path: "/privacy-policy" }]} />
       <section className="py-20" style={{ background: BRAND.sky }}>
         <div className="mx-auto max-w-7xl px-6 lg:px-10 text-center">
           <h1 style={{ color: BRAND.navy, fontSize: "clamp(1.6rem, 4vw, 2.2rem)", fontWeight: 700 }}>Privacy Policy</h1>

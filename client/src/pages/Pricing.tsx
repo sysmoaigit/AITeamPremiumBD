@@ -4,9 +4,17 @@ import { usePageMeta } from "@/hooks/use-page-meta";
 import { Link } from "wouter";
 import { ArrowUpRight, MessageCircle } from "lucide-react";
 import { config } from "@/lib/config";
+import { BreadcrumbSchema, FAQSchema, ProductSchema } from "@/components/seo/JsonLd";
 
 const waBase = "https://wa.me/8801533262758?text=";
 const enc = encodeURIComponent;
+
+const PRICING_FAQS = [
+  { q: "What is the cheapest AI subscription price in Bangladesh from AI Team Premium BD?", a: "ChatGPT Plus Shared costs ৳399/month — the cheapest plan available. Pay in BDT via bKash, Nagad, Rocket or Bank Transfer, and get access within 5–15 minutes." },
+  { q: "How do I order and what payment methods are accepted?", a: "Message on WhatsApp (+880 1533-262758), pick a plan from the pricing list, pay via bKash, Nagad, Rocket or Bank Transfer, and receive access within 5–15 minutes (shared plans) or up to 6 hours (bundles)." },
+  { q: "Does AI Team Premium BD accept bKash and Nagad for all plans?", a: "Yes. Every AI subscription and service from AI Team Premium BD — from ChatGPT Plus at ৳399/mo to AI Ops Sprint at ৳9,900 — is payable in BDT via bKash, Nagad, Rocket or Bank Transfer. No international credit card required." },
+  { q: "What is included in the AI Tools Vault bundle?", a: "The AI Tools Vault (৳1,990/month) includes shared access to ChatGPT Plus, Claude Pro, and Gemini Advanced — three top AI tools in one plan, with priority setup and a single WhatsApp support channel." },
+];
 
 const SECTIONS = [
   {
@@ -60,6 +68,16 @@ export default function Pricing() {
 
   return (
     <Layout>
+      <BreadcrumbSchema items={[{ name: "Home", path: "/" }, { name: "Pricing", path: "/pricing" }]} />
+      <FAQSchema items={PRICING_FAQS} />
+      <ProductSchema
+        name="AI Tools Pricing Bangladesh — All Plans from ৳399/mo"
+        description="Complete BDT pricing for AI subscriptions and services from AI Team Premium BD. ChatGPT Plus ৳399/mo, Claude Pro, Gemini Advanced, Canva Pro, Grammarly, AI Ops Sprint. Pay via bKash/Nagad."
+        path="/pricing"
+        priceBDT={399}
+        category="AI Subscription"
+        rating={{ value: "4.9", count: "84" }}
+      />
       <section className="py-20" style={{ background: BRAND.sky }}>
         <div className="mx-auto max-w-7xl px-6 lg:px-10 text-center">
           <p className="mb-3 uppercase" style={{ color: BRAND.blue, fontSize: "0.72rem", letterSpacing: "0.18em", fontWeight: 600 }}>Pricing</p>
@@ -69,6 +87,16 @@ export default function Pricing() {
           <p className="mt-4 mx-auto max-w-xl" style={{ color: BRAND.navy, opacity: 0.5, fontSize: "0.95rem", lineHeight: 1.65 }}>
             All prices in BDT. Pay via bKash, Nagad, or Bank Transfer. No hidden fees.
           </p>
+        </div>
+      </section>
+
+      <section className="pb-8" style={{ background: BRAND.sky }}>
+        <div className="mx-auto max-w-7xl px-6 lg:px-10">
+          <div className="rounded-2xl p-5 md:p-6" style={{ background: BRAND.white, border: "1px solid rgba(37,99,235,0.08)" }}>
+            <p style={{ color: BRAND.navy, fontSize: "0.95rem", lineHeight: 1.7 }}>
+              <strong>AI Team Premium BD</strong> offers AI subscriptions in Bangladesh starting at <strong>৳399/month</strong> (ChatGPT Plus Shared) up to <strong>৳9,900</strong> (AI Ops Sprint 1:1 implementation). All prices are in BDT, payable via <strong>bKash, Nagad, Rocket or Bank Transfer</strong>. Shared plans deliver in 5–15 minutes. No international credit card required.
+            </p>
+          </div>
         </div>
       </section>
 

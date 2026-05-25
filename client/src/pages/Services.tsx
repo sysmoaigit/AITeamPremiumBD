@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { config } from "@/lib/config";
-import { BreadcrumbSchema } from "@/components/seo/JsonLd";
+import { BreadcrumbSchema, FAQSchema, ProductSchema } from "@/components/seo/JsonLd";
 
 export default function Services() {
   usePageMeta({
@@ -60,7 +60,16 @@ export default function Services() {
 
   return (
     <Layout>
-      <BreadcrumbSchema items={[{ name: "Home", path: "/" }, { name: "AI Support", path: "/support" }]} />
+      <BreadcrumbSchema items={[{ name: "Home", path: "/" }, { name: "AI Support & Services", path: "/support" }]} />
+      <FAQSchema items={faqs} />
+      <ProductSchema
+        name="AI Training Sessions Bangladesh"
+        description="Live Bangla AI training and ChatGPT support sessions from ৳799/hour. Student packs (৳1,999), freelancer packs (৳4,999), business AI setup (৳12,999). AI Team Premium BD."
+        path="/support"
+        priceBDT={799}
+        category="AI Training Service"
+        rating={{ value: "4.9", count: "84" }}
+      />
       <section className="py-8" style={{ background: BRAND.sky }}>
         <div className="mx-auto max-w-5xl px-6 lg:px-10">
           <div className="rounded-2xl p-6 md:p-7" style={{ background: BRAND.white, border: "1px solid rgba(37,99,235,0.08)" }}>

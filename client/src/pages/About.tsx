@@ -4,7 +4,14 @@ import { usePageMeta } from "@/hooks/use-page-meta";
 import { Link } from "wouter";
 import { Users, Shield, Lightbulb, ArrowUpRight, MessageCircle } from "lucide-react";
 import { config } from "@/lib/config";
-import { BreadcrumbSchema, JsonLd } from "@/components/seo/JsonLd";
+import { BreadcrumbSchema, JsonLd, FAQSchema } from "@/components/seo/JsonLd";
+
+const ABOUT_FAQS = [
+  { q: "What is AI Team Premium BD (AITPBD)?", a: "AI Team Premium BD (AITPBD), founded in 2024 and based in Dhaka, Bangladesh, is the country's leading reseller of official premium AI subscriptions including ChatGPT Plus, Claude Pro, Gemini Advanced, Grammarly Premium, Canva Pro, and more — all payable in BDT via bKash, Nagad, Rocket or Bank Transfer." },
+  { q: "How long has AI Team Premium BD been in business?", a: "AI Team Premium BD was founded in 2024 and has served over 10,000 users across Bangladesh, with a 4.9/5 satisfaction rating from 300+ verified reviews." },
+  { q: "Is AI Team Premium BD a legitimate seller of AI subscriptions?", a: "Yes. AI Team Premium BD sells 100% genuine official AI subscriptions — not cracked, not fake. Every subscription includes a 30-day replacement warranty, 24-hour SLA, and Bangla-language customer support via WhatsApp at +880 1533-262758." },
+  { q: "Where is AI Team Premium BD located?", a: "AI Team Premium BD is based in Dhaka, Bangladesh, and serves customers across the entire country. Contact us via WhatsApp at +880 1533-262758 or through our Facebook page." },
+];
 
 const VALUES = [
   { icon: Shield, title: "Trust & Transparency", desc: "We deliver exactly what we promise. No hidden fees, no fake accounts. 100% genuine official subscriptions." },
@@ -38,6 +45,7 @@ export default function About() {
     <Layout>
       <BreadcrumbSchema items={[{ name: "Home", path: "/" }, { name: "About", path: "/about" }]} />
       <JsonLd data={aboutPageSchema} />
+      <FAQSchema items={ABOUT_FAQS} />
       <section className="py-20" style={{ background: BRAND.sky }}>
         <div className="mx-auto max-w-7xl px-6 lg:px-10 text-center">
           <p className="mb-3 uppercase" style={{ color: BRAND.blue, fontSize: "0.72rem", letterSpacing: "0.18em", fontWeight: 600 }}>About Us</p>

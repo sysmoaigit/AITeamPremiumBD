@@ -5,7 +5,14 @@ import { Clock, Check, ArrowUpRight, MessageCircle } from "lucide-react";
 import { Link } from "wouter";
 import { chatgptPlans } from "@/lib/plans";
 import { config } from "@/lib/config";
-import { BreadcrumbSchema, JsonLd } from "@/components/seo/JsonLd";
+import { BreadcrumbSchema, JsonLd, FAQSchema, ProductSchema } from "@/components/seo/JsonLd";
+
+const AI_SUB_FAQS = [
+  { q: "Which AI tools does AI Team Premium BD sell in Bangladesh?", a: "AI Team Premium BD sells ChatGPT Plus (৳399/mo), Claude Pro (৳599/mo), Gemini Advanced (৳499/mo), Grammarly Premium (৳499/mo), Canva Pro (৳599/mo), Midjourney, Perplexity Pro, Grok, GitHub Copilot, and the AI Tools Vault bundle (৳1,990/mo) — all payable in BDT via bKash, Nagad, Rocket or Bank Transfer." },
+  { q: "How do I buy an AI subscription in Bangladesh without an international credit card?", a: "AI Team Premium BD lets you pay in BDT via bKash, Nagad, Rocket or Bank Transfer. Message on WhatsApp (+880 1533-262758), choose a plan, pay, and get access within 5–15 minutes for most tools." },
+  { q: "What is the cheapest AI subscription available in Bangladesh?", a: "ChatGPT Plus Shared is ৳399/month from AI Team Premium BD — the most affordable option, paid via bKash/Nagad with 5-15 minute delivery and a 30-day replacement warranty." },
+  { q: "Does AI Team Premium BD deliver AI subscriptions quickly?", a: "Yes. Most shared plans (ChatGPT, Claude, Gemini, Perplexity, Grok) are delivered within 5–15 minutes. The AI Tools Vault bundle takes up to 6 hours. Personal seats take 2–4 hours." },
+];
 
 const SUBS = [
   { name: "ChatGPT Plus", type: "Shared", price: "৳399", period: "/mo", delivery: "5-15 min", link: "/tools/chatgpt" },
@@ -44,6 +51,15 @@ export default function AISubscriptions() {
     <Layout>
       <BreadcrumbSchema items={[{ name: "Home", path: "/" }, { name: "AI Subscriptions", path: "/ai-subscriptions" }]} />
       <JsonLd data={itemListSchema} />
+      <FAQSchema items={AI_SUB_FAQS} />
+      <ProductSchema
+        name="AI Subscriptions Bangladesh — ChatGPT, Claude, Gemini"
+        description="10+ premium AI subscriptions in Bangladesh from ৳399/month. ChatGPT Plus, Claude Pro, Gemini Advanced, Canva Pro and more, payable via bKash/Nagad."
+        path="/ai-subscriptions"
+        priceBDT={399}
+        category="AI Subscription"
+        rating={{ value: "4.9", count: "84" }}
+      />
       <section className="py-8" style={{ background: BRAND.sky }}>
         <div className="mx-auto max-w-5xl px-6 lg:px-10">
           <div className="rounded-2xl p-6 md:p-7" style={{ background: BRAND.white, border: "1px solid rgba(37,99,235,0.08)" }}>

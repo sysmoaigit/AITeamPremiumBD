@@ -11,6 +11,13 @@ import { BRAND, WhatsAppIcon } from "@/components/brand/LogoIcons";
 import { usePageMeta } from "@/hooks/use-page-meta";
 import { config } from "@/lib/config";
 import { Phone, MapPin, Facebook, Instagram, Users, MessageCircle, Send, ArrowUpRight } from "lucide-react";
+import { BreadcrumbSchema, FAQSchema } from "@/components/seo/JsonLd";
+
+const CONTACT_FAQS = [
+  { q: "How do I order from AI Team Premium BD?", a: "The fastest way is WhatsApp at +880 1533-262758 — we typically reply within 5 minutes. You can also message on Facebook Messenger or fill out the contact form on this page." },
+  { q: "What is the WhatsApp number for AI Team Premium BD?", a: "AI Team Premium BD's WhatsApp and phone number is +880 1533-262758. We are available from 9 AM to 11 PM Bangladesh Standard Time, 7 days a week." },
+  { q: "How quickly does AI Team Premium BD respond?", a: "We typically respond on WhatsApp within 5 minutes during 9 AM–11 PM BST. Most shared plan orders are delivered within 5–15 minutes of payment confirmation." },
+];
 
 const CHANNELS = [
   { icon: Phone, label: "WhatsApp / Phone", value: "+880 1533-262758", sub: "Available 24/7", url: "tel:+8801533262758" },
@@ -60,6 +67,8 @@ export default function Contact() {
 
   return (
     <Layout>
+      <BreadcrumbSchema items={[{ name: "Home", path: "/" }, { name: "Contact", path: "/start-a-project" }]} />
+      <FAQSchema items={CONTACT_FAQS} />
       <section className="py-20" style={{ background: BRAND.sky }}>
         <div className="mx-auto max-w-7xl px-6 lg:px-10 text-center">
           <p className="mb-3 uppercase" style={{ color: BRAND.blue, fontSize: "0.72rem", letterSpacing: "0.18em", fontWeight: 600 }}>Contact</p>

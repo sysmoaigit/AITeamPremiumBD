@@ -5,7 +5,7 @@ import { usePageMeta } from "@/hooks/use-page-meta";
 import { chatgptPlans } from "@/lib/plans";
 import { SupportUpsell } from "@/components/SupportUpsell";
 import { config } from "@/lib/config";
-import { FAQSchema, JsonLd } from "@/components/seo/JsonLd";
+import { FAQSchema, JsonLd, BreadcrumbSchema } from "@/components/seo/JsonLd";
 import {
   ArrowUpRight,
   Check,
@@ -85,6 +85,7 @@ export default function Home() {
 
   return (
     <Layout>
+      <BreadcrumbSchema items={[{ name: "Home", path: "/" }]} />
       <JsonLd data={collectionPageSchema} />
       <FAQSchema items={homeFaqs} />
       <section className="relative overflow-hidden" style={{ background: BRAND.navy }}>

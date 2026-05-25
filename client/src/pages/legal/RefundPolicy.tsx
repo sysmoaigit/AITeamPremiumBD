@@ -3,6 +3,7 @@ import { usePageMeta } from "@/hooks/use-page-meta";
 import { WhatsAppIcon } from "@/components/brand/LogoIcons";
 import { Layout } from "@/components/layout/Layout";
 import { ChevronRight, ShieldCheck, RefreshCw, Clock, MessageCircle } from "lucide-react";
+import { BreadcrumbSchema } from "@/components/seo/JsonLd";
 import { config } from "@/lib/config";
 
 export default function RefundPolicy() {
@@ -14,6 +15,7 @@ export default function RefundPolicy() {
 
   return (
     <Layout>
+      <BreadcrumbSchema items={[{ name: "Home", path: "/" }, { name: "Refund Policy", path: "/refund-policy" }]} />
       {/* Hero Section */}
       <section className="py-16 md:py-24" style={{ background: BRAND.sky }}>
         <div className="container mx-auto px-6 lg:px-10">

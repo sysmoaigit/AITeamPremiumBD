@@ -23,6 +23,7 @@ import {
   ArrowRight
 } from "lucide-react";
 import { useState, useRef } from "react";
+import { BreadcrumbSchema, FAQSchema, ProductSchema } from "@/components/seo/JsonLd";
 
 export default function ChatGPTPlans() {
   usePageMeta({ path: "/chatgpt-plans",
@@ -106,23 +107,19 @@ export default function ChatGPTPlans() {
     return <span className="text-sm font-medium">{val}</span>;
   };
 
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": faqs.map(faq => ({
-      "@type": "Question",
-      "name": faq.q,
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": faq.a
-      }
-    }))
-  };
-
   return (
     <Layout>
+      <BreadcrumbSchema items={[{ name: "Home", path: "/" }, { name: "ChatGPT Plans", path: "/chatgpt-plans" }]} />
+      <FAQSchema items={faqs} />
+      <ProductSchema
+        name="ChatGPT Plus Bangladesh"
+        description="Official ChatGPT Plus subscription in Bangladesh from ৳399/month. Pay via bKash, Nagad, Rocket or Bank Transfer. 5-15 min delivery, 30-day warranty. AI Team Premium BD."
+        path="/chatgpt-plans"
+        priceBDT={399}
+        category="AI Subscription"
+        rating={{ value: "4.9", count: "84" }}
+      />
     <div className="flex flex-col gap-0 pb-20">
-      <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
 
       {/* 1. HERO */}
       <section className="relative py-20 overflow-hidden" style={{ backgroundColor: BRAND.sky }}>
