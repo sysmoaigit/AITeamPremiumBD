@@ -4,7 +4,7 @@ import { config } from "@/lib/config";
 
 export default function StickyMobileCTABar() {
   return (
-    <div className="md:hidden fixed bottom-0 left-0 right-0 z-[100] px-3 py-2.5 bg-white/95 backdrop-blur border-t flex gap-2" style={{ borderColor: "rgba(37,99,235,0.08)" }}>
+    <div className="md:hidden fixed bottom-0 left-0 right-0 z-[100] px-3 py-2.5 bg-white/95 dark:bg-gray-950/95 backdrop-blur border-t border-gray-100 dark:border-gray-800 flex gap-2">
       <a
         href={config.whatsappGeneral}
         target="_blank"

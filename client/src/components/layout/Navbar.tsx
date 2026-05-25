@@ -1,8 +1,9 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "wouter";
-import { Menu, X, ChevronDown, Layers, Briefcase } from "lucide-react";
+import { Menu, X, ChevronDown, Layers, Briefcase, Sun, Moon } from "lucide-react";
 import { BRAND, LogoHorizontal, WhatsAppIcon } from "@/components/brand/LogoIcons";
 import { config } from "@/lib/config";
+import { useTheme } from "@/components/ThemeProvider";
 
 const CATEGORIES_MENU = [
   {
@@ -73,6 +74,7 @@ export function Navbar() {
   const [location] = useLocation();
   const cat = useDropdown();
   const svc = useDropdown();
+  const { resolvedTheme, toggleTheme } = useTheme();
 
   useEffect(() => {
     setIsOpen(false);
@@ -82,15 +84,20 @@ export function Navbar() {
     svc.setOpen(false);
   }, [location]);
 
+  const isDark = resolvedTheme === "dark";
+
   return (
     <header
       className="sticky top-0 z-50 border-b backdrop-blur-xl"
-      style={{ background: "rgba(255,255,255,0.93)", borderColor: "rgba(37,99,235,0.06)" }}
+      style={{
+        background: isDark ? "rgba(3,7,18,0.90)" : "rgba(255,255,255,0.90)",
+        borderColor: isDark ? "rgba(255,255,255,0.06)" : "rgba(37,99,235,0.06)",
+      }}
     >
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
         <div className="flex items-center justify-between" style={{ height: 80 }}>
           <Link href="/" className="flex-shrink-0" style={{ textDecoration: "none" }} data-testid="link-logo">
-            <LogoHorizontal size="sm" iconColor={BRAND.blue} textColor={BRAND.navy} />
+            <LogoHorizontal size="sm" iconColor={BRAND.blue} textColor={isDark ? BRAND.white : BRAND.navy} />
           </Link>
 
           <nav className="hidden md:flex items-center gap-0.5">
@@ -101,6 +108,7 @@ export function Navbar() {
               onEnter={cat.onEnter}
               onLeave={cat.onLeave}
               testId="button-nav-categories"
+              isDark={isDark}
             >
               <div className="py-2" style={{ minWidth: 340 }}>
                 {CATEGORIES_MENU.map((section) => (
@@ -109,7 +117,7 @@ export function Navbar() {
                       {section.group}
                     </div>
                     {section.items.map((item) => (
-                      <DropdownItem key={item.name} href={item.href} name={item.name} desc={item.desc} onMouseEnter={cat.onEnter} onMouseLeave={cat.onLeave} />
+                      <DropdownItem key={item.name} href={item.href} name={item.name} desc={item.desc} onMouseEnter={cat.onEnter} onMouseLeave={cat.onLeave} isDark={isDark} />
                     ))}
                   </div>
                 ))}
@@ -123,10 +131,11 @@ export function Navbar() {
               onEnter={svc.onEnter}
               onLeave={svc.onLeave}
               testId="button-nav-services"
+              isDark={isDark}
             >
               <div className="py-2" style={{ minWidth: 300 }}>
                 {SERVICES_MENU.map((item) => (
-                  <DropdownItem key={item.name} href={item.href} name={item.name} desc={item.desc} onMouseEnter={svc.onEnter} onMouseLeave={svc.onLeave} />
+                  <DropdownItem key={item.name} href={item.href} name={item.name} desc={item.desc} onMouseEnter={svc.onEnter} onMouseLeave={svc.onLeave} isDark={isDark} />
                 ))}
               </div>
             </DesktopDropdown>
@@ -141,7 +150,7 @@ export function Navbar() {
                   className="px-4 py-2 rounded-full transition-all"
                   style={{
                     background: isActive ? BRAND.blue : undefined,
-                    color: isActive ? BRAND.white : BRAND.navy,
+                    color: isActive ? BRAND.white : isDark ? "rgba(255,255,255,0.8)" : BRAND.navy,
                     fontSize: "0.82rem",
                     fontWeight: isActive ? 600 : 450,
                     letterSpacing: "0.01em",
@@ -154,37 +163,80 @@ export function Navbar() {
             })}
           </nav>
 
-          <a
-            href={config.whatsappGeneral}
-            target="_blank"
-            rel="noopener noreferrer"
-            data-testid="link-nav-contact"
-            className="hidden md:inline-flex items-center gap-2 rounded-full px-5 py-2.5 transition-all"
-            style={{ background: "#25D366", color: "#fff", fontSize: "0.82rem", fontWeight: 600, textDecoration: "none" }}
-          >
-            <WhatsAppIcon size={14} color="#fff" /> Get Started
-          </a>
+          <div className="hidden md:flex items-center gap-2">
+            <button
+              onClick={toggleTheme}
+              data-testid="button-theme-toggle"
+              aria-label="Toggle dark mode"
+              className="flex items-center justify-center rounded-full transition-all"
+              style={{
+                width: 36,
+                height: 36,
+                background: isDark ? "rgba(255,255,255,0.08)" : "rgba(15,23,42,0.06)",
+                color: isDark ? "rgba(255,255,255,0.7)" : BRAND.navy,
+                border: "none",
+                cursor: "pointer",
+              }}
+            >
+              {isDark ? <Sun size={16} strokeWidth={2} /> : <Moon size={16} strokeWidth={2} />}
+            </button>
+            <a
+              href={config.whatsappGeneral}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-testid="link-nav-contact"
+              className="relative inline-flex items-center gap-2 rounded-full px-5 py-2.5 transition-all animate-pulse-ring"
+              style={{ background: "#25D366", color: "#fff", fontSize: "0.82rem", fontWeight: 600, textDecoration: "none" }}
+            >
+              <WhatsAppIcon size={14} color="#fff" /> Get Started
+            </a>
+          </div>
 
-          <button
-            className="md:hidden p-2 rounded-xl transition-colors"
-            onClick={() => setIsOpen(!isOpen)}
-            style={{ color: BRAND.navy }}
-            aria-label="Toggle menu"
-            data-testid="button-mobile-menu"
-          >
-            {isOpen ? <X size={22} /> : <Menu size={22} />}
-          </button>
+          <div className="md:hidden flex items-center gap-2">
+            <button
+              onClick={toggleTheme}
+              data-testid="button-theme-toggle-mobile"
+              aria-label="Toggle dark mode"
+              className="flex items-center justify-center rounded-full transition-all"
+              style={{
+                width: 36,
+                height: 36,
+                background: isDark ? "rgba(255,255,255,0.08)" : "rgba(15,23,42,0.06)",
+                color: isDark ? "rgba(255,255,255,0.7)" : BRAND.navy,
+                border: "none",
+                cursor: "pointer",
+              }}
+            >
+              {isDark ? <Sun size={16} strokeWidth={2} /> : <Moon size={16} strokeWidth={2} />}
+            </button>
+            <button
+              className="p-2 rounded-xl transition-colors"
+              onClick={() => setIsOpen(!isOpen)}
+              style={{ color: isDark ? "rgba(255,255,255,0.8)" : BRAND.navy }}
+              aria-label="Toggle menu"
+              data-testid="button-mobile-menu"
+            >
+              {isOpen ? <X size={22} /> : <Menu size={22} />}
+            </button>
+          </div>
         </div>
       </div>
 
       {isOpen && (
-        <div className="md:hidden border-t px-5 pb-6 pt-4" style={{ background: BRAND.white, borderColor: "rgba(37,99,235,0.06)" }}>
+        <div
+          className="md:hidden border-t px-5 pb-6 pt-4"
+          style={{
+            background: isDark ? "rgba(3,7,18,0.98)" : BRAND.white,
+            borderColor: isDark ? "rgba(255,255,255,0.06)" : "rgba(37,99,235,0.06)",
+          }}
+        >
           <nav className="flex flex-col gap-1">
             <MobileExpandable
               label="Categories"
               open={mobileCatOpen}
               onToggle={() => setMobileCatOpen((o) => !o)}
               testId="button-mobile-categories"
+              isDark={isDark}
             >
               {CATEGORIES_MENU.map((section) => (
                 <div key={section.group}>
@@ -199,7 +251,7 @@ export function Navbar() {
                       className="flex items-start gap-2 px-4 py-2.5"
                       style={{ textDecoration: "none" }}
                     >
-                      <span style={{ color: BRAND.navy, fontSize: "0.88rem", fontWeight: 500 }}>{item.name}</span>
+                      <span style={{ color: isDark ? "rgba(255,255,255,0.85)" : BRAND.navy, fontSize: "0.88rem", fontWeight: 500 }}>{item.name}</span>
                     </Link>
                   ))}
                 </div>
@@ -211,6 +263,7 @@ export function Navbar() {
               open={mobileSvcOpen}
               onToggle={() => setMobileSvcOpen((o) => !o)}
               testId="button-mobile-services"
+              isDark={isDark}
             >
               {SERVICES_MENU.map((item) => (
                 <Link
@@ -220,7 +273,7 @@ export function Navbar() {
                   className="flex px-4 py-2.5"
                   style={{ textDecoration: "none" }}
                 >
-                  <span style={{ color: BRAND.navy, fontSize: "0.88rem", fontWeight: 500 }}>{item.name}</span>
+                  <span style={{ color: isDark ? "rgba(255,255,255,0.85)" : BRAND.navy, fontSize: "0.88rem", fontWeight: 500 }}>{item.name}</span>
                 </Link>
               ))}
             </MobileExpandable>
@@ -234,8 +287,8 @@ export function Navbar() {
                   data-testid={`link-mobile-${link.name.toLowerCase().replace(/\s+/g, '-')}`}
                   className="px-4 py-3 rounded-xl transition-all"
                   style={{
-                    background: isActive ? BRAND.sky : undefined,
-                    color: isActive ? BRAND.blue : BRAND.navy,
+                    background: isActive ? (isDark ? "rgba(37,99,235,0.2)" : BRAND.sky) : undefined,
+                    color: isActive ? BRAND.blue : isDark ? "rgba(255,255,255,0.8)" : BRAND.navy,
                     fontSize: "0.95rem",
                     fontWeight: isActive ? 600 : 400,
                   }}
@@ -269,6 +322,7 @@ function DesktopDropdown({
   onLeave,
   testId,
   children,
+  isDark,
 }: {
   label: string;
   icon: React.ReactNode;
@@ -277,6 +331,7 @@ function DesktopDropdown({
   onLeave: () => void;
   testId: string;
   children: React.ReactNode;
+  isDark: boolean;
 }) {
   return (
     <div className="relative" onMouseEnter={onEnter} onMouseLeave={onLeave}>
@@ -284,8 +339,8 @@ function DesktopDropdown({
         data-testid={testId}
         className="flex items-center gap-1.5 px-4 py-2 rounded-full transition-all"
         style={{
-          background: open ? BRAND.sky : undefined,
-          color: open ? BRAND.blue : BRAND.navy,
+          background: open ? (isDark ? "rgba(37,99,235,0.2)" : BRAND.sky) : undefined,
+          color: open ? BRAND.blue : isDark ? "rgba(255,255,255,0.8)" : BRAND.navy,
           fontSize: "0.82rem",
           fontWeight: open ? 600 : 450,
           letterSpacing: "0.01em",
@@ -305,9 +360,9 @@ function DesktopDropdown({
         <div
           className="absolute left-0 top-full mt-1.5 rounded-2xl overflow-hidden border"
           style={{
-            background: BRAND.white,
-            borderColor: "rgba(37,99,235,0.10)",
-            boxShadow: "0 12px 40px rgba(15,23,42,0.14)",
+            background: isDark ? "#0F172A" : BRAND.white,
+            borderColor: isDark ? "rgba(255,255,255,0.08)" : "rgba(37,99,235,0.10)",
+            boxShadow: isDark ? "0 12px 40px rgba(0,0,0,0.5)" : "0 12px 40px rgba(15,23,42,0.14)",
             zIndex: 100,
             animation: "fadeSlideDown 0.15s ease",
           }}
@@ -319,19 +374,19 @@ function DesktopDropdown({
   );
 }
 
-function DropdownItem({ href, name, desc, onMouseEnter, onMouseLeave }: { href: string; name: string; desc: string; onMouseEnter: () => void; onMouseLeave: () => void }) {
+function DropdownItem({ href, name, desc, onMouseEnter, onMouseLeave, isDark }: { href: string; name: string; desc: string; onMouseEnter: () => void; onMouseLeave: () => void; isDark: boolean }) {
   return (
     <Link
       href={href}
       data-testid={`link-dropdown-${name.toLowerCase().replace(/[^a-z0-9]/g, '-').slice(0, 30)}`}
-      className="flex items-start gap-2 px-4 py-2.5 transition-colors hover:bg-blue-50 rounded-lg mx-1"
+      className="flex items-start gap-2 px-4 py-2.5 transition-colors rounded-lg mx-1"
       style={{ textDecoration: "none" }}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
       <div>
-        <div style={{ color: BRAND.navy, fontSize: "0.84rem", fontWeight: 600, lineHeight: 1.3 }}>{name}</div>
-        <div style={{ color: "#64748B", fontSize: "0.72rem", marginTop: 1 }}>{desc}</div>
+        <div style={{ color: isDark ? "rgba(255,255,255,0.9)" : BRAND.navy, fontSize: "0.84rem", fontWeight: 600, lineHeight: 1.3 }}>{name}</div>
+        <div style={{ color: isDark ? "rgba(255,255,255,0.4)" : "#64748B", fontSize: "0.72rem", marginTop: 1 }}>{desc}</div>
       </div>
     </Link>
   );
@@ -343,12 +398,14 @@ function MobileExpandable({
   onToggle,
   testId,
   children,
+  isDark,
 }: {
   label: string;
   open: boolean;
   onToggle: () => void;
   testId: string;
   children: React.ReactNode;
+  isDark: boolean;
 }) {
   return (
     <div>
@@ -357,8 +414,8 @@ function MobileExpandable({
         onClick={onToggle}
         className="flex items-center justify-between w-full px-4 py-3 rounded-xl transition-all"
         style={{
-          background: open ? BRAND.sky : undefined,
-          color: open ? BRAND.blue : BRAND.navy,
+          background: open ? (isDark ? "rgba(37,99,235,0.2)" : BRAND.sky) : undefined,
+          color: open ? BRAND.blue : isDark ? "rgba(255,255,255,0.8)" : BRAND.navy,
           fontSize: "0.95rem",
           fontWeight: open ? 600 : 400,
           border: "none",
@@ -374,7 +431,13 @@ function MobileExpandable({
         />
       </button>
       {open && (
-        <div className="ml-2 mb-1 rounded-xl border overflow-hidden" style={{ borderColor: "rgba(37,99,235,0.10)", background: BRAND.sky }}>
+        <div
+          className="ml-2 mb-1 rounded-xl border overflow-hidden"
+          style={{
+            borderColor: isDark ? "rgba(255,255,255,0.06)" : "rgba(37,99,235,0.10)",
+            background: isDark ? "rgba(37,99,235,0.08)" : BRAND.sky,
+          }}
+        >
           {children}
         </div>
       )}
