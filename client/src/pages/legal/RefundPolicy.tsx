@@ -25,7 +25,7 @@ export default function RefundPolicy() {
               <span style={{ color: BRAND.blue }}>Policy</span>
             </h1>
             <p className="text-lg opacity-80" style={{ color: BRAND.navy }}>
-              We strive to provide the best AI experience in Bangladesh. This policy outlines our commitment to your satisfaction, the rules for subscriptions, support sessions, and all digital services.
+              We strive to provide a reliable AI experience in Bangladesh. This policy outlines our commitment to your satisfaction, the rules for subscriptions, support sessions, and all digital services.
             </p>
             <p className="text-sm opacity-50 mt-3" style={{ color: BRAND.navy }}>Effective: May 2026 · aiteampremiumbd.com</p>
           </div>
