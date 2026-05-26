@@ -1,4 +1,13 @@
-import { Brain, Sparkles, Star, Image as ImageIcon, Video, Search, Code2, FileText, Edit3 } from "lucide-react";
+/**
+ * Comparison registry — canonical structured snapshot of every tool sold in
+ * /tools/*. Each entry mirrors the pricing/specs surfaced on that tool's
+ * detail page (which uses unstructured competitorRows/plans arrays of varying
+ * shape). Centralising here keeps comparison output consistent and lets the
+ * /compare/:slug page work for ANY two registered tools.
+ *
+ * When pricing on a tool page changes, update the matching entry here.
+ */
+import { Brain, Sparkles, Star, Image as ImageIcon, Video, Search, Code2, FileText, Edit3, Palette, Briefcase, Linkedin, Mic, Layers } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 export type ComparisonSpec = { label: string; value: string; better?: boolean };
@@ -384,6 +393,171 @@ export const COMPARE_TOOLS: Record<string, CompareTool> = {
       pricingTier: "Affordable",
     },
   },
+  canva: {
+    slug: "canva",
+    name: "Canva Pro",
+    brand: "Canva",
+    toolPath: "/tools/canva",
+    accent: "#00C4CC",
+    icon: Palette,
+    tagline: "Drag-and-drop design with AI Magic Studio",
+    priceFromBdt: 399,
+    priceFromLabel: "৳399/mo",
+    category: "image",
+    bestFor: [
+      "Social media graphics, presentations, posters",
+      "Magic Write, Magic Edit, Magic Design AI tools",
+      "100M+ premium templates, photos, elements",
+      "Brand Kit + team collaboration",
+      "Background remover and Magic Resize",
+    ],
+    weaknesses: [
+      "Not a true generative image AI — template-first",
+      "Less artistic control than Midjourney / Leonardo",
+    ],
+    specs: {
+      model: "Canva Magic Studio (multi-model)",
+      contextWindow: "N/A (design tool)",
+      multimodal: "Text, image, video, templates",
+      banglaQuality: "⭐⭐⭐⭐ (text in designs)",
+      bestUseCase: "Marketers, students, small business owners",
+      speed: "Real-time editor",
+      accuracy: "⭐⭐⭐⭐",
+      pricingTier: "Affordable",
+    },
+  },
+  microsoft365: {
+    slug: "microsoft365",
+    name: "Microsoft 365 Copilot",
+    brand: "Microsoft",
+    toolPath: "/tools/microsoft365",
+    accent: "#0078D4",
+    icon: Briefcase,
+    tagline: "Copilot inside Word, Excel, PowerPoint, Outlook",
+    priceFromBdt: 1499,
+    priceFromLabel: "৳1,499/mo",
+    category: "writing",
+    bestFor: [
+      "Drafting documents in Word with Copilot",
+      "Excel formulas, charts and data analysis",
+      "Auto-generating PowerPoint slides from prompts",
+      "Outlook email summaries and replies",
+      "Teams meeting transcripts and recap",
+    ],
+    weaknesses: [
+      "Locked to the Microsoft 365 ecosystem",
+      "Expensive vs standalone chat AIs",
+    ],
+    specs: {
+      model: "GPT-5 + Microsoft Graph",
+      contextWindow: "Your M365 workspace",
+      multimodal: "Text, spreadsheets, slides, email",
+      banglaQuality: "⭐⭐⭐⭐",
+      bestUseCase: "Office workers, analysts, managers",
+      speed: "Fast (in-app)",
+      accuracy: "⭐⭐⭐⭐",
+      pricingTier: "Premium",
+    },
+  },
+  linkedin: {
+    slug: "linkedin",
+    name: "LinkedIn Premium",
+    brand: "LinkedIn",
+    toolPath: "/tools/linkedin",
+    accent: "#0A66C2",
+    icon: Linkedin,
+    tagline: "Career & business networking with AI",
+    priceFromBdt: 899,
+    priceFromLabel: "৳899/mo",
+    category: "writing",
+    bestFor: [
+      "InMail messages to anyone on LinkedIn",
+      "Who's Viewed Your Profile (last 90 days)",
+      "AI-assisted profile + cover letter writing",
+      "LinkedIn Learning (20,000+ courses)",
+      "Top Applicant + salary insights",
+    ],
+    weaknesses: [
+      "Not a general-purpose AI tool",
+      "Value depends on active job search / sales",
+    ],
+    specs: {
+      model: "LinkedIn AI (writing assist)",
+      contextWindow: "Your profile + network",
+      multimodal: "Text, profile data",
+      banglaQuality: "⭐⭐⭐",
+      bestUseCase: "Job seekers, recruiters, B2B sales",
+      speed: "Real-time",
+      accuracy: "⭐⭐⭐⭐",
+      pricingTier: "Mainstream",
+    },
+  },
+  elevenlabs: {
+    slug: "elevenlabs",
+    name: "ElevenLabs",
+    brand: "ElevenLabs",
+    toolPath: "/tools/elevenlabs",
+    accent: "#F5A623",
+    icon: Mic,
+    tagline: "Most realistic AI voice generator",
+    priceFromBdt: 999,
+    priceFromLabel: "৳999/mo",
+    category: "video",
+    bestFor: [
+      "Ultra-realistic text-to-speech in 30+ languages",
+      "Voice cloning (your own or stock voices)",
+      "Long-form audiobook & podcast generation",
+      "AI dubbing across languages",
+      "Sound effects generation",
+    ],
+    weaknesses: [
+      "No native video — audio only",
+      "Bangla voice quality lags English",
+    ],
+    specs: {
+      model: "Eleven Multilingual v2 + Turbo",
+      contextWindow: "N/A (audio gen)",
+      multimodal: "Text-to-speech, voice clone, dubbing",
+      banglaQuality: "⭐⭐⭐ (limited)",
+      bestUseCase: "Podcasters, YouTubers, audiobook creators",
+      speed: "Real-time streaming",
+      accuracy: "⭐⭐⭐⭐⭐",
+      pricingTier: "Premium",
+    },
+  },
+  vault: {
+    slug: "vault",
+    name: "AI Tools Vault",
+    brand: "AITPBD bundle",
+    toolPath: "/tools/vault",
+    accent: "#2563EB",
+    icon: Layers,
+    tagline: "10+ premium AI tools in one bundle",
+    priceFromBdt: 1999,
+    priceFromLabel: "৳1,999/mo",
+    category: "chat",
+    bestFor: [
+      "Access to ChatGPT Plus, Claude, Gemini, Perplexity together",
+      "Massive savings vs buying each separately",
+      "Includes Midjourney, Grammarly, Canva and more",
+      "Single bKash/Nagad payment",
+      "Best for power users + small agencies",
+    ],
+    weaknesses: [
+      "Shared seats only — not personal accounts",
+      "Some tools rotate based on demand",
+    ],
+    specs: {
+      model: "10+ AI tools combined",
+      contextWindow: "Varies per tool",
+      multimodal: "Text, image, code, design",
+      banglaQuality: "⭐⭐⭐⭐⭐",
+      bestUseCase: "Heavy AI users, freelancers, startups",
+      speed: "Tool-dependent",
+      accuracy: "⭐⭐⭐⭐⭐",
+      pricingTier: "Bundle (best value)",
+    },
+  },
   notion: {
     slug: "notion",
     name: "Notion AI",
@@ -433,7 +607,61 @@ export const POPULAR_PAIRS: [ToolSlug, ToolSlug][] = [
   ["grammarly", "chatgpt"],
   ["claude", "perplexity"],
   ["midjourney", "chatgpt"],
+  ["canva", "midjourney"],
+  ["elevenlabs", "runway"],
+  ["microsoft365", "notion"],
+  ["vault", "chatgpt"],
 ];
+
+// Lightweight per-row winner heuristic. Returns which side has the
+// objectively "better" value for that spec, when comparable.
+type RowCmp = "higher" | "lower" | "none";
+const ROW_COMPARISON: Record<string, RowCmp> = {
+  "Starting price (BDT)": "lower",
+  "Context window": "higher",
+  "Bangla language quality": "higher",
+  "Overall accuracy": "higher",
+};
+
+const numFromLabel = (s: string): number | null => {
+  // strip non-digits but keep K/M suffixes; pick the largest number.
+  const matches = s.match(/([\d,.]+)\s*([KMkm]?)/g);
+  if (!matches) return null;
+  let best = -Infinity;
+  for (const m of matches) {
+    const [, raw, suf] = m.match(/([\d,.]+)\s*([KMkm]?)/) ?? [];
+    if (!raw) continue;
+    let n = parseFloat(raw.replace(/,/g, ""));
+    if (!isFinite(n)) continue;
+    if (suf?.toLowerCase() === "k") n *= 1000;
+    if (suf?.toLowerCase() === "m") n *= 1_000_000;
+    if (n > best) best = n;
+  }
+  return best === -Infinity ? null : best;
+};
+
+const starCount = (s: string): number | null => {
+  const m = s.match(/⭐/g);
+  return m ? m.length : null;
+};
+
+export function rowWinner(label: string, a: string, b: string): "a" | "b" | null {
+  const dir = ROW_COMPARISON[label];
+  if (!dir) return null;
+  // Prefer star comparison if both have stars.
+  const aStars = starCount(a);
+  const bStars = starCount(b);
+  if (aStars != null && bStars != null) {
+    if (aStars === bStars) return null;
+    return aStars > bStars ? "a" : "b";
+  }
+  const aNum = numFromLabel(a);
+  const bNum = numFromLabel(b);
+  if (aNum == null || bNum == null) return null;
+  if (aNum === bNum) return null;
+  if (dir === "higher") return aNum > bNum ? "a" : "b";
+  return aNum < bNum ? "a" : "b";
+}
 
 export function parseComparePair(slug: string): { a: CompareTool; b: CompareTool } | null {
   const m = slug.match(/^([a-z0-9-]+)-vs-([a-z0-9-]+)$/i);

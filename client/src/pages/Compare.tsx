@@ -3,7 +3,7 @@ import { Layout } from "@/components/layout/Layout";
 import { BRAND, WhatsAppIcon } from "@/components/brand/LogoIcons";
 import { usePageMeta } from "@/hooks/use-page-meta";
 import { BreadcrumbSchema, FAQSchema, JsonLd } from "@/components/seo/JsonLd";
-import { COMPARE_TOOLS, POPULAR_PAIRS, parseComparePair, recommend, type CompareTool } from "@/lib/tool-compare";
+import { COMPARE_TOOLS, POPULAR_PAIRS, parseComparePair, recommend, rowWinner, type CompareTool } from "@/lib/tool-compare";
 import { config } from "@/lib/config";
 import { Check, ArrowRight, Trophy, Sparkles, Scale } from "lucide-react";
 
@@ -267,13 +267,29 @@ function ComparisonDetail({ a, b, slug }: { a: CompareTool; b: CompareTool; slug
                   </tr>
                 </thead>
                 <tbody>
-                  {rows.map((r, i) => (
-                    <tr key={r.label} style={{ borderTop: "1px solid rgba(37,99,235,0.06)", background: i % 2 === 0 ? "#fff" : "#fafbff" }} data-testid={`row-spec-${r.label.toLowerCase().replace(/\s+/g, "-")}`}>
-                      <td className="px-4 py-3" style={{ color: BRAND.navy, fontSize: "0.82rem", fontWeight: 600 }}>{r.label}</td>
-                      <td className="px-4 py-3" style={{ color: BRAND.navy, opacity: 0.8, fontSize: "0.85rem" }}>{r.a}</td>
-                      <td className="px-4 py-3" style={{ color: BRAND.navy, opacity: 0.8, fontSize: "0.85rem" }}>{r.b}</td>
-                    </tr>
-                  ))}
+                  {rows.map((r, i) => {
+                    const winSide = rowWinner(r.label, r.a, r.b);
+                    const aWin = winSide === "a";
+                    const bWin = winSide === "b";
+                    const cellStyle = (win: boolean, accent: string) => ({
+                      color: win ? accent : BRAND.navy,
+                      opacity: win ? 1 : 0.8,
+                      fontSize: "0.85rem",
+                      fontWeight: win ? 700 : 400,
+                      background: win ? `${accent}10` : undefined,
+                    } as const);
+                    return (
+                      <tr key={r.label} style={{ borderTop: "1px solid rgba(37,99,235,0.06)", background: i % 2 === 0 ? "#fff" : "#fafbff" }} data-testid={`row-spec-${r.label.toLowerCase().replace(/\s+/g, "-")}`}>
+                        <td className="px-4 py-3" style={{ color: BRAND.navy, fontSize: "0.82rem", fontWeight: 600 }}>{r.label}</td>
+                        <td className="px-4 py-3" style={cellStyle(aWin, a.accent)} data-winner={aWin ? "true" : undefined}>
+                          {aWin && <Trophy size={11} className="inline mr-1 -mt-0.5" />}{r.a}
+                        </td>
+                        <td className="px-4 py-3" style={cellStyle(bWin, b.accent)} data-winner={bWin ? "true" : undefined}>
+                          {bWin && <Trophy size={11} className="inline mr-1 -mt-0.5" />}{r.b}
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>
