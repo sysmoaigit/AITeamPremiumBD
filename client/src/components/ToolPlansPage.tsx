@@ -61,7 +61,7 @@ export default function ToolPlansPage({ data }: { data: ToolPageData }) {
       <section className="py-20 overflow-hidden" style={{ backgroundColor: BRAND.sky }}>
         <div className="mx-auto max-w-5xl px-6 text-center">
           <div className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 mb-6" style={{ background: "rgba(37,99,235,0.1)", color: BRAND.blue, fontSize: "0.78rem", fontWeight: 600 }}>
-            <Shield size={13} /> Verified · bKash/Nagad · Instant Delivery
+            <Shield size={13} /> Verified · bKash/Nagad · Fast Delivery
           </div>
           <h1 className="text-4xl md:text-5xl font-extrabold mb-6 leading-tight" style={{ color: BRAND.navy }}>
             {data.toolEmoji && <span className="mr-2">{data.toolEmoji}</span>}{data.heroBanglaTitle}

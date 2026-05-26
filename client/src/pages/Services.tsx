@@ -2,7 +2,7 @@ import { Layout } from "@/components/layout/Layout";
 import { BRAND, WhatsAppIcon } from "@/components/brand/LogoIcons";
 import { usePageMeta } from "@/hooks/use-page-meta";
 import { supportOffers, memberships } from "@/lib/support-offers";
-import { Check, ArrowUpRight, Clock, Star, Users, Briefcase, GraduationCap, ShieldCheck, MessageCircle, Paintbrush, Code, TrendingUp, Smartphone } from "lucide-react";
+import { Check, Clock, Star, Users, Briefcase, GraduationCap, ShieldCheck, MessageCircle, Paintbrush, Code, TrendingUp, Smartphone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";

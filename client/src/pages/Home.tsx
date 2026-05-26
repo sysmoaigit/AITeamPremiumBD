@@ -7,7 +7,6 @@ import { SupportUpsell } from "@/components/SupportUpsell";
 import { config } from "@/lib/config";
 import { FAQSchema, JsonLd, BreadcrumbSchema } from "@/components/seo/JsonLd";
 import {
-  ArrowUpRight,
   Check,
   ChevronRight,
   Brain,
@@ -108,7 +107,7 @@ export default function Home() {
               <span style={{ color: BRAND.blue }}>Premium AI & Digital Solutions</span>
             </h1>
             <p className="mt-6 max-w-xl mx-auto" style={{ color: "rgba(255,255,255,0.55)", fontSize: "1.05rem", lineHeight: 1.75 }}>
-              ChatGPT Plus, Pro & Business at Bangladesh-friendly prices. Instant delivery. bKash & Nagad accepted.
+              ChatGPT Plus, Pro & Business at Bangladesh-friendly prices. Fast delivery. bKash & Nagad accepted.
             </p>
             <div className="flex flex-wrap items-center justify-center gap-3 mt-10">
               <a

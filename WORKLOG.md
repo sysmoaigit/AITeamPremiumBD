@@ -1,5 +1,28 @@
 # AI Team Premium BD — Work Log
 
+## Current Branch: main
+## Current Commit: f5bd740 — fix: remove incorrect 'unlimited usage' claims from ChatGPT Pro
+
+---
+
+## 2026-05-26 — Second-Stage Deep Finish
+
+### Loop 1 — Current State Re-Audit
+- **Branch:** main
+- **Status:** clean working tree
+- **npm run check:** ✅ passes (0 errors)
+- **npm run build:** ✅ passes
+- **Deployment files:** cloud-run-service.yaml, Dockerfile, .github/workflows/deploy.yml — all present
+- **Doc files:** README.md, WORKLOG.md, QA_CHECKLIST.md, DEPLOYMENT.md, BLOCKERS.md — all present
+- **Active blocker:** GitHub push permissions (sysmoaigit 403)
+
+### Build Output
+- Server bundle: dist/index.cjs (1.0MB)
+- Client bundle: dist/public/ (index.js ~918KB gzipped to 242KB)
+- Chunk size warning: non-blocking
+
+---
+
 ## ROLE 1 — Repo Forensics Engineer
 
 ### Inspection Results
@@ -56,7 +79,7 @@
 ### Dead Files Detected
 - `client/public/images/` contains what appears to be an entire separate React app (brand design system). This is served as static files but may be unused by the main app. Investigate removal.
 
-## 2026-05-26 — Production Readiness & Legal/Trust Fixes
+## 2026-05-26 — First-Stage Fixes
 
 ### Fixes Applied
 1. **Pricing.tsx TS Error** — Added `delivery` property to all 16 items in AI Chat & Research Tools section. Build now passes.
@@ -74,8 +97,9 @@
    - Added `<link rel="manifest">` to `index.html`
 6. **NotFound Page Meta** — Added `usePageMeta` to 404 page with proper title and description.
 7. **No "official reseller" / "authorized distributor" language remains** in codebase.
+8. **ChatGPT Pro "Unlimited" Claims Removed** — Replaced with "Extended Access" / "Higher Usage Limits" in PlanDetail.tsx and ChatGPTPlans.tsx.
 
-### Files Changed
+### Files Changed (First Stage)
 - `client/src/pages/Pricing.tsx`
 - `client/src/pages/Services.tsx`
 - `client/src/pages/tools/ChatGPT.tsx`
@@ -83,14 +107,11 @@
 - `client/src/pages/tools/Grammarly.tsx`
 - `client/src/pages/tools/Claude.tsx`
 - `client/src/pages/chatgpt/PlanDetail.tsx`
+- `client/src/pages/ChatGPTPlans.tsx`
 - `client/src/pages/not-found.tsx`
 - `client/index.html`
 - `client/public/apple-touch-icon.png` (new)
 - `client/public/manifest.json` (new)
-
-### Build Verification
-- ✅ `npm run check` — passes (0 errors)
-- ✅ `npm run build` — passes
 
 ### Deployment Status
 - **Platform:** GCP Cloud Run

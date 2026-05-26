@@ -7,7 +7,7 @@ const GRAMMARLY_USE_CASES = [
     title: "Academic Paper Writing",
     who: "University students, thesis writers, researchers",
     makes: "Publication-quality academic English — proper citations format, formal tone, no grammar errors",
-    timeSaved: "English tutor ৳2,000/session → Grammarly 24/7 for ৳800/mo",
+    timeSaved: "English tutor ৳2,000/session → Grammarly 24/7 for ৳499/mo",
     prompt: "Grammarly: review this methodology section of my thesis — correct grammar, improve clarity for academic audience, flag any passive voice overuse, and check citation consistency",
   },
   {
@@ -73,7 +73,7 @@ const GRAMMARLY_COMPETITOR_ROWS = [
   { feature: "Writing Goals Setting", thisProduct: "✅ Audience, intent, style", chatgpt: "❌ No goal system", claude: "❌ No goal system", gemini: "❌ No goal system" },
   { feature: "Vocabulary Enhancement", thisProduct: "✅ Word-level suggestions", chatgpt: "On request", claude: "On request", gemini: "On request" },
   { feature: "Bangla Writing Help", thisProduct: "❌ English only", chatgpt: "✅ Excellent Bangla", claude: "✅ Excellent Bangla", gemini: "✅ Excellent Bangla" },
-  { feature: "AITPBD Price", thisProduct: "৳800/mo (private)", chatgpt: "৳399/mo", claude: "৳599/mo", gemini: "৳449/mo" },
+  { feature: "AITPBD Price", thisProduct: "৳499/mo (private)", chatgpt: "৳399/mo", claude: "৳599/mo", gemini: "৳449/mo" },
 ];
 
 const GRAMMARLY_BASE_FAQS = [
@@ -150,9 +150,21 @@ export default function Grammarly() {
       ]}
       plans={[
         {
-          label: "Grammarly Premium",
-          price: "৳800",
+          label: "Grammarly Premium — Monthly",
+          price: "৳499",
           period: "/mo",
+          delivery: "1–2 hr delivery",
+          type: "Private",
+          specs: [
+            { label: "Access", value: "Your own account" },
+            { label: "Warranty", value: "Full 30 days" },
+            { label: "Support", value: "24/7 WhatsApp" },
+          ],
+        },
+        {
+          label: "Grammarly Premium — Annual",
+          price: "৳3,999",
+          period: "/yr",
           delivery: "1–2 hr delivery",
           type: "Private",
           specs: [
@@ -166,8 +178,8 @@ export default function Grammarly() {
         {
           title: "Grammar & Writing Features",
           emoji: "✍️",
-          tier2Label: "Shared (৳349/mo)",
-          tier3Label: "Personal (৳999/mo)",
+          tier2Label: "Monthly (৳499/mo)",
+          tier3Label: "Annual (৳3,999/yr)",
           rows: [
             { label: "Grammar & Spelling Check", free: "Basic (common errors only)", pro: "Advanced (all error types)", premium: "Advanced (all error types)" },
             { label: "Punctuation Correction", free: "Basic", pro: "Advanced, context-aware", premium: "Advanced, context-aware" },
@@ -182,8 +194,8 @@ export default function Grammarly() {
         {
           title: "GrammarlyGO & Platform Coverage",
           emoji: "🚀",
-          tier2Label: "Shared (৳349/mo)",
-          tier3Label: "Personal (৳999/mo)",
+          tier2Label: "Monthly (৳499/mo)",
+          tier3Label: "Annual (৳3,999/yr)",
           rows: [
             { label: "GrammarlyGO (AI rewriting)", free: "100 prompts/month", pro: "Unlimited prompts", premium: "Unlimited prompts (dedicated)" },
             { label: "Chrome Extension", free: "Yes (basic check)", pro: "Full premium check", premium: "Full premium check" },

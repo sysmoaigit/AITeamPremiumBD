@@ -19,7 +19,7 @@ const PRICING_FAQS = [
 const SECTIONS = [
   {
     title: "🤖 AI Chat & Research Tools",
-    subtitle: "Official access · bKash/Nagad · 5–15 min delivery",
+    subtitle: "Genuine access · bKash/Nagad · 5–15 min delivery",
     items: [
       { name: "ChatGPT Plus — Shared", price: "৳399/mo", delivery: "5–15 min", href: "/chatgpt/plus-shared", wa: waBase + enc("Hi, I want ChatGPT Plus Shared ৳399/mo") },
       { name: "ChatGPT Plus — Premium Shared", price: "৳950/mo", delivery: "5–15 min", href: "/chatgpt/plus-premium-shared", wa: waBase + enc("Hi, I want ChatGPT Plus Premium Shared ৳950/mo") },

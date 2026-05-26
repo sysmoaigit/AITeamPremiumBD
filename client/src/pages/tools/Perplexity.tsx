@@ -47,7 +47,7 @@ const PERPLEXITY_USE_CASES = [
     title: "Financial & Investment Research",
     who: "Investors, traders, finance students",
     makes: "Real-time stock data, company financials, and investment analysis with cited sources",
-    timeSaved: "Bloomberg subscription → ৳599/mo Perplexity",
+    timeSaved: "Bloomberg subscription → ৳499/mo Perplexity",
     prompt: "Analyse Bangladesh's remittance inflow trends 2023–2025 with statistical sources — impact on BDT exchange rate and stock market",
   },
   {
@@ -55,7 +55,7 @@ const PERPLEXITY_USE_CASES = [
     title: "Multi-Model AI Comparison",
     who: "AI power users, researchers, content creators",
     makes: "Use o3-mini, Claude Sonnet 3.5, GPT-4.5, and Gemini 2.5 Pro from one interface",
-    timeSaved: "4 subscriptions (৳2,000+) → ৳599 all-in-one",
+    timeSaved: "4 subscriptions (৳2,000+) → ৳499 all-in-one",
     prompt: "Switch to Claude Sonnet 3.5: Write a detailed analysis of Bangladesh's garment industry in 2025 with trade data — then compare with GPT-4.5's version",
   },
 ];
@@ -73,7 +73,7 @@ const PERPLEXITY_COMPETITOR_ROWS = [
   { feature: "Bangla Language Quality", thisProduct: "⭐⭐⭐⭐", chatgpt: "⭐⭐⭐⭐", claude: "⭐⭐⭐⭐", gemini: "⭐⭐⭐⭐⭐" },
   { feature: "Image Understanding", thisProduct: "✅ Yes", chatgpt: "✅ Yes", claude: "✅ Yes", gemini: "✅ Yes" },
   { feature: "API Access", thisProduct: "✅ Sonar API", chatgpt: "✅ OpenAI API", claude: "✅ Anthropic API", gemini: "✅ Google AI" },
-  { feature: "AITPBD Shared Price", thisProduct: "৳599/mo", chatgpt: "৳399/mo", claude: "৳599/mo", gemini: "৳449/mo" },
+  { feature: "AITPBD Shared Price", thisProduct: "৳499/mo", chatgpt: "৳399/mo", claude: "৳599/mo", gemini: "৳449/mo" },
 ];
 
 const PERPLEXITY_FAQS = [
@@ -145,7 +145,7 @@ export default function Perplexity() {
       plans={[
         {
           label: "Perplexity Pro — Shared",
-          price: "৳599",
+          price: "৳499",
           period: "/mo",
           delivery: "5–15 min delivery",
           type: "Shared",

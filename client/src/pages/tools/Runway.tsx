@@ -38,7 +38,7 @@ export default function RunwayPage() {
     <ToolDetail
       name="Runway ML"
       tagline="in Bangladesh"
-      description="Runway ML is the professional AI video studio used by Hollywood productions, ad agencies, and top content creators. Gen-4 Turbo text-to-video, image-to-video animation, inpainting, background removal, and motion tracking — all in one platform. Available in Bangladesh from ৳999/month via bKash/Nagad."
+      description="Runway ML is the professional AI video studio used by Hollywood productions, ad agencies, and top content creators. Gen-4 Turbo text-to-video, image-to-video animation, inpainting, background removal, and motion tracking — all in one platform. Available in Bangladesh from ৳899/month via bKash/Nagad."
       accentColor="#00C4B4"
       icon={Film}
       features={[
@@ -56,7 +56,7 @@ export default function RunwayPage() {
       plans={[
         {
           label: "Runway Standard — Shared",
-          price: "৳999",
+          price: "৳899",
           period: "/mo",
           delivery: "5–15 min delivery",
           type: "Shared",
@@ -68,7 +68,7 @@ export default function RunwayPage() {
         },
         {
           label: "Runway Pro — Personal",
-          price: "৳2,999",
+          price: "৳1,799",
           period: "/mo",
           delivery: "2–4 hr delivery",
           type: "Personal",
@@ -84,8 +84,8 @@ export default function RunwayPage() {
         {
           title: "Video Generation — Gen-4 Turbo",
           emoji: "🎬",
-          tier2Label: "Standard Shared (৳999/mo)",
-          tier3Label: "Pro Personal (৳2,999/mo)",
+          tier2Label: "Standard Shared (৳899/mo)",
+          tier3Label: "Pro Personal (৳1,799/mo)",
           rows: [
             { label: "Best Model", free: "Gen-3 Alpha (limited)", pro: "Gen-4 Turbo", premium: "Gen-4 Turbo (priority)" },
             { label: "Credits Per Month", free: "125", pro: "625", premium: "2,250" },

@@ -19,7 +19,6 @@ import {
   X,
   ChevronDown,
   ShoppingBag,
-  Info,
   ArrowRight
 } from "lucide-react";
 import { useState, useRef } from "react";
@@ -62,7 +61,7 @@ export default function ChatGPTPlans() {
     { q: "Personal Seat Shared-এর চেয়ে আলাদা কীভাবে?", a: "Personal Seat মানে account টি আপনার নিজের নামে। আপনি password জানেন, যেকোনো device থেকে login করতে পারেন, billing আপনার control-এ। তবে দাম বেশি।" },
     { q: "কতক্ষণে access পাবো?", a: "Shared ও Pro plan-এ payment confirm হলে ৫-১৫ মিনিটের মধ্যে WhatsApp-এ login details পাঠানো হয়। Business plan-এ সর্বোচ্চ ১২ ঘন্টা লাগতে পারে।" },
     { q: "bKash বা Nagad-এ কীভাবে পেমেন্ট করবো?", a: "WhatsApp-এ অর্ডার করলে আমরা আপনাকে bKash/Nagad নম্বর দেব। Privacy-র জন্য পেমেন্ট নম্বর publicly শেয়ার করা হয় না।" },
-    { q: "Account কি officially ChatGPT থেকে?", a: "হ্যাঁ! আমরা official OpenAI accounts ব্যবহার করি। কোনো cracked বা fake access নয়।" },
+    { q: "Account কি genuine ChatGPT থেকে?", a: "হ্যাঁ! আমরা genuine OpenAI accounts ব্যবহার করি। কোনো cracked বা fake access নয়।" },
     { q: "একাধিক device-এ ব্যবহার করা যাবে?", a: "Shared account-এ একটি device থেকে একসাথে ব্যবহার করতে হবে। Personal Seat-এ কোনো restriction নেই।" },
     { q: "Account ban হলে কী হবে?", a: "Rules মেনে চললে ban হওয়ার সম্ভাবনা নেই। তবে misuse বা multiple device ব্যবহারে ban হলে warranty void হয়ে যাবে।" },
     { q: "Password change করতে পারবো?", a: "Shared account-এ password change করা strictly prohibited — এতে warranty void হয়। Personal Seat-এ আপনি যা খুশি করতে পারেন।" },
@@ -115,7 +114,7 @@ export default function ChatGPTPlans() {
       <FAQSchema items={faqs} />
       <ProductSchema
         name="ChatGPT Plus Bangladesh"
-        description="Official ChatGPT Plus subscription in Bangladesh from ৳399/month. Pay via bKash, Nagad, Rocket or Bank Transfer. 5-15 min delivery, 30-day warranty. AI Team Premium BD."
+        description="Genuine ChatGPT Plus subscription in Bangladesh from ৳399/month. Pay via bKash, Nagad, Rocket or Bank Transfer. 5-15 min delivery, 30-day warranty. AI Team Premium BD."
         path="/chatgpt-plans"
         priceBDT={399}
         category="AI Subscription"
@@ -130,7 +129,7 @@ export default function ChatGPTPlans() {
             বাংলাদেশে ChatGPT — <span style={{ color: BRAND.blue }}>৳৩৯৯</span> থেকে শুরু
           </h1>
           <p className="text-xl md:text-2xl mb-10 text-muted-foreground max-w-3xl mx-auto">
-            Get official ChatGPT Plus, Business, and Pro subscriptions with local bKash/Nagad payment and instant delivery.
+            Get genuine ChatGPT Plus, Team, and Pro subscriptions with local bKash/Nagad payment and fast delivery.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-3">
             <a
@@ -310,7 +309,7 @@ export default function ChatGPTPlans() {
                   </li>
                   <li className="flex items-center gap-3">
                     <Check className="w-5 h-5 text-green-500" />
-                    <span>Instant Delivery in 5-15 Minutes</span>
+                    <span>Fast Delivery: 5–15 Minutes</span>
                   </li>
                   <li className="flex items-center gap-3">
                     <Check className="w-5 h-5 text-green-500" />

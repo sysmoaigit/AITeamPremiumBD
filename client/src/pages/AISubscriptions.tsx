@@ -201,7 +201,7 @@ export default function AISubscriptions() {
                 </p>
                 <ul className="mt-4 space-y-2 flex-1">
                   <li className="flex items-center gap-2" style={{ fontSize: "0.8rem", color: BRAND.navy, opacity: 0.55 }}>
-                    <Check size={13} color={BRAND.blue} strokeWidth={3} /> Official access
+                    <Check size={13} color={BRAND.blue} strokeWidth={3} /> Genuine access
                   </li>
                   <li className="flex items-center gap-2" style={{ fontSize: "0.8rem", color: BRAND.navy, opacity: 0.55 }}>
                     <Check size={13} color={BRAND.blue} strokeWidth={3} /> Replacement guarantee
