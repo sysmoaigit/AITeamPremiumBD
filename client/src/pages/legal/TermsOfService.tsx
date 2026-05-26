@@ -100,7 +100,7 @@ export default function TermsOfService() {
 
           <div>
             <h2 className="mb-3" style={{ fontSize: "1.15rem", fontWeight: 700 }}>12. Contact</h2>
-            <p style={{ opacity: 0.65 }}>For questions about these terms, contact us on WhatsApp at <a href="https://wa.me/8801533262758" style={{ color: BRAND.blue }}>+880 1533-262758</a> or via our <a href="/start-a-project" style={{ color: BRAND.blue }}>contact form</a>. We typically respond within 5–15 minutes during 9 AM–11 PM BST.</p>
+            <p style={{ opacity: 0.65 }}>For questions about these terms, contact us on WhatsApp at <a href={config.whatsappGeneral} target="_blank" rel="noopener noreferrer" style={{ color: BRAND.blue }}>+880 1533-262758</a> or via our <a href="/start-a-project" style={{ color: BRAND.blue }}>contact form</a>. We typically respond within 5–15 minutes during 9 AM–11 PM BST.</p>
           </div>
 
         </div>

@@ -29,8 +29,7 @@ import {
   Video,
 } from "lucide-react";
 
-const IMG_HERO =
-  "https://images.unsplash.com/photo-1760931969401-9bd6ee902798?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080";
+const IMG_HERO = "/hero-bg.jpg";
 
 const OFFERS = [
   { badge: "Solo", color: "#22C55E", tier: "Student / Freelancer", price: "৳399", period: "/mo", tool: "ChatGPT Plus Shared", delivery: "5-15 min", whatsapp: "https://wa.me/8801533262758?text=Hi%2C+I+want+to+buy+ChatGPT+Plus+Shared+(Solo)" },

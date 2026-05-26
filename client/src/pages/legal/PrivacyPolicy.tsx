@@ -1,6 +1,7 @@
 import { Layout } from "@/components/layout/Layout";
 import { BRAND } from "@/components/brand/LogoIcons";
 import { usePageMeta } from "@/hooks/use-page-meta";
+import { config } from "@/lib/config";
 import { BreadcrumbSchema } from "@/components/seo/JsonLd";
 
 export default function PrivacyPolicy() {
@@ -74,7 +75,7 @@ export default function PrivacyPolicy() {
               <li style={{ listStyleType: "disc" }}><strong>Deletion</strong> — ask us to delete your personal data.</li>
               <li style={{ listStyleType: "disc" }}><strong>Opt-out</strong> — unsubscribe from renewal reminders at any time.</li>
             </ul>
-            <p className="mt-3" style={{ opacity: 0.65 }}>To exercise any of these rights, contact us on WhatsApp at <a href="https://wa.me/8801533262758" style={{ color: BRAND.blue }}>+880 1533-262758</a>.</p>
+            <p className="mt-3" style={{ opacity: 0.65 }}>To exercise any of these rights, contact us on WhatsApp at <a href={config.whatsappGeneral} target="_blank" rel="noopener noreferrer" style={{ color: BRAND.blue }}>+880 1533-262758</a>.</p>
           </div>
 
           <div>
@@ -94,7 +95,7 @@ export default function PrivacyPolicy() {
 
           <div>
             <h2 className="mb-3" style={{ fontSize: "1.15rem", fontWeight: 700 }}>11. Contact Us</h2>
-            <p style={{ opacity: 0.65 }}>For any privacy-related questions or requests, please contact us via WhatsApp at <a href="https://wa.me/8801533262758" style={{ color: BRAND.blue }}>+880 1533-262758</a> or our <a href="/start-a-project" style={{ color: BRAND.blue }}>contact form</a>. We respond within 5–15 minutes during 9 AM–11 PM BST.</p>
+            <p style={{ opacity: 0.65 }}>For any privacy-related questions or requests, please contact us via WhatsApp at <a href={config.whatsappGeneral} target="_blank" rel="noopener noreferrer" style={{ color: BRAND.blue }}>+880 1533-262758</a> or our <a href="/start-a-project" style={{ color: BRAND.blue }}>contact form</a>. We respond within 5–15 minutes during 9 AM–11 PM BST.</p>
           </div>
 
         </div>
