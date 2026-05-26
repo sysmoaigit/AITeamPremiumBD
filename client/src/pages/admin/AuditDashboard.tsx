@@ -8,8 +8,8 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { usePageMeta } from "@/hooks/use-page-meta";
 import { BRAND } from "@/components/brand/LogoIcons";
-import { PlayCircle, RefreshCw, CheckCircle2, AlertTriangle, AlertCircle, Activity } from "lucide-react";
-import type { ProductRegistry, AuditIssue, AuditLogEntry } from "@shared/schema";
+import { PlayCircle, RefreshCw, CheckCircle2, AlertTriangle, AlertCircle, Activity, ExternalLink, ChevronLeft, ChevronRight } from "lucide-react";
+import type { AuditIssue, AuditLogEntry } from "@shared/schema";
 
 type DashboardSummary = {
   totalProducts: number;
@@ -19,6 +19,19 @@ type DashboardSummary = {
   changesToday: number;
   brokenLinks: number;
   priceChanges: number;
+};
+
+type ProductWithMeta = {
+  id: number;
+  slug: string;
+  name: string;
+  company: string;
+  officialUrls: string[];
+  auditFrequencyDays: number;
+  priority: string;
+  staleScore: string;
+  lastAuditedAt: string | null;
+  openIssues: { P0: number; P1: number; P2: number };
 };
 
 const STALE_STYLE: Record<string, { bg: string; fg: string; emoji: string; label: string }> = {
@@ -34,6 +47,8 @@ const SEV_STYLE: Record<string, { bg: string; fg: string }> = {
   P2: { bg: "#2563EB15", fg: "#2563EB" },
 };
 
+const LOG_PAGE_SIZE = 50;
+
 function fmtDate(d: string | Date | null | undefined): string {
   if (!d) return "Never";
   const date = new Date(d);
@@ -48,12 +63,15 @@ function fmtDate(d: string | Date | null | undefined): string {
 export default function AuditDashboard() {
   usePageMeta({ title: "Content Audit Dashboard — AITPBD Internal", description: "Internal content audit dashboard." });
   const [issueSev, setIssueSev] = useState<string>("all");
+  const [logSev, setLogSev] = useState<string>("all");
+  const [logProductId, setLogProductId] = useState<string>("all");
+  const [logPage, setLogPage] = useState<number>(0);
 
   const summary = useQuery<DashboardSummary>({
     queryKey: ["/api/admin/audit/dashboard"],
     refetchInterval: 30000,
   });
-  const products = useQuery<ProductRegistry[]>({
+  const products = useQuery<ProductWithMeta[]>({
     queryKey: ["/api/admin/audit/products"],
     refetchInterval: 30000,
   });
@@ -68,7 +86,18 @@ export default function AuditDashboard() {
     refetchInterval: 30000,
   });
   const log = useQuery<AuditLogEntry[]>({
-    queryKey: ["/api/admin/audit/log"],
+    queryKey: ["/api/admin/audit/log", logSev, logProductId, logPage],
+    queryFn: async () => {
+      const params = new URLSearchParams({
+        limit: String(LOG_PAGE_SIZE),
+        offset: String(logPage * LOG_PAGE_SIZE),
+      });
+      if (logSev !== "all") params.set("severity", logSev);
+      if (logProductId !== "all") params.set("productId", logProductId);
+      const res = await fetch(`/api/admin/audit/log?${params.toString()}`, { credentials: "include" });
+      if (!res.ok) throw new Error(await res.text());
+      return res.json();
+    },
     refetchInterval: 30000,
   });
 
@@ -163,11 +192,11 @@ export default function AuditDashboard() {
               <table className="w-full" style={{ borderCollapse: "collapse" }}>
                 <thead>
                   <tr style={{ background: BRAND.sky }}>
-                    {["Product", "Company", "Priority", "Status", "Last Audit", "Action"].map((h) => (
+                    {["Product", "Company", "Priority", "Frequency", "Source", "Status", "Open Issues", "Last Audit", "Action"].map((h) => (
                       <th
                         key={h}
-                        className="text-left px-4 py-3"
-                        style={{ color: BRAND.navy, opacity: 0.5, fontSize: "0.7rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.05em" }}
+                        className="text-left px-3 py-3 whitespace-nowrap"
+                        style={{ color: BRAND.navy, opacity: 0.5, fontSize: "0.68rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.05em" }}
                       >
                         {h}
                       </th>
@@ -176,29 +205,52 @@ export default function AuditDashboard() {
                 </thead>
                 <tbody>
                   {products.isLoading && (
-                    <tr><td colSpan={6} className="text-center py-6" style={{ color: BRAND.navy, opacity: 0.5 }}>Loading…</td></tr>
+                    <tr><td colSpan={9} className="text-center py-6" style={{ color: BRAND.navy, opacity: 0.5 }}>Loading…</td></tr>
                   )}
                   {products.data?.map((p) => {
                     const stale = STALE_STYLE[p.staleScore] || STALE_STYLE.fresh;
                     const sev = SEV_STYLE[p.priority] || SEV_STYLE.P2;
+                    const oi = p.openIssues || { P0: 0, P1: 0, P2: 0 };
                     return (
                       <tr key={p.id} style={{ borderTop: "1px solid rgba(37,99,235,0.05)" }} data-testid={`row-product-${p.slug}`}>
-                        <td className="px-4 py-3" style={{ color: BRAND.navy, fontSize: "0.85rem", fontWeight: 600 }}>{p.name}</td>
-                        <td className="px-4 py-3" style={{ color: BRAND.navy, opacity: 0.65, fontSize: "0.82rem" }}>{p.company}</td>
-                        <td className="px-4 py-3">
+                        <td className="px-3 py-3" style={{ color: BRAND.navy, fontSize: "0.85rem", fontWeight: 600 }}>{p.name}</td>
+                        <td className="px-3 py-3" style={{ color: BRAND.navy, opacity: 0.65, fontSize: "0.82rem" }}>{p.company}</td>
+                        <td className="px-3 py-3">
                           <span className="inline-flex rounded-full px-2 py-0.5" style={{ background: sev.bg, color: sev.fg, fontSize: "0.7rem", fontWeight: 700 }}>
                             {p.priority}
                           </span>
                         </td>
-                        <td className="px-4 py-3">
+                        <td className="px-3 py-3" style={{ color: BRAND.navy, opacity: 0.6, fontSize: "0.78rem" }}>{p.auditFrequencyDays}d</td>
+                        <td className="px-3 py-3">
+                          {p.officialUrls?.[0] ? (
+                            <a
+                              href={p.officialUrls[0]}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              data-testid={`link-source-${p.slug}`}
+                              className="inline-flex items-center gap-1"
+                              style={{ color: BRAND.blue, fontSize: "0.75rem", fontWeight: 500 }}
+                            >
+                              Source <ExternalLink size={11} />
+                            </a>
+                          ) : (
+                            <span style={{ color: BRAND.navy, opacity: 0.4, fontSize: "0.78rem" }}>—</span>
+                          )}
+                        </td>
+                        <td className="px-3 py-3">
                           <span className="inline-flex items-center gap-1 rounded-full px-2 py-0.5" style={{ background: stale.bg, color: stale.fg, fontSize: "0.72rem", fontWeight: 600 }}>
                             {stale.emoji} {stale.label}
                           </span>
                         </td>
-                        <td className="px-4 py-3" style={{ color: BRAND.navy, opacity: 0.55, fontSize: "0.8rem" }}>
+                        <td className="px-3 py-3 whitespace-nowrap" data-testid={`issues-${p.slug}`}>
+                          <span style={{ color: oi.P0 > 0 ? "#EF4444" : BRAND.navy, opacity: oi.P0 > 0 ? 1 : 0.4, fontSize: "0.75rem", fontWeight: 700, marginRight: 8 }}>P0:{oi.P0}</span>
+                          <span style={{ color: oi.P1 > 0 ? "#F59E0B" : BRAND.navy, opacity: oi.P1 > 0 ? 1 : 0.4, fontSize: "0.75rem", fontWeight: 700, marginRight: 8 }}>P1:{oi.P1}</span>
+                          <span style={{ color: oi.P2 > 0 ? "#2563EB" : BRAND.navy, opacity: oi.P2 > 0 ? 1 : 0.4, fontSize: "0.75rem", fontWeight: 700 }}>P2:{oi.P2}</span>
+                        </td>
+                        <td className="px-3 py-3" style={{ color: BRAND.navy, opacity: 0.55, fontSize: "0.8rem" }}>
                           {fmtDate(p.lastAuditedAt)}
                         </td>
-                        <td className="px-4 py-3">
+                        <td className="px-3 py-3">
                           <Button
                             size="sm"
                             variant="outline"
@@ -249,11 +301,13 @@ export default function AuditDashboard() {
                 )}
                 {issues.data?.map((iss) => {
                   const sev = SEV_STYLE[iss.severity] || SEV_STYLE.P2;
+                  const product = products.data?.find((p) => p.id === iss.productId);
                   return (
                     <div key={iss.id} className="rounded-xl p-4 flex items-start justify-between gap-4" style={{ background: "#fff", border: "1px solid rgba(37,99,235,0.08)" }} data-testid={`issue-${iss.id}`}>
                       <div className="flex-1">
-                        <div className="flex items-center gap-2 mb-1">
+                        <div className="flex items-center gap-2 mb-1 flex-wrap">
                           <Badge style={{ background: sev.bg, color: sev.fg, border: "none" }}>{iss.severity}</Badge>
+                          <span style={{ color: BRAND.navy, fontWeight: 600, fontSize: "0.78rem" }}>{product?.name || `#${iss.productId}`}</span>
                           <span style={{ color: BRAND.navy, opacity: 0.5, fontSize: "0.75rem" }}>{iss.issueType}</span>
                           <span style={{ color: BRAND.navy, opacity: 0.4, fontSize: "0.72rem" }}>· {fmtDate(iss.detectedAt)}</span>
                         </div>
@@ -269,20 +323,42 @@ export default function AuditDashboard() {
             </TabsContent>
 
             <TabsContent value="log">
-              <h3 className="mb-4 mt-2" style={{ color: BRAND.navy, fontSize: "1rem", fontWeight: 700 }}>Audit Log</h3>
+              <div className="flex items-center justify-between mb-4 mt-2 flex-wrap gap-3">
+                <h3 style={{ color: BRAND.navy, fontSize: "1rem", fontWeight: 700 }}>Audit Log</h3>
+                <div className="flex items-center gap-2 flex-wrap">
+                  <Select value={logSev} onValueChange={(v) => { setLogSev(v); setLogPage(0); }}>
+                    <SelectTrigger className="w-36" data-testid="select-log-severity"><SelectValue /></SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">All severities</SelectItem>
+                      <SelectItem value="P0">P0 only</SelectItem>
+                      <SelectItem value="P1">P1 only</SelectItem>
+                      <SelectItem value="P2">P2 only</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <Select value={logProductId} onValueChange={(v) => { setLogProductId(v); setLogPage(0); }}>
+                    <SelectTrigger className="w-48" data-testid="select-log-product"><SelectValue placeholder="All products" /></SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">All products</SelectItem>
+                      {products.data?.map((p) => (
+                        <SelectItem key={p.id} value={String(p.id)}>{p.name}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
               <div className="rounded-xl overflow-hidden" style={{ background: "#fff", border: "1px solid rgba(37,99,235,0.08)" }}>
                 <div className="overflow-x-auto">
                   <table className="w-full" style={{ borderCollapse: "collapse" }}>
                     <thead>
                       <tr style={{ background: BRAND.sky }}>
-                        {["When", "Product", "Field", "Old → New", "Severity", "Status"].map((h) => (
+                        {["When", "Product", "Field", "Old → New", "Source", "Severity", "Status"].map((h) => (
                           <th key={h} className="text-left px-4 py-3" style={{ color: BRAND.navy, opacity: 0.5, fontSize: "0.7rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.05em" }}>{h}</th>
                         ))}
                       </tr>
                     </thead>
                     <tbody>
-                      {log.isLoading && <tr><td colSpan={6} className="text-center py-6" style={{ color: BRAND.navy, opacity: 0.5 }}>Loading…</td></tr>}
-                      {log.data?.length === 0 && <tr><td colSpan={6} className="text-center py-6" style={{ color: BRAND.navy, opacity: 0.5 }}>No log entries yet. Run an audit to populate.</td></tr>}
+                      {log.isLoading && <tr><td colSpan={7} className="text-center py-6" style={{ color: BRAND.navy, opacity: 0.5 }}>Loading…</td></tr>}
+                      {!log.isLoading && log.data?.length === 0 && <tr><td colSpan={7} className="text-center py-6" style={{ color: BRAND.navy, opacity: 0.5 }}>No log entries match.</td></tr>}
                       {log.data?.map((row) => {
                         const sev = SEV_STYLE[row.severity] || SEV_STYLE.P2;
                         const product = products.data?.find((p) => p.id === row.productId);
@@ -295,6 +371,13 @@ export default function AuditDashboard() {
                               {row.oldValue ?? "—"} → {row.newValue ?? "—"}
                             </td>
                             <td className="px-4 py-3">
+                              {row.sourceUrl ? (
+                                <a href={row.sourceUrl} target="_blank" rel="noopener noreferrer" style={{ color: BRAND.blue, fontSize: "0.75rem" }}>
+                                  link
+                                </a>
+                              ) : <span style={{ color: BRAND.navy, opacity: 0.4, fontSize: "0.78rem" }}>—</span>}
+                            </td>
+                            <td className="px-4 py-3">
                               <span className="inline-flex rounded-full px-2 py-0.5" style={{ background: sev.bg, color: sev.fg, fontSize: "0.7rem", fontWeight: 700 }}>{row.severity}</span>
                             </td>
                             <td className="px-4 py-3" style={{ color: BRAND.navy, opacity: 0.6, fontSize: "0.78rem" }}>{row.status}</td>
@@ -303,6 +386,19 @@ export default function AuditDashboard() {
                       })}
                     </tbody>
                   </table>
+                </div>
+                <div className="flex items-center justify-between px-4 py-3" style={{ borderTop: "1px solid rgba(37,99,235,0.05)" }}>
+                  <span style={{ color: BRAND.navy, opacity: 0.55, fontSize: "0.78rem" }}>
+                    Page {logPage + 1} · showing up to {LOG_PAGE_SIZE} per page
+                  </span>
+                  <div className="flex gap-2">
+                    <Button size="sm" variant="outline" disabled={logPage === 0} onClick={() => setLogPage((p) => Math.max(0, p - 1))} data-testid="button-log-prev">
+                      <ChevronLeft size={14} /> Prev
+                    </Button>
+                    <Button size="sm" variant="outline" disabled={(log.data?.length ?? 0) < LOG_PAGE_SIZE} onClick={() => setLogPage((p) => p + 1)} data-testid="button-log-next">
+                      Next <ChevronRight size={14} />
+                    </Button>
+                  </div>
                 </div>
               </div>
             </TabsContent>

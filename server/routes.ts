@@ -99,10 +99,14 @@ export async function registerRoutes(
 
   app.get("/api/admin/audit/products", async (_req, res) => {
     try {
-      const products = await storage.getProductRegistry();
+      const [products, counts] = await Promise.all([
+        storage.getProductRegistry(),
+        storage.getOpenIssueCountsByProduct(),
+      ]);
       const withScores = products.map((p) => ({
         ...p,
         staleScore: staleScoreFor(p),
+        openIssues: counts[p.id] ?? { P0: 0, P1: 0, P2: 0 },
       }));
       res.json(withScores);
     } catch (err) {

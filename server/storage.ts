@@ -50,6 +50,7 @@ export interface IStorage {
   createAuditIssue(issue: InsertAuditIssue): Promise<AuditIssue>;
   resolveAuditIssue(id: number): Promise<AuditIssue | undefined>;
   getAuditDashboardSummary(): Promise<AuditDashboardSummary>;
+  getOpenIssueCountsByProduct(): Promise<Record<number, { P0: number; P1: number; P2: number }>>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -150,6 +151,22 @@ export class DatabaseStorage implements IStorage {
       brokenLinks: brokenLinks?.c ?? 0,
       priceChanges: priceChanges?.c ?? 0,
     };
+  }
+
+  async getOpenIssueCountsByProduct(): Promise<Record<number, { P0: number; P1: number; P2: number }>> {
+    const rows = await db
+      .select({ productId: auditIssues.productId, severity: auditIssues.severity, c: sql<number>`count(*)::int` })
+      .from(auditIssues)
+      .where(eq(auditIssues.status, "open"))
+      .groupBy(auditIssues.productId, auditIssues.severity);
+    const out: Record<number, { P0: number; P1: number; P2: number }> = {};
+    for (const r of rows) {
+      if (!out[r.productId]) out[r.productId] = { P0: 0, P1: 0, P2: 0 };
+      if (r.severity === "P0" || r.severity === "P1" || r.severity === "P2") {
+        out[r.productId][r.severity] = r.c;
+      }
+    }
+    return out;
   }
 }
 

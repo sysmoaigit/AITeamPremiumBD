@@ -3,6 +3,7 @@ import { ShieldCheck } from "lucide-react";
 
 type Product = {
   id: number;
+  slug: string;
   name: string;
   lastVerifiedAt: string | null;
   lastAuditedAt: string | null;
@@ -16,6 +17,30 @@ const STALE: Record<string, { color: string; emoji: string; label: string }> = {
   rotten: { color: "#EF4444", emoji: "🔴", label: "Rotten" },
 };
 
+// Tool display name → registry slug. Stable mapping avoids string-match drift.
+const TOOL_NAME_TO_SLUG: Record<string, string> = {
+  "ChatGPT": "chatgpt-plus",
+  "Claude Pro": "claude-pro",
+  "Gemini Advanced": "google-ai-pro",
+  "Google AI Pro": "google-ai-pro",
+  "Grammarly Premium": "grammarly",
+  "Canva Pro": "canva-pro",
+  "Midjourney": "midjourney",
+  "Perplexity Pro": "perplexity-pro",
+  "Grok Premium": "supergrok",
+  "SuperGrok": "supergrok",
+  "GitHub Copilot": "copilot-pro",
+  "GitHub Copilot Pro": "copilot-pro",
+  "AI Tools Vault": "chatgpt-plus",
+  "Leonardo AI": "leonardo-ai",
+  "Runway ML": "runway-ml",
+  "Kling AI": "kling-ai",
+  "Notion AI": "notion-ai",
+  "Microsoft 365 Copilot": "copilot-pro",
+  "LinkedIn Premium": "chatgpt-plus",
+  "ElevenLabs": "chatgpt-plus",
+};
+
 function fmt(d: string | null): string {
   if (!d) return "Not yet verified";
   const date = new Date(d);
@@ -27,14 +52,15 @@ export function LastVerifiedStamp({ toolName }: { toolName: string }) {
     queryKey: ["/api/admin/audit/products"],
     staleTime: 5 * 60 * 1000,
   });
-  const product = data?.find((p) => p.name.toLowerCase() === toolName.toLowerCase());
+  const slug = TOOL_NAME_TO_SLUG[toolName];
+  const product = slug ? data?.find((p) => p.slug === slug) : undefined;
   if (!product) return null;
   const stale = STALE[product.staleScore] || STALE.fresh;
   return (
     <div
       className="inline-flex items-center gap-2 rounded-full px-3 py-1.5"
       style={{ background: "rgba(255,255,255,0.08)", border: `1px solid ${stale.color}40`, fontSize: "0.72rem" }}
-      data-testid={`stamp-verified-${toolName.toLowerCase().replace(/\s+/g, "-")}`}
+      data-testid={`stamp-verified-${product.slug}`}
     >
       <ShieldCheck size={12} color={stale.color} />
       <span style={{ color: "rgba(255,255,255,0.75)", fontWeight: 500 }}>
