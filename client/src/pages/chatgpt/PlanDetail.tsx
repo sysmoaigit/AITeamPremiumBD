@@ -44,7 +44,7 @@ export function PlanDetail({ slug }: PlanDetailProps) {
 
   const features = {
     plus: ["GPT-4.5 / o3-mini Access (latest GPT model)", "GPT-image-1 Image Generation", "Canvas Collaborative Writing & Coding", "Advanced Voice Mode with Video", "Web Browsing & Deep Research", "File Uploads & Analysis", "Custom GPTs"],
-    pro: ["Everything in Plus", "latest GPT model Unlimited Access", "o3 Pro Reasoning", "256K Context Window", "Priority Server Access", "Unlimited Usage", "Higher Rate Limits"],
+    pro: ["Everything in Plus", "latest GPT model Extended Access", "o3 Pro Reasoning", "256K Context Window", "Priority Server Access", "Higher Usage Limits", "Higher Rate Limits"],
     business: ["Admin Console", "SSO / SAML", "60+ Integrations", "HIPAA Eligibility", "Shared Workspaces", "Team Management"],
   };
 
