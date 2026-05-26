@@ -1,7 +1,7 @@
 import { Layout } from "@/components/layout/Layout";
 import { BRAND, WhatsAppIcon } from "@/components/brand/LogoIcons";
 import { usePageMeta } from "@/hooks/use-page-meta";
-import { Check, Clock, MessageCircle, ShieldCheck, Zap, CreditCard, Headphones, ChevronDown, Image, Video, Cpu, FileText } from "lucide-react";
+import { Check, Clock, MessageCircle, ShieldCheck, Zap, CreditCard, Headphones, ChevronDown, Image, Video } from "lucide-react";
 import { type LucideIcon } from "lucide-react";
 import { config } from "@/lib/config";
 import { BreadcrumbSchema, FAQSchema, ProductSchema } from "@/components/seo/JsonLd";
@@ -16,10 +16,19 @@ interface ToolPlan {
   specs: { label: string; value: string }[];
 }
 
+interface SpecTableRow {
+  label: string;
+  free: string;
+  pro: string;
+  premium?: string;
+}
+
 interface SpecTable {
   title: string;
   emoji: string;
-  rows: { label: string; free: string; pro: string }[];
+  tier2Label?: string;
+  tier3Label?: string;
+  rows: SpecTableRow[];
 }
 
 interface UseCase {
@@ -39,6 +48,20 @@ interface CompetitorRow {
   gemini: string;
 }
 
+interface PromptWorkflow {
+  step: number;
+  label: string;
+  prompt: string;
+  result: string;
+}
+
+interface DeepDiveSection {
+  type: "image" | "video";
+  intro: string;
+  workflows: PromptWorkflow[];
+  tips: string[];
+}
+
 interface ToolDetailProps {
   name: string;
   tagline: string;
@@ -52,6 +75,7 @@ interface ToolDetailProps {
   useCases?: UseCase[];
   competitorRows?: CompetitorRow[];
   extendedFaqs?: { q: string; a: string }[];
+  deepDive?: DeepDiveSection;
 }
 
 const TOOL_PATH_BY_NAME: Record<string, string> = {
@@ -79,7 +103,7 @@ const TRUST_ITEMS = [
   { icon: Headphones, label: "Bangla + English support" },
 ];
 
-export function ToolDetail({ name, tagline, description, accentColor, icon: Icon, features, plans, path: pathProp, specTables, useCases, competitorRows, extendedFaqs }: ToolDetailProps) {
+export function ToolDetail({ name, tagline, description, accentColor, icon: Icon, features, plans, path: pathProp, specTables, useCases, competitorRows, extendedFaqs, deepDive }: ToolDetailProps) {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const path = pathProp || TOOL_PATH_BY_NAME[name] || `/tools/${name.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "")}`;
   usePageMeta({ title: `${name} Bangladesh — bKash/Nagad`, description, path });
@@ -272,40 +296,118 @@ export function ToolDetail({ name, tagline, description, accentColor, icon: Icon
         </div>
       </section>
 
-      {/* SPEC TABLES (optional) */}
+      {/* 3-TIER SPEC TABLES (optional) */}
       {specTables && specTables.length > 0 && (
         <section className="py-16" style={{ background: BRAND.sky }}>
           <div className="mx-auto max-w-6xl px-6 lg:px-10">
-            <h2 className="text-center mb-12" style={{ color: BRAND.navy, fontSize: "1.5rem", fontWeight: 700 }}>
+            <h2 className="text-center mb-3" style={{ color: BRAND.navy, fontSize: "1.5rem", fontWeight: 700 }}>
               Full Feature Breakdown
             </h2>
+            <p className="text-center mb-10" style={{ color: BRAND.navy, opacity: 0.5, fontSize: "0.9rem" }}>
+              Compare Free · Shared · Personal tiers side by side
+            </p>
             <div className="grid md:grid-cols-2 gap-6">
-              {specTables.map((table) => (
-                <div key={table.title} className="rounded-2xl overflow-hidden" style={{ background: BRAND.white, border: "1px solid rgba(37,99,235,0.08)" }}>
-                  <div className="px-6 py-4 flex items-center gap-3" style={{ background: `${accentColor}0D`, borderBottom: `1px solid ${accentColor}18` }}>
-                    <span style={{ fontSize: "1.25rem" }}>{table.emoji}</span>
-                    <h3 style={{ color: BRAND.navy, fontSize: "0.95rem", fontWeight: 700 }}>{table.title}</h3>
-                  </div>
-                  <table className="w-full" style={{ borderCollapse: "collapse" }}>
-                    <thead>
-                      <tr style={{ borderBottom: "1px solid rgba(37,99,235,0.06)" }}>
-                        <th className="text-left px-6 py-2.5" style={{ color: BRAND.navy, opacity: 0.4, fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em", width: "42%" }}>Feature</th>
-                        <th className="text-center px-3 py-2.5" style={{ color: BRAND.navy, opacity: 0.4, fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em" }}>Free</th>
-                        <th className="text-center px-3 py-2.5" style={{ color: accentColor, fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em" }}>Pro / Paid</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {table.rows.map((row, i) => (
-                        <tr key={row.label} style={{ borderBottom: i < table.rows.length - 1 ? "1px solid rgba(37,99,235,0.05)" : "none" }}>
-                          <td className="px-6 py-3" style={{ color: BRAND.navy, fontSize: "0.82rem", fontWeight: 500 }}>{row.label}</td>
-                          <td className="px-3 py-3 text-center" style={{ color: BRAND.navy, opacity: 0.5, fontSize: "0.8rem" }}>{row.free}</td>
-                          <td className="px-3 py-3 text-center" style={{ color: accentColor, fontSize: "0.8rem", fontWeight: 600 }}>{row.pro}</td>
+              {specTables.map((table) => {
+                const hasThreeTiers = table.rows.some((r) => r.premium !== undefined);
+                const tier2 = table.tier2Label || "Shared / Pro";
+                const tier3 = table.tier3Label || "Personal";
+                return (
+                  <div key={table.title} className="rounded-2xl overflow-hidden" style={{ background: BRAND.white, border: "1px solid rgba(37,99,235,0.08)" }}>
+                    <div className="px-6 py-4 flex items-center gap-3" style={{ background: `${accentColor}0D`, borderBottom: `1px solid ${accentColor}18` }}>
+                      <span style={{ fontSize: "1.25rem" }}>{table.emoji}</span>
+                      <h3 style={{ color: BRAND.navy, fontSize: "0.95rem", fontWeight: 700 }}>{table.title}</h3>
+                    </div>
+                    <table className="w-full" style={{ borderCollapse: "collapse" }}>
+                      <thead>
+                        <tr style={{ borderBottom: "1px solid rgba(37,99,235,0.06)" }}>
+                          <th className="text-left px-5 py-2.5" style={{ color: BRAND.navy, opacity: 0.4, fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em", width: hasThreeTiers ? "36%" : "42%" }}>Feature</th>
+                          <th className="text-center px-2 py-2.5" style={{ color: BRAND.navy, opacity: 0.4, fontSize: "0.68rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.05em" }}>Free</th>
+                          <th className="text-center px-2 py-2.5" style={{ color: accentColor, fontSize: "0.68rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.05em" }}>{tier2}</th>
+                          {hasThreeTiers && (
+                            <th className="text-center px-2 py-2.5" style={{ color: "#7C3AED", fontSize: "0.68rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.05em" }}>{tier3}</th>
+                          )}
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                      </thead>
+                      <tbody>
+                        {table.rows.map((row, i) => (
+                          <tr key={row.label} style={{ borderBottom: i < table.rows.length - 1 ? "1px solid rgba(37,99,235,0.05)" : "none" }}>
+                            <td className="px-5 py-3" style={{ color: BRAND.navy, fontSize: "0.8rem", fontWeight: 500 }}>{row.label}</td>
+                            <td className="px-2 py-3 text-center" style={{ color: BRAND.navy, opacity: 0.5, fontSize: "0.78rem" }}>{row.free}</td>
+                            <td className="px-2 py-3 text-center" style={{ color: accentColor, fontSize: "0.78rem", fontWeight: 600 }}>{row.pro}</td>
+                            {hasThreeTiers && (
+                              <td className="px-2 py-3 text-center" style={{ color: "#7C3AED", fontSize: "0.78rem", fontWeight: 600 }}>{row.premium ?? "—"}</td>
+                            )}
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* IMAGE / VIDEO GEN DEEP DIVE (optional) */}
+      {deepDive && (
+        <section className="py-16" style={{ background: BRAND.white }}>
+          <div className="mx-auto max-w-5xl px-6 lg:px-10">
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <div className="inline-flex items-center justify-center rounded-2xl" style={{ width: 44, height: 44, background: `${accentColor}15`, border: `1.5px solid ${accentColor}30` }}>
+                {deepDive.type === "image" ? <Image size={22} color={accentColor} strokeWidth={1.5} /> : <Video size={22} color={accentColor} strokeWidth={1.5} />}
+              </div>
+              <h2 style={{ color: BRAND.navy, fontSize: "1.5rem", fontWeight: 700 }}>
+                {deepDive.type === "image" ? "Image Generation Deep Dive" : "Video Generation Deep Dive"}
+              </h2>
+            </div>
+            <p className="text-center mb-12 mx-auto max-w-2xl" style={{ color: BRAND.navy, opacity: 0.55, fontSize: "0.92rem", lineHeight: 1.7 }}>
+              {deepDive.intro}
+            </p>
+
+            {/* Step-by-step workflows */}
+            <div className="space-y-5 mb-12">
+              {deepDive.workflows.map((wf) => (
+                <div key={wf.step} className="rounded-2xl overflow-hidden" style={{ border: "1px solid rgba(37,99,235,0.07)" }}>
+                  <div className="flex items-center gap-4 px-6 py-4" style={{ background: `${accentColor}08`, borderBottom: `1px solid ${accentColor}12` }}>
+                    <div className="flex-shrink-0 inline-flex items-center justify-center rounded-full text-white text-sm font-bold" style={{ width: 32, height: 32, background: accentColor, fontSize: "0.82rem" }}>
+                      {wf.step}
+                    </div>
+                    <h3 style={{ color: BRAND.navy, fontSize: "0.95rem", fontWeight: 700 }}>{wf.label}</h3>
+                  </div>
+                  <div className="px-6 py-5 grid md:grid-cols-2 gap-6" style={{ background: BRAND.white }}>
+                    <div>
+                      <p style={{ color: BRAND.navy, opacity: 0.4, fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: 8 }}>Prompt</p>
+                      <div className="rounded-xl px-4 py-3" style={{ background: "#0F172A05", border: "1px solid rgba(37,99,235,0.08)", fontFamily: "monospace" }}>
+                        <p style={{ color: BRAND.navy, fontSize: "0.8rem", lineHeight: 1.6 }}>{wf.prompt}</p>
+                      </div>
+                    </div>
+                    <div>
+                      <p style={{ color: accentColor, fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: 8 }}>Result</p>
+                      <div className="rounded-xl px-4 py-3" style={{ background: `${accentColor}07`, border: `1px solid ${accentColor}18` }}>
+                        <p style={{ color: BRAND.navy, fontSize: "0.82rem", lineHeight: 1.65 }}>{wf.result}</p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               ))}
+            </div>
+
+            {/* Pro tips */}
+            <div className="rounded-2xl p-7" style={{ background: BRAND.sky, border: "1px solid rgba(37,99,235,0.07)" }}>
+              <h3 className="mb-5" style={{ color: BRAND.navy, fontSize: "1rem", fontWeight: 700 }}>
+                {deepDive.type === "image" ? "🎨" : "🎬"} Pro Tips for Bangladeshi Creators
+              </h3>
+              <div className="grid md:grid-cols-2 gap-3">
+                {deepDive.tips.map((tip, i) => (
+                  <div key={i} className="flex items-start gap-3 rounded-xl px-4 py-3" style={{ background: BRAND.white, border: "1px solid rgba(37,99,235,0.06)" }}>
+                    <div className="flex-shrink-0 flex items-center justify-center rounded-full mt-0.5" style={{ width: 22, height: 22, background: `${accentColor}15` }}>
+                      <Check size={12} color={accentColor} strokeWidth={3} />
+                    </div>
+                    <span style={{ color: BRAND.navy, fontSize: "0.82rem", lineHeight: 1.55 }}>{tip}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </section>
@@ -313,7 +415,7 @@ export function ToolDetail({ name, tagline, description, accentColor, icon: Icon
 
       {/* USE CASES (optional) */}
       {useCases && useCases.length > 0 && (
-        <section className="py-16">
+        <section className="py-16" style={{ background: deepDive ? BRAND.sky : BRAND.white }}>
           <div className="mx-auto max-w-6xl px-6 lg:px-10">
             <h2 className="text-center mb-3" style={{ color: BRAND.navy, fontSize: "1.5rem", fontWeight: 700 }}>
               Real Use Cases — What You Can Make
