@@ -14,34 +14,20 @@
 - ✅ Audit script passes 55/55
 - ✅ SEO assets created (apple-touch-icon.png, manifest.json)
 - ✅ External image dependency removed (hero-bg.jpg local)
+- ✅ Code pushed to fork: https://github.com/sysmoaigit/AITeamPremiumBD
 
-## Active Blocker — Category B: Missing Deployment Credential
+## Active Blocker — Category B: Missing Deployment Credential (Partially Resolved)
 
-### GitHub Push Permissions
+### GitHub Push to Upstream Repo
 - **Classification:** B (Missing deployment credential)
-- **Issue:** `sysmoaigit` account cannot push to `github.com/sysmoai/AITeamPremiumBD`
-- **Error:** `remote: Permission to sysmoai/AITeamPremiumBD.git denied to sysmoaigit. fatal: unable to access 'https://github.com/sysmoai/AITeamPremiumBD.git/': The requested URL returned error: 403`
-- **SSH also failed:** `git@github.com: Permission denied (publickey).`
-- **Impact:**
-  - 10 local commits on `main` cannot be pushed to GitHub
-  - `.github/workflows/deploy.yml` not active (code exists but not in remote)
-  - CI/CD pipeline cannot trigger
-  - Team cannot see changes in the repository
-- **Commits ready to push:**
-  - `8d47ecd` — feat: production harden AI Team Premium BD website
-  - `94d327e` — feat: add audit script, download hero image locally, fix legal page WhatsApp links
-  - `eb0b037` — fix: soften superlative claims on Home and RefundPolicy
-  - `35cc95d` — fix: remove remaining 'official' language, fix pricing inconsistencies, clean unused imports
-  - `f5bd740` — fix: remove incorrect 'unlimited usage' claims from ChatGPT Pro
-  - `1d3ff97` — docs: update WORKLOG, QA_CHECKLIST, DEPLOYMENT, BLOCKERS
-  - `14a855a` — fix: remove misleading 'official' language, fix WhatsApp CTAs, add SEO assets
-  - `dec3ece` — kimi-desktop: fix Pricing.tsx TS build error + add delivery times + redeploy
-  - (plus 2 earlier commits)
-- **Exact credential/action needed:**
-  1. Go to https://github.com/sysmoai/AITeamPremiumBD/settings/access
-  2. Add `sysmoaigit` as a collaborator with **Write** (or **Admin**) role
-  3. OR push manually from the repo owner's account: `git push https://github.com/sysmoai/AITeamPremiumBD.git main`
-- **Workaround used:** Direct Cloud Run deployment via `gcloud builds submit` + `gcloud run deploy` bypasses GitHub entirely. Site is live and functional without GitHub push.
+- **Issue:** `sysmoaigit` cannot push directly to `github.com/sysmoai/AITeamPremiumBD`
+- **Error:** `remote: Permission to sysmoai/AITeamPremiumBD.git denied to sysmoaigit. fatal: unable to access... 403`
+- **Workaround applied:** Forked repo to `github.com/sysmoaigit/AITeamPremiumBD` and pushed all 11 commits there
+- **Commits now available at:** https://github.com/sysmoaigit/AITeamPremiumBD/commits/main
+- **Exact action needed from owner:**
+  1. Option A: Grant `sysmoaigit` write access to `sysmoai/AITeamPremiumBD` → Settings → Collaborators → Add `sysmoaigit` with Write role
+  2. Option B: Merge from fork — visit https://github.com/sysmoai/AITeamPremiumBD/compare/main...sysmoaigit:AITeamPremiumBD:main and create a pull request
+  3. Option C: Push manually from owner account
 
 ## Non-Blockers (Observations)
 - Mobile breakpoint verification requires browser/Playwright (external tool limitation)
