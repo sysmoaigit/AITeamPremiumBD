@@ -1,6 +1,7 @@
 import { Link } from "wouter";
 import { Phone, MapPin, Facebook, Instagram, Users, MessageCircle, ChevronUp, ArrowUpRight } from "lucide-react";
 import { BRAND, LogoHorizontal, WhatsAppIcon } from "@/components/brand/LogoIcons";
+import { trackWhatsAppClick, trackMessengerClick } from "@/lib/analytics";
 
 import { config } from "@/lib/config";
 
@@ -43,6 +44,7 @@ export function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               data-testid="link-footer-whatsapp"
+              onClick={() => trackWhatsAppClick(undefined, undefined, undefined, "footer")}
               className="inline-flex items-center gap-2 rounded-full px-5 py-3 transition-all hover:scale-[1.02] active:scale-95"
               style={{ background: "#25D366", color: "#fff", fontSize: "0.85rem", fontWeight: 600, textDecoration: "none", whiteSpace: "nowrap" as const }}
             >
@@ -54,6 +56,7 @@ export function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               data-testid="link-footer-messenger"
+              onClick={() => trackMessengerClick(undefined, "footer")}
               className="inline-flex items-center gap-2 rounded-full px-5 py-3 transition-all hover:scale-[1.02] active:scale-95"
               style={{ background: "#0084FF", color: "#fff", fontSize: "0.85rem", fontWeight: 600, textDecoration: "none", whiteSpace: "nowrap" as const }}
             >

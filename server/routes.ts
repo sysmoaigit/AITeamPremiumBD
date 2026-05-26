@@ -50,9 +50,28 @@ export async function registerRoutes(
   httpServer: Server,
   app: Express
 ): Promise<Server> {
+  const startTime = Date.now();
+
   // Health check for Cloud Run / load balancer probes
   app.get("/api/health", (_req, res) => {
-    res.status(200).json({ status: "ok", service: "ai-team-premium-bd", timestamp: new Date().toISOString() });
+    const uptimeMs = Date.now() - startTime;
+    res.status(200).json({
+      status: "ok",
+      service: "ai-team-premium-bd",
+      environment: process.env.NODE_ENV || "unknown",
+      uptime: Math.floor(uptimeMs / 1000),
+      timestamp: new Date().toISOString(),
+    });
+  });
+
+  // Version endpoint (safe, no secrets)
+  app.get("/api/version", (_req, res) => {
+    res.status(200).json({
+      name: "ai-team-premium-bd",
+      version: process.env.npm_package_version || "1.0.0",
+      node: process.version,
+      environment: process.env.NODE_ENV || "unknown",
+    });
   });
 
   // Seed product registry on startup (no-op if rows exist)

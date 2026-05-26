@@ -6,6 +6,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import AnalyticsProvider from "@/components/AnalyticsProvider";
 
 import Home from "./pages/Home";
 import ChatGPTPlans from "./pages/ChatGPTPlans";
@@ -134,6 +135,7 @@ function App() {
     <ThemeProvider>
       <QueryClientProvider client={queryClient}>
         <TooltipProvider>
+          <AnalyticsProvider />
           <Toaster />
           <Router />
         </TooltipProvider>
